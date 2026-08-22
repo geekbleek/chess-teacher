@@ -1,11 +1,26 @@
 {
   "name": "chess-teacher",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "validate:content": "node tools/validate-patterns.js content/patterns/*.json"
   },
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "chessground": "^9.2.1",
+    "preact": "^10.29.8"
+  },
   "devDependencies": {
-    "chess.js": "^1.4.0"
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.2.0",
+    "typescript": "^5.9.3",
+    "vite": "^8.2.2",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^4.1.11"
   }
 }

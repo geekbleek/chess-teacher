@@ -35,8 +35,15 @@ Actions. Design for that from day one by keeping all storage behind one
 - **[chess.js](https://github.com/jhlywa/chess.js)** — move legality, FEN/PGN, check/mate
   detection. Never hand-roll this.
 - **[Chessground](https://github.com/lichess-org/chessground)** — Lichess's board widget.
-  Touch-first, already handles tap-tap moves, arrows, square highlights, and piece
-  animation. This is what gives you a mobile-grade board for free.
+  Touch-first, already handles tap-tap moves, square highlights, and piece animation
+  (pieces are embedded as data URIs, so there are no external assets). This is what
+  gives you a mobile-grade board for free.
+
+  **Licensing caveat, worth knowing before this goes further:** Chessground is
+  **GPL-3.0**. Publishing the site means the combined work must also be GPL-3.0 and
+  its source made available. For a public repo you are already compliant. If you ever
+  want this closed-source, swap in an MIT board (`react-chessboard`, or a custom SVG
+  board — it is roughly 200 lines) *before* building more UI on top of it.
 - **vite-plugin-pwa** — manifest + service worker, one config block.
 - **IndexedDB** (via `idb`) for progress and the review schedule.
 - **GitHub Actions** → `actions/deploy-pages`. Plus a **content CI job** (§7).
@@ -363,8 +370,8 @@ Portrait, one thumb, no scrolling during play.
 
 | Phase | Deliverable |
 | --- | --- |
-| 1 | Vite + Preact + Chessground + chess.js, PWA manifest, Pages deploy. Board you can move pieces on, on your phone. |
-| 2 | `see.ts` + `metrics.ts` + `referee.ts` with unit tests. The brain, headless. |
+| 1 ✅ | Vite + Preact + Chessground + chess.js, PWA manifest, Pages deploy. Board you can move pieces on, on your phone. |
+| 2 ✅ | `see.ts` + `metrics.ts` + `referee.ts` with unit tests. The brain, headless. |
 | 3 | Pattern schema + `content.yml` CI + 3 Tier-1 patterns. |
 | 4 | Learn mode with the hint ladder. |
 | 5 | Test mode + Replay with the metric strip. |
@@ -372,3 +379,28 @@ Portrait, one thumb, no scrolling during play.
 | 7 | Fill out Tier 1 (8 patterns), then Tier 2 repertoire, then Tier 3 structures. |
 
 Phases 1–3 are the real work. After that, adding content is writing JSON.
+
+### What phases 1–2 actually shipped
+
+The app builds to **31 KB gzipped** and runs entirely on-device. The current screen is
+a sandbox: a real board with the Referee wired up live, so every move you play gets
+judged. There are no lesson modes yet — this exists to prove the brain works before
+the modes are built on top of it.
+
+The engine is covered by 59 unit tests, including the cases that matter most:
+
+- SEE gets exchanges right, sees through x-ray batteries, and refuses to let a king
+  "win" a defended pawn.
+- Threat detection is pin-aware — a defender pinned to its own king does not count.
+- The Referee distinguishes **creating** a mate threat (`mate-allowed`) from
+  **ignoring** one that was already there (`mate-ignored`). Playing 3...Nf6 into
+  Scholar's Mate is the second, which is the more useful thing to tell a learner.
+- It catches the Blackburne Shilling trap, the early queen, moving the same piece
+  twice, and a bishop parked in front of its own unmoved pawn.
+
+One calibration note worth recording: an earlier version of `kingSafety` scored the
+loss of a shield pawn unconditionally, which made it call **1.e4 a king-safety
+mistake**. The metric now only assesses a pawn shield once the king has actually
+settled — castled, or stuck in the centre with castling rights gone. A trainer that
+cries wolf on the most common move in chess teaches nothing, so there is a regression
+test pinning that behavior.

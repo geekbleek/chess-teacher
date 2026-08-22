@@ -15,8 +15,8 @@
  *
  * Note: chess.js v1 THROWS on an illegal move rather than returning null.
  */
-const { Chess } = require('chess.js');
-const fs = require('fs');
+import { Chess } from 'chess.js';
+import fs from 'node:fs';
 
 const norm = (f) => f.split(' ').slice(0, 4).join(' ');
 const load = (fen) => new Chess(fen.split(' ').length === 4 ? `${fen} 0 1` : fen);
