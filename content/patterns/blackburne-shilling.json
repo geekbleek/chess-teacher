@@ -6,29 +6,89 @@
   "eco": "C50",
   "idea": "Black plays a knight to d4 in the Italian, apparently just misplacing it and leaving e5 hanging. Take the pawn and you get mated by move seven. The trap is named after a hustler who reportedly won a shilling a game with it. The refutation is boring and that is the lesson: when a beginner-looking move offers you free material, the move is usually not a mistake, and the correct answer is almost always the simple capture or quiet developing move rather than the greedy one.",
   "cues": [
-    { "text": "Black's knight goes to d4 unprovoked, attacking your knight on f3 and eyeing c2.", "squares": ["d4", "f3", "c2"] },
-    { "text": "The e5 pawn now looks free. It is the bait.", "squares": ["e5"] },
-    { "text": "Your g2 pawn is defended only by the king, and f2/g2 is where the counterattack lands.", "squares": ["g2", "f2", "e1"] }
+    {
+      "text": "Black's knight goes to d4 unprovoked, attacking your knight on f3 and eyeing c2.",
+      "squares": [
+        "d4",
+        "f3",
+        "c2"
+      ]
+    },
+    {
+      "text": "The e5 pawn now looks free. It is the bait.",
+      "squares": [
+        "e5"
+      ]
+    },
+    {
+      "text": "Your g2 pawn is defended only by the king, and f2/g2 is where the counterattack lands.",
+      "squares": [
+        "g2",
+        "f2",
+        "e1"
+      ]
+    }
   ],
   "recognition": {
-    "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nd4"],
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "Nc6",
+      "Bc4",
+      "Nd4"
+    ],
     "prompt": "Black has just played 3...Nd4, leaving e5 apparently free. What should you be suspicious of?",
     "choices": [
-      { "text": "Taking on e5 walks into a queen raid on g2", "correct": true, "why": "After Nxe5 comes Qg5, hitting the knight and g2 at once. The queen crashes into g2, and with your king still on e1 the attack mates." },
-      { "text": "The knight on d4 is trapped and you can win it", "correct": false, "why": "It is not trapped, and chasing it is not the issue — the issue is what happens if you take the pawn." },
-      { "text": "Black threatens Nxc2+ forking king and rook", "correct": false, "why": "c2 is defended by your queen on d1, so that would just lose a knight. It is a real idea later, not now." },
-      { "text": "Nothing, e5 is simply hanging", "correct": false, "why": "That is exactly what the trap wants you to conclude." }
+      {
+        "text": "Taking on e5 walks into a queen raid on g2",
+        "correct": true,
+        "why": "After Nxe5 comes Qg5, hitting the knight and g2 at once. The queen crashes into g2, and with your king still on e1 the attack mates."
+      },
+      {
+        "text": "The knight on d4 is trapped and you can win it",
+        "correct": false,
+        "why": "It is not trapped, and chasing it is not the issue — the issue is what happens if you take the pawn."
+      },
+      {
+        "text": "Black threatens Nxc2+ forking king and rook",
+        "correct": false,
+        "why": "c2 is defended by your queen on d1, so that would just lose a knight. It is a real idea later, not now."
+      },
+      {
+        "text": "Nothing, e5 is simply hanging",
+        "correct": false,
+        "why": "That is exactly what the trap wants you to conclude."
+      }
     ]
   },
   "plan": [
-    { "goal": "Do not take e5. Trade the knight off or develop.", "hard": true },
-    { "goal": "Ask what your opponent gets in return before accepting free material." },
-    { "goal": "Get castled — most of these traps only work against a king on e1." }
+    {
+      "goal": "Do not take e5. Trade the knight off or develop.",
+      "hard": true
+    },
+    {
+      "goal": "Ask what your opponent gets in return before accepting free material."
+    },
+    {
+      "goal": "Get castled — most of these traps only work against a king on e1."
+    }
   ],
-  "setup": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nd4"],
+  "setup": [
+    "e4",
+    "e5",
+    "Nf3",
+    "Nc6",
+    "Bc4",
+    "Nd4"
+  ],
   "line": {
     "threat": "Nothing is threatened yet. e5 is hanging, and that is the problem — it is meant to look that way.",
-    "focusSquares": ["e5", "d4", "g2"],
+    "focusSquares": [
+      "e5",
+      "d4",
+      "g2"
+    ],
     "hints": [
       "The pawn is free. Ask why someone would give it to you.",
       "Play the move that removes the knight from the board rather than the move that grabs the pawn.",
@@ -64,20 +124,58 @@
           ]
         }
       },
-      { "san": "O-O", "quality": "ok", "why": "Ignore the whole thing and get your king safe. Perfectly good — most traps stop working the moment you castle." },
-      { "san": "c3", "quality": "ok", "why": "Kick the knight straight away. Also fine, and it takes d4 away for good." }
+      {
+        "san": "O-O",
+        "quality": "ok",
+        "why": "Ignore the whole thing and get your king safe. Perfectly good — most traps stop working the moment you castle."
+      },
+      {
+        "san": "c3",
+        "quality": "ok",
+        "why": "Kick the knight straight away. Also fine, and it takes d4 away for good."
+      }
     ],
     "mistakes": [
       {
         "san": "Nxe5",
         "why": "The shilling move. Qg5 hits your knight and g2 at the same time, and once the queen reaches g2 your king on e1 has no shelter. The finish is forced: the knight that started all this lands on f3 and mates.",
-        "punish": ["Qg5", "Nxf7", "Qxg2", "Rf1", "Qxe4+", "Be2", "Nf3#"]
+        "punish": [
+          "Qg5",
+          "Nxf7",
+          "Qxg2",
+          "Rf1",
+          "Qxe4+",
+          "Be2",
+          "Nf3#"
+        ]
       }
     ]
   },
   "drills": [
-    { "id": "learn", "mode": "learn", "playAs": "white", "opponent": "best", "label": "Learn to decline it" },
-    { "id": "test", "mode": "test", "playAs": "white", "opponent": "best", "label": "Refuse the bait cold" },
-    { "id": "trap", "mode": "test", "playAs": "black", "opponent": "mistakes", "label": "Spring the trap yourself" }
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Learn to decline it"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Refuse the bait cold"
+    },
+    {
+      "id": "trap",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "mistakes",
+      "label": "Spring the trap yourself"
+    }
+  ],
+  "related": [
+    "how-traps-work",
+    "italian-game"
   ]
 }

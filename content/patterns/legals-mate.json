@@ -6,29 +6,97 @@
   "eco": "C41",
   "idea": "You pin White's knight to the queen with a bishop on g4 and assume the knight cannot move. It can. White plays the knight anyway, and if you take the queen you get mated by three minor pieces. The real lesson is broader than one trap: a pin against the queen is not absolute, and grabbing material with your king still in the centre and your pieces at home is how short games end.",
   "cues": [
-    { "text": "Your bishop on g4 pins the f3 knight to the white queen. It feels like the knight is frozen. It is not.", "squares": ["g4", "f3", "d1"] },
-    { "text": "White's bishop on c4 is aiming at f7 while your king is still on e8.", "squares": ["c4", "f7", "e8"] },
-    { "text": "White has three minor pieces out and you have one. That ratio is what makes a mating net possible.", "squares": ["f3", "c4", "c3"] }
+    {
+      "text": "Your bishop on g4 pins the f3 knight to the white queen. It feels like the knight is frozen. It is not.",
+      "squares": [
+        "g4",
+        "f3",
+        "d1"
+      ]
+    },
+    {
+      "text": "White's bishop on c4 is aiming at f7 while your king is still on e8.",
+      "squares": [
+        "c4",
+        "f7",
+        "e8"
+      ]
+    },
+    {
+      "text": "White has three minor pieces out and you have one. That ratio is what makes a mating net possible.",
+      "squares": [
+        "f3",
+        "c4",
+        "c3"
+      ]
+    }
   ],
   "recognition": {
-    "at": ["e4", "e5", "Nf3", "d6", "Bc4", "Bg4", "Nc3", "g6", "Nxe5"],
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "d6",
+      "Bc4",
+      "Bg4",
+      "Nc3",
+      "g6",
+      "Nxe5"
+    ],
     "prompt": "White has just played Nxe5, apparently hanging the queen to your bishop. Why?",
     "choices": [
-      { "text": "Taking the queen gets you mated", "correct": true, "why": "After Bxd1 comes Bxf7+, the king is dragged to e7, and Nd5 is mate — delivered by three minor pieces while your queen watches from d8." },
-      { "text": "It is a blunder and you should take", "correct": false, "why": "It is the whole point of the line. The pin was never absolute, and the queen is bait." },
-      { "text": "White wants to trade knights", "correct": false, "why": "There is nothing to trade — your knights are still at home, which is part of the problem." },
-      { "text": "It wins a pawn safely", "correct": false, "why": "It does win the e5 pawn if you respond correctly, but that is the consolation prize, not the idea." }
+      {
+        "text": "Taking the queen gets you mated",
+        "correct": true,
+        "why": "After Bxd1 comes Bxf7+, the king is dragged to e7, and Nd5 is mate — delivered by three minor pieces while your queen watches from d8."
+      },
+      {
+        "text": "It is a blunder and you should take",
+        "correct": false,
+        "why": "It is the whole point of the line. The pin was never absolute, and the queen is bait."
+      },
+      {
+        "text": "White wants to trade knights",
+        "correct": false,
+        "why": "There is nothing to trade — your knights are still at home, which is part of the problem."
+      },
+      {
+        "text": "It wins a pawn safely",
+        "correct": false,
+        "why": "It does win the e5 pawn if you respond correctly, but that is the consolation prize, not the idea."
+      }
     ]
   },
   "plan": [
-    { "goal": "Never assume a pin against the queen prevents the piece from moving.", "hard": true },
-    { "goal": "Count your developed pieces before capturing anything with the king in the centre." },
-    { "goal": "Losing a pawn is a much smaller number than losing the game." }
+    {
+      "goal": "Never assume a pin against the queen prevents the piece from moving.",
+      "hard": true
+    },
+    {
+      "goal": "Count your developed pieces before capturing anything with the king in the centre."
+    },
+    {
+      "goal": "Losing a pawn is a much smaller number than losing the game."
+    }
   ],
-  "setup": ["e4", "e5", "Nf3", "d6", "Bc4", "Bg4", "Nc3", "g6", "Nxe5"],
+  "setup": [
+    "e4",
+    "e5",
+    "Nf3",
+    "d6",
+    "Bc4",
+    "Bg4",
+    "Nc3",
+    "g6",
+    "Nxe5"
+  ],
   "line": {
     "threat": "White's knight has taken on e5 and the queen on d1 is apparently free. It is bait: Bxd1 loses to a forced mate in three.",
-    "focusSquares": ["e5", "d1", "f7"],
+    "focusSquares": [
+      "e5",
+      "d1",
+      "f7"
+    ],
     "hints": [
       "Before you take anything, ask what happens after your opponent's reply — not after yours.",
       "Look at f7. Which white pieces attack it, and where would your king have to go?",
@@ -55,19 +123,48 @@
           ]
         }
       },
-      { "san": "Nc6", "quality": "inferior", "why": "Developing and ignoring the knight on e5. You are simply a pawn down for nothing, but you are not mated." }
+      {
+        "san": "Nc6",
+        "quality": "inferior",
+        "why": "Developing and ignoring the knight on e5. You are simply a pawn down for nothing, but you are not mated."
+      }
     ],
     "mistakes": [
       {
         "san": "Bxd1",
         "why": "The queen was never really hanging. Bxf7+ forces your king to e7, and Nd5 is mate — three minor pieces, no queen, and your own queen never moved. This is Legal's Mate, and it has been catching people since the 1750s.",
-        "punish": ["Bxf7+", "Ke7", "Nd5#"]
+        "punish": [
+          "Bxf7+",
+          "Ke7",
+          "Nd5#"
+        ]
       }
     ]
   },
   "drills": [
-    { "id": "learn", "mode": "learn", "playAs": "black", "opponent": "best", "label": "Learn the defence" },
-    { "id": "test", "mode": "test", "playAs": "black", "opponent": "best", "label": "Resist the bait cold" },
-    { "id": "attack", "mode": "test", "playAs": "white", "opponent": "mistakes", "label": "Deliver Legal's Mate yourself" }
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Learn the defence"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Resist the bait cold"
+    },
+    {
+      "id": "attack",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "mistakes",
+      "label": "Deliver Legal's Mate yourself"
+    }
+  ],
+  "related": [
+    "how-traps-work"
   ]
 }

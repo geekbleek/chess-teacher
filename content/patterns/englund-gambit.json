@@ -1,0 +1,295 @@
+{
+  "id": "englund-gambit",
+  "title": "The Englund Gambit (1.d4 e5)",
+  "tier": 1,
+  "side": "white",
+  "eco": "A40",
+  "idea": "Black throws a pawn away on move one to drag your queenside apart. If you take everything on offer and defend naturally, you get mated on c1 by a queen that has been wandering since move three. The refutation is not hard, but it is precise: there is one moment where two recaptures look identical and only one of them does not lose. Playing this line out is the cleanest lesson in the library on why 'obviously you take with the queen' deserves five seconds of thought.",
+  "cues": [
+    {
+      "text": "Black gives up the e-pawn on move one and starts chasing with the queen.",
+      "squares": [
+        "e5"
+      ]
+    },
+    {
+      "text": "The black queen comes to b4 with check, then eats b2. She is deep in your position with no support.",
+      "squares": [
+        "b4",
+        "b2"
+      ]
+    },
+    {
+      "text": "Your back rank is where the game ends. c1 is the square to watch.",
+      "squares": [
+        "c1",
+        "e1"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "d4",
+      "e5",
+      "dxe5",
+      "Nc6",
+      "Nf3",
+      "Qe7",
+      "Bf4",
+      "Qb4+",
+      "Bd2",
+      "Qxb2",
+      "Bc3",
+      "Bb4",
+      "Qd2",
+      "Bxc3"
+    ],
+    "prompt": "Black has taken on c3 and you can recapture with the queen or the knight. Does it matter?",
+    "choices": [
+      {
+        "text": "Yes — recapturing with the queen loses to Qc1 mate",
+        "correct": true,
+        "why": "Take with the queen and she leaves the back rank undefended: Qc1 is mate, because your c-pawn is still on c2 blocking the rescue and nothing covers c1."
+      },
+      {
+        "text": "No — both recaptures are fine",
+        "correct": false,
+        "why": "One of them is mate in one against you. This is the entire point of the gambit."
+      },
+      {
+        "text": "You should not recapture at all",
+        "correct": false,
+        "why": "You must — otherwise you are simply a piece down for nothing."
+      },
+      {
+        "text": "Recapturing with the knight loses a pawn",
+        "correct": false,
+        "why": "It costs nothing. Nxc3 is the move, and after it Black has no attack and no pawn to show for the piece activity."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Take the pawn and give it back when development demands it, rather than clinging on.",
+      "hard": true
+    },
+    {
+      "goal": "Before any recapture, check what the recapturing piece stops defending."
+    },
+    {
+      "goal": "Watch c1 and the back rank whenever your queen and bishop have both left home."
+    }
+  ],
+  "setup": [
+    "d4",
+    "e5"
+  ],
+  "line": {
+    "threat": "Black has offered a pawn for nothing visible. Take it — but be ready for the queen to come out swinging.",
+    "focusSquares": [
+      "e5"
+    ],
+    "hints": [
+      "There is a free pawn. In this case it really is free.",
+      "Accept, and plan to develop rather than to hold on to material.",
+      "Take on e5 with the pawn."
+    ],
+    "moves": [
+      {
+        "san": "dxe5",
+        "quality": "best",
+        "why": "Take it. The Englund is not sound — the point is to survive the tricks that follow, not to avoid the pawn.",
+        "then": {
+          "moves": [
+            {
+              "san": "Nc6",
+              "quality": "best",
+              "why": "Black hits the pawn and prepares to bring the queen out.",
+              "then": {
+                "moves": [
+                  {
+                    "san": "Nf3",
+                    "quality": "best",
+                    "why": "Defend the pawn by developing. Every move you spend here should also bring a piece out.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Qe7",
+                          "quality": "best",
+                          "why": "Black piles on e5 and prepares the queen raid.",
+                          "then": {
+                            "threat": "The e5 pawn is attacked twice and defended once. You are about to be asked to choose between the pawn and your development.",
+                            "focusSquares": [
+                              "e5"
+                            ],
+                            "hints": [
+                              "You cannot hold e5 forever, and you should not try.",
+                              "Develop a piece that also protects the pawn one more time.",
+                              "The dark-squared bishop has a natural square where it defends e5."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Bf4",
+                                "quality": "best",
+                                "why": "Develop and defend in one. Now Black has to commit to the attack.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Qb4+",
+                                      "quality": "best",
+                                      "why": "The raid begins: check first, then the b2 pawn.",
+                                      "then": {
+                                        "threat": "Check. You can block with the bishop, the knight or the queen — and the choice shapes the rest of the game.",
+                                        "focusSquares": [
+                                          "b4",
+                                          "d2"
+                                        ],
+                                        "hints": [
+                                          "Block the check with a piece that develops rather than one that retreats.",
+                                          "The bishop on c1 is your least active piece.",
+                                          "Block on d2 with the bishop."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "Bd2",
+                                            "quality": "best",
+                                            "why": "Block with the bishop. You are offering b2, and that is fine — the pawn buys you three tempi.",
+                                            "then": {
+                                              "moves": [
+                                                {
+                                                  "san": "Qxb2",
+                                                  "quality": "best",
+                                                  "why": "Black grabs, as the whole line intends.",
+                                                  "then": {
+                                                    "threat": "Your rook on a1 is attacked. You want to defend it with a move that also traps the queen's escape routes.",
+                                                    "focusSquares": [
+                                                      "a1",
+                                                      "b2",
+                                                      "c3"
+                                                    ],
+                                                    "hints": [
+                                                      "Defend the rook without moving it.",
+                                                      "A bishop can cover a1 from the long diagonal.",
+                                                      "Bishop to c3."
+                                                    ],
+                                                    "moves": [
+                                                      {
+                                                        "san": "Bc3",
+                                                        "quality": "best",
+                                                        "why": "Defends a1 and cuts the queen off. Black's only try now is to trade this bishop away.",
+                                                        "then": {
+                                                          "moves": [
+                                                            {
+                                                              "san": "Bb4",
+                                                              "quality": "best",
+                                                              "why": "Black pins the bishop and prepares to remove it — this is the set-up for the trap.",
+                                                              "then": {
+                                                                "moves": [
+                                                                  {
+                                                                    "san": "Qd2",
+                                                                    "quality": "best",
+                                                                    "why": "Defend the bishop and unpin. Everything is holding.",
+                                                                    "then": {
+                                                                      "moves": [
+                                                                        {
+                                                                          "san": "Bxc3",
+                                                                          "quality": "best",
+                                                                          "why": "Black takes, and now the whole gambit comes down to which piece you recapture with.",
+                                                                          "then": {
+                                                                            "threat": "Two recaptures, one of them mate in one against you. Look at c1 before you move.",
+                                                                            "focusSquares": [
+                                                                              "c1",
+                                                                              "c3",
+                                                                              "e1"
+                                                                            ],
+                                                                            "hints": [
+                                                                              "One of these recaptures leaves your back rank with nothing on it.",
+                                                                              "Ask what the queen on d2 is currently doing besides attacking c3.",
+                                                                              "Recapture with the knight, not the queen."
+                                                                            ],
+                                                                            "moves": [
+                                                                              {
+                                                                                "san": "Nxc3",
+                                                                                "quality": "best",
+                                                                                "why": "The knight recaptures and the queen stays home guarding c1. Black's attack is over and you are a healthy piece to the good in development.",
+                                                                                "then": {
+                                                                                  "terminal": {
+                                                                                    "verdict": "pass",
+                                                                                    "summary": "That is the whole gambit refuted, and the decisive moment was a choice between two captures that looked identical. Black's queen has made five moves and achieved one pawn; you have three minor pieces out and a safe king. Remember the mechanism rather than the moves: before recapturing, ask what the capturing piece is currently defending. Here the queen on d2 was the only thing covering c1."
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            ],
+                                                                            "mistakes": [
+                                                                              {
+                                                                                "san": "Qxc3",
+                                                                                "why": "The natural recapture and the losing one. The queen was the only piece covering c1, and the c2 pawn blocks your own rook from coming to the rescue. Qc1 is mate on the spot.",
+                                                                                "punish": [
+                                                                                  "Qc1#"
+                                                                                ]
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Learn the refutation"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Survive it cold"
+    },
+    {
+      "id": "trap",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "mistakes",
+      "label": "Spring the trap yourself"
+    }
+  ],
+  "related": [
+    "how-traps-work"
+  ]
+}

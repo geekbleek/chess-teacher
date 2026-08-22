@@ -8,8 +8,25 @@
       "heading": "Why this one",
       "body": "The Italian is recommended here not because it is the most testing move order but because it teaches. Every move does an obvious job: the pawn takes the centre, the knight attacks e5 and covers d4, the bishop develops to the square where it hits f7 and clears the way to castle. When you eventually deviate you will know what you are giving up, which is not true of openings you learn as move lists.",
       "diagram": {
-        "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "c3", "Nf6", "d3", "d6", "O-O", "O-O"],
-        "highlight": ["c3", "d3", "e4"],
+        "at": [
+          "e4",
+          "e5",
+          "Nf3",
+          "Nc6",
+          "Bc4",
+          "Bc5",
+          "c3",
+          "Nf6",
+          "d3",
+          "d6",
+          "O-O",
+          "O-O"
+        ],
+        "highlight": [
+          "c3",
+          "d3",
+          "e4"
+        ],
         "caption": "The Giuoco Pianissimo. Both kings are safe, and White's pawns on c3 and d3 are preparing the d4 break."
       }
     },
@@ -26,5 +43,9 @@
       "body": "That bishop is your best piece and your biggest liability. It eyes f7 forever, which creates the attacking chances, but it is also the piece most easily hit by ...d5 and ...Na5. Learn to retreat it to b3 early and without regret. A bishop on b3 still watches the same diagonal and can no longer be harassed."
     }
   ],
-  "related": ["fried-liver-defense", "blackburne-shilling"]
+  "related": [
+    "italian-opening",
+    "fried-liver-defense",
+    "blackburne-shilling"
+  ]
 }

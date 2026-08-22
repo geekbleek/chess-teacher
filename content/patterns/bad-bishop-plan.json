@@ -1,0 +1,220 @@
+{
+  "id": "bad-bishop-plan",
+  "title": "Trading Off a Bad Bishop",
+  "tier": 3,
+  "side": "black",
+  "eco": "C02",
+  "idea": "The French Advance, and you have the worst piece on the board: a light-squared bishop stuck behind pawns on d5 and e6, staring at a wall it built itself. There is no tactic here and no move that frees it by force. What there is instead is a three-move route that offers it for your opponent's good bishop. Getting a bad piece traded is worth more than most of the material you will ever win, and knowing how to do it is what turns 'my position feels awkward' into a plan.",
+  "cues": [
+    {
+      "text": "Your pawns on d5 and e6 are both on light squares — the same colour as your c8 bishop.",
+      "squares": [
+        "d5",
+        "e6",
+        "c8"
+      ]
+    },
+    {
+      "text": "White's bishop on e2 has open diagonals. Yours has none.",
+      "squares": [
+        "e2",
+        "c8"
+      ]
+    },
+    {
+      "text": "If the c6 knight moves, the c8-a6 diagonal opens and the bishop has a route to b5.",
+      "squares": [
+        "c6",
+        "b5"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "e6",
+      "d4",
+      "d5",
+      "e5",
+      "c5",
+      "c3",
+      "Nc6",
+      "Nf3",
+      "Qb6",
+      "Be2"
+    ],
+    "prompt": "Which of your pieces is the problem, and what should you do about it?",
+    "choices": [
+      {
+        "text": "The c8 bishop — trade it off",
+        "correct": true,
+        "why": "Its own pawns on d5 and e6 sit on light squares, so it has nothing to do all game. A bad bishop is the piece you most want to swap, even for a knight, and here there is a route: Bd7, clear c6, then Bb5 offering the trade."
+      },
+      {
+        "text": "The b6 queen — she is exposed",
+        "correct": false,
+        "why": "She is well placed, pressuring d4 and b2. Nothing is attacking her."
+      },
+      {
+        "text": "The c6 knight — it is blocking the c-pawn",
+        "correct": false,
+        "why": "It is doing useful work against d4. The knight is fine."
+      },
+      {
+        "text": "Nothing — the position is comfortable",
+        "correct": false,
+        "why": "It is playable, but one of your pieces has no future, and positions are lost slowly that way."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Get the c8 bishop traded for a piece that is doing something.",
+      "hard": true
+    },
+    {
+      "goal": "Clear c6 so the bishop has a route to b5."
+    },
+    {
+      "goal": "Do not solve it by pushing pawns onto dark squares — that creates a different problem."
+    }
+  ],
+  "setup": [
+    "e4",
+    "e6",
+    "d4",
+    "d5",
+    "e5",
+    "c5",
+    "c3",
+    "Nc6",
+    "Nf3",
+    "Qb6",
+    "Be2"
+  ],
+  "line": {
+    "threat": "Nothing is threatened. You have a structural problem instead of a tactical one, and it needs a three-move answer.",
+    "focusSquares": [
+      "c8",
+      "d5",
+      "e6"
+    ],
+    "hints": [
+      "One of your pieces has no future. Find it.",
+      "The bishop on c8 needs a route out, and the first step is a modest developing move.",
+      "Bishop to d7."
+    ],
+    "moves": [
+      {
+        "san": "Bd7",
+        "quality": "best",
+        "why": "It looks passive and it is the first step of the plan. The bishop is heading for b5, and it cannot get there until c6 is clear.",
+        "then": {
+          "moves": [
+            {
+              "san": "O-O",
+              "quality": "best",
+              "why": "White gets his king safe.",
+              "then": {
+                "hints": [
+                  "The bishop wants b5. What is in the way?",
+                  "Your own knight on c6.",
+                  "Move the knight — a5 keeps it useful, eyeing c4."
+                ],
+                "moves": [
+                  {
+                    "san": "Na5",
+                    "quality": "best",
+                    "why": "Clears the diagonal and heads for c4, which is a genuinely good square for the knight. One move doing two jobs.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Nbd2",
+                          "quality": "best",
+                          "why": "White develops and covers c4.",
+                          "then": {
+                            "hints": [
+                              "The route is open. Complete the plan.",
+                              "Offer the bad bishop for the good one.",
+                              "Bishop to b5."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Bb5",
+                                "quality": "best",
+                                "why": "There it is — the worst piece on the board offers itself for White's active bishop. If White declines, you have still improved; if he takes, you have solved your only real problem.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Bxb5+",
+                                      "quality": "best",
+                                      "why": "White accepts, with check.",
+                                      "then": {
+                                        "hints": [
+                                          "Recapture.",
+                                          "With the piece that keeps pressure on the queenside.",
+                                          "Take with the queen."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "Qxb5",
+                                            "quality": "best",
+                                            "why": "The bad bishop is gone and the queen lands actively. Your remaining pieces all have work to do.",
+                                            "then": {
+                                              "terminal": {
+                                                "verdict": "pass",
+                                                "summary": "Three quiet moves and your worst piece is off the board, traded for one of your opponent's better ones. No material changed hands and the position is meaningfully improved — which is what strategy is. Carry the question forward into every game: look at the pawn structure, ask which of your bishops is on the same colour as your own pawns, and if the answer is uncomfortable, start working out how to trade it."
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "cxd4",
+        "quality": "ok",
+        "why": "Releasing the tension is playable, and it does nothing about the bishop. Keep the plan in mind either way."
+      },
+      {
+        "san": "Nge7",
+        "quality": "ok",
+        "why": "Sensible development heading for f5. The bishop problem is still waiting for you."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Learn the manoeuvre"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Find it cold"
+    }
+  ],
+  "related": [
+    "good-and-bad-bishops",
+    "caro-kann"
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "id": "danish-gambit",
+  "title": "The Danish Gambit (give it back)",
+  "tier": 1,
+  "side": "black",
+  "eco": "C21",
+  "idea": "White throws two pawns at you to get two bishops raking your kingside. There is no trap here and no mate to memorise — which is exactly why it belongs in this list. The answer to a gambit is almost never to hold on to the material. It is to give some of it back at the moment that kills the attack, and this position has one clean move that does it. Learn the reflex here and you will handle the Smith-Morra, the Göring and half the gambits you meet the same way.",
+  "cues": [
+    {
+      "text": "White has sacrificed both the d- and b-pawns and now has bishops on c4 and b2.",
+      "squares": [
+        "c4",
+        "b2"
+      ]
+    },
+    {
+      "text": "Both bishops point at your kingside. f7 and g7 are the targets.",
+      "squares": [
+        "f7",
+        "g7"
+      ]
+    },
+    {
+      "text": "You are two pawns up and undeveloped. That combination is the danger, not the safety.",
+      "squares": [
+        "b8",
+        "c8",
+        "e8"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "e5",
+      "d4",
+      "exd4",
+      "c3",
+      "dxc3",
+      "Bc4",
+      "cxb2",
+      "Bxb2"
+    ],
+    "prompt": "You are two pawns up. What is the correct attitude?",
+    "choices": [
+      {
+        "text": "Give one back immediately to blunt the bishops",
+        "correct": true,
+        "why": "d5 is the move: it blocks the c4 bishop's diagonal, opens your own position, and turns two pawns of material into a comfortable game. Extra pawns you cannot develop behind are not an advantage."
+      },
+      {
+        "text": "Hold both pawns and defend carefully",
+        "correct": false,
+        "why": "This is how people lose to gambits. Defending an undeveloped position against two bishops is much harder than being a pawn up is valuable."
+      },
+      {
+        "text": "Grab a third pawn if it is offered",
+        "correct": false,
+        "why": "Every extra grab costs another tempo and opens another line. The material is not the problem — the clock is."
+      },
+      {
+        "text": "Trade queens as fast as possible",
+        "correct": false,
+        "why": "A reasonable instinct in general, but you have no way to force it here, and trying costs you the moves you need for development."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Return material to kill the initiative, rather than defending to keep it.",
+      "hard": true
+    },
+    {
+      "goal": "Block the c4 bishop's diagonal before it does anything."
+    },
+    {
+      "goal": "Count developed pieces, not pawns, while deciding whether you are winning."
+    }
+  ],
+  "setup": [
+    "e4",
+    "e5",
+    "d4",
+    "exd4",
+    "c3",
+    "dxc3",
+    "Bc4",
+    "cxb2",
+    "Bxb2"
+  ],
+  "line": {
+    "threat": "Nothing is hanging, and that is the trap. Both white bishops are aimed at your king and you have not moved a piece.",
+    "focusSquares": [
+      "c4",
+      "b2",
+      "f7"
+    ],
+    "hints": [
+      "Being two pawns up is not the same as being better. Count developed pieces instead.",
+      "One of White's bishops is far more dangerous than the other. Take its diagonal away.",
+      "A central pawn push both blocks the c4 bishop and frees your own position."
+    ],
+    "moves": [
+      {
+        "san": "d5",
+        "quality": "best",
+        "why": "The move that solves everything. It slams the door on the c4 bishop, opens your own bishop and queen, and gives back exactly one of the two pawns. After this you develop normally and White has nothing.",
+        "then": {
+          "moves": [
+            {
+              "san": "Bxd5",
+              "quality": "best",
+              "why": "White takes back, and the attack is already running out of steam.",
+              "then": {
+                "terminal": {
+                  "verdict": "pass",
+                  "summary": "One pawn up, both bishops neutralised, and a normal game ahead. That is a good outcome against a gambit and you should be happy with it — the mistake would have been trying to stay two pawns up. Carry the reflex forward: when someone sacrifices for development, hand material back at the moment it buys you the time to catch up. This is the same idea that beats the Smith-Morra and the Göring."
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "Bb4+",
+        "quality": "ok",
+        "why": "Check first, develop, and force White to spend a move. Perfectly reasonable, though you will usually still need d5 shortly."
+      },
+      {
+        "san": "Nf6",
+        "quality": "inferior",
+        "why": "Developing is not wrong in principle, but this particular knight walks into e5 with tempo and you have not dealt with the bishops."
+      }
+    ],
+    "mistakes": [
+      {
+        "san": "d6",
+        "why": "Trying to keep both pawns with a modest move. It leaves the c4 bishop staring at f7 and the queen swings to b3 to double up on it. You end up defending with no pieces out.",
+        "punish": [
+          "Qb3"
+        ]
+      },
+      {
+        "san": "Qe7",
+        "why": "Defending f7 with the queen blocks your own bishop and does nothing about the bigger problem, which is that you have no pieces out and White has all of his.",
+        "punish": [
+          "Nc3"
+        ]
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Learn the reflex"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Find it cold"
+    }
+  ],
+  "related": [
+    "how-traps-work"
+  ]
+}

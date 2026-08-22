@@ -8,8 +8,22 @@
       "heading": "A hole is permanent",
       "body": "Every pawn move leaves squares behind it undefendable by pawns forever. Those squares are holes. A hole in your opponent's camp, on your side of the board, protected by one of your pawns, is an outpost — and a knight sitting on an outpost is often the best piece on the board, because nothing can chase it away.",
       "diagram": {
-        "at": ["e4", "c5", "Nf3", "d6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "a6"],
-        "highlight": ["d5", "b5"],
+        "at": [
+          "e4",
+          "c5",
+          "Nf3",
+          "d6",
+          "d4",
+          "cxd4",
+          "Nxd4",
+          "Nf6",
+          "Nc3",
+          "a6"
+        ],
+        "highlight": [
+          "d5",
+          "b5"
+        ],
         "caption": "The Najdorf. Black has just played a6 to control b5, because d5 and b5 are the two holes this structure creates."
       }
     },
@@ -26,5 +40,8 @@
       "body": "When you are unsure what to do, look for the square in your opponent's position that no pawn can ever attack, and work out which of your pieces can get there. It is a plan you can find in almost every quiet position, and it is far more reliable than hunting for a tactic that may not exist."
     }
   ],
-  "related": ["good-and-bad-bishops"]
+  "related": [
+    "outpost-plan",
+    "good-and-bad-bishops"
+  ]
 }

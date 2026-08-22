@@ -53,12 +53,17 @@ const colorOf = (side: string): Color => (side === 'white' ? 'w' : 'b');
 
 export function createDrill(pattern: Pattern, drill: Drill): DrillState {
   const index = indexPattern(pattern);
+  // `from` lets a drill start deeper in the tree — useful when the interesting
+  // moment is several moves past the position the lesson opens on.
+  const board = new Chess(index.rootFen);
+  for (const san of drill.from ?? []) board.move(san);
+
   return {
     pattern,
     drill,
     index,
     you: colorOf(drill.playAs),
-    fen: index.rootFen,
+    fen: board.fen(),
     status: 'playing',
     journal: [],
     feedback: null,

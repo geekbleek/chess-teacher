@@ -5,11 +5,11 @@
  *   node tools/validate-content.js
  *
  * Patterns (content/patterns/*.json) are drillable move trees:
- *   { id, title, tier, side, idea, cues[], recognition?, plan?[], setup[], line, drills[] }
+ *   { id, title, tier, side, idea, cues[], recognition?, plan?[], setup[], line, drills[], related?[] }
  *   line  = { threat?, focusSquares?, hints?[], moves[], mistakes?[], terminal? }
  *   move  = { san, quality: best|ok|inferior, why, then?: line }
  *   mistake = { san, why, punish?[] }
- *   drill = { id, mode: learn|test, playAs: white|black, opponent: best|mistakes, label }
+ *   drill = { id, mode: learn|test, playAs: white|black, opponent: best|mistakes, label, from?[] }
  *
  * Articles (content/library/*.json) are reading material:
  *   { id, title, tier, summary, sections[], related?[] }
@@ -92,23 +92,44 @@ function validatePattern(file, p, fail) {
     COLORS.includes(d.playAs) ? ok() : fail(`drill ${d.id}: bad playAs`);
     OPPONENTS.includes(d.opponent) ? ok() : fail(`drill ${d.id}: bad opponent`);
     isText(d.label) ? ok() : fail(`drill ${d.id}: missing label`);
+    if (d.from && !walkTo(p.line, replay(p.setup ?? []), d.from)) {
+      fail(`drill ${d.id}: "from" does not follow the lesson tree`);
+    } else ok();
     // A "punish the mistakes" drill only works from the other side of the lesson,
     // and only if the tree actually contains mistakes with punishments.
     if (d.opponent === 'mistakes') {
-      d.playAs !== p.side
-        ? ok()
-        : fail(`drill ${d.id}: opponent "mistakes" only makes sense playing the side the lesson is not written for`);
       // The app plays the mistakes, so they must sit at nodes where the OPPONENT
       // moves. A tree whose only mistakes belong to the learner's own side would
       // make this drill silently identical to opponent "best".
       const opponentColor = d.playAs === 'white' ? 'b' : 'w';
-      hasPunishableMistake(p.line, replay(p.setup ?? []), opponentColor)
+      const from = walkTo(p.line, replay(p.setup ?? []), d.from ?? []);
+      from
+        ? ok()
+        : fail(`drill ${d.id}: "from" does not follow the lesson tree`);
+      hasPunishableMistake(from?.node ?? p.line, from?.board ?? replay(p.setup ?? []), opponentColor)
         ? ok()
         : fail(
             `drill ${d.id}: opponent "mistakes" needs a mistake with a punish line at a node where ${opponentColor === 'w' ? 'White' : 'Black'} moves`,
           );
     }
   }
+}
+
+/** Follow a drill's `from` moves down the tree, returning where they land. */
+function walkTo(node, board, moves) {
+  let current = node;
+  const cursor = new Chess(board.fen());
+  for (const san of moves) {
+    const next = (current.moves ?? []).find((m) => m.san === san);
+    if (!next?.then) return null;
+    try {
+      cursor.move(san);
+    } catch {
+      return null;
+    }
+    current = next.then;
+  }
+  return { node: current, board: cursor };
 }
 
 function hasPunishableMistake(node, board, color) {
@@ -255,11 +276,12 @@ for (const file of [...patternFiles, ...articleFiles]) {
   else validateArticle(file, data, fail);
 }
 
-// Articles may only point at lessons that exist.
-for (const file of articleFiles) {
+// Cross-links must point at something that exists, in either direction.
+for (const file of [...patternFiles, ...articleFiles]) {
   const data = JSON.parse(fs.readFileSync(file, 'utf8'));
   for (const rel of data.related ?? []) {
-    ids.has(rel) ? ok() : makeFail(file)(`related id "${rel}" does not exist`);
+    if (rel === data.id) makeFail(file)('related links to itself');
+    else ids.has(rel) ? ok() : makeFail(file)(`related id "${rel}" does not exist`);
   }
 }
 

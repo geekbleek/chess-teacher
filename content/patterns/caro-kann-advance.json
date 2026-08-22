@@ -1,0 +1,248 @@
+{
+  "id": "caro-kann-advance",
+  "title": "Playing the Caro-Kann",
+  "tier": 2,
+  "side": "black",
+  "eco": "B12",
+  "idea": "Your answer to 1.e4. You support the d5 push with the c-pawn instead of the e-pawn, and the reward is that your light-squared bishop gets out of the box before you close it. The entire lesson lives in one move order: against the Advance, the bishop goes to f5 BEFORE the pawn goes to e6. Get that wrong and you have a French Defence with a bad bishop and no compensation. Get it right and you have a solid position that gives an attacking opponent nothing to hit.",
+  "cues": [
+    {
+      "text": "You answer 1.e4 with c6, preparing d5 with a pawn that is not blocking a bishop.",
+      "squares": [
+        "c6",
+        "d5"
+      ]
+    },
+    {
+      "text": "White pushes e5, closing the centre. Now the bishop must come out immediately.",
+      "squares": [
+        "e5",
+        "c8",
+        "f5"
+      ]
+    },
+    {
+      "text": "Only after the bishop is on f5 does e6 become a good move.",
+      "squares": [
+        "f5",
+        "e6"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "c6",
+      "d4",
+      "d5",
+      "e5"
+    ],
+    "prompt": "White has closed the centre with e5. What is the single most important thing to do now?",
+    "choices": [
+      {
+        "text": "Get the light-squared bishop outside the pawn chain",
+        "correct": true,
+        "why": "Bf5 now. Once you play e6 the bishop is locked behind its own pawns for the rest of the game, and that bad bishop is the main thing wrong with the French Defence. Playing c6 instead of e6 was the whole point."
+      },
+      {
+        "text": "Play e6 to support d5",
+        "correct": false,
+        "why": "d5 does not need more support yet, and this move buries the bishop you came here to free. This is the single most common way to misplay the Caro-Kann."
+      },
+      {
+        "text": "Play c5 immediately to break",
+        "correct": false,
+        "why": "The break is coming, but not yet — develop the bishop first, while you still can."
+      },
+      {
+        "text": "Develop the knight to f6",
+        "correct": false,
+        "why": "It has nowhere useful to go with the pawn on e5, and it does not solve the bishop problem."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Play Bf5 before e6 against the Advance. Always.",
+      "hard": true
+    },
+    {
+      "goal": "Keep the pawn chain c6-d5 intact and aim for the c5 break later."
+    },
+    {
+      "goal": "Accept slightly less space in return for having no weaknesses to attack."
+    }
+  ],
+  "setup": [
+    "e4"
+  ],
+  "line": {
+    "threat": "White has taken the centre. You are going to challenge it with d5 — the question is which pawn supports the push.",
+    "focusSquares": [
+      "d5",
+      "c6",
+      "e6"
+    ],
+    "hints": [
+      "You want to play d5. Supporting it with a pawn is better than supporting it with a piece.",
+      "Two pawns can support d5. One of them blocks your light-squared bishop.",
+      "Play c6."
+    ],
+    "moves": [
+      {
+        "san": "c6",
+        "quality": "best",
+        "why": "Prepares d5 with the pawn that is not standing in your bishop's way. That single difference is the whole case for the Caro-Kann over the French.",
+        "then": {
+          "moves": [
+            {
+              "san": "d4",
+              "quality": "best",
+              "why": "White builds the big centre.",
+              "then": {
+                "hints": [
+                  "Now carry out the plan c6 prepared.",
+                  "Challenge the centre.",
+                  "Push d5."
+                ],
+                "moves": [
+                  {
+                    "san": "d5",
+                    "quality": "best",
+                    "why": "Strikes at e4 with the pawn already supported. White must resolve the tension one way or another.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "e5",
+                          "quality": "best",
+                          "why": "The Advance Variation. White grabs space and closes the centre — and hands you the moment this lesson is about.",
+                          "then": {
+                            "threat": "The centre is closed. Your light-squared bishop has exactly one chance to get out, and it is now.",
+                            "focusSquares": [
+                              "c8",
+                              "f5",
+                              "e6"
+                            ],
+                            "hints": [
+                              "One of your pieces is about to be trapped for the whole game. Which one?",
+                              "The bishop on c8 needs a diagonal, and e6 would take it away.",
+                              "Bishop to f5, before anything else."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Bf5",
+                                "quality": "best",
+                                "why": "Out before the door shuts. This is the move that justifies playing c6 rather than e6 in the first place, and playing it in the wrong order is how most Caro-Kann players go wrong.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Nf3",
+                                      "quality": "best",
+                                      "why": "White develops calmly.",
+                                      "then": {
+                                        "hints": [
+                                          "Now e6 is safe. Why?",
+                                          "The bishop is already outside, so the pawn no longer traps it.",
+                                          "Play e6."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "e6",
+                                            "quality": "best",
+                                            "why": "Now it is right. The pawn shores up d5 and opens the dark-squared bishop, and the piece it would have trapped is safely outside.",
+                                            "then": {
+                                              "moves": [
+                                                {
+                                                  "san": "Be2",
+                                                  "quality": "best",
+                                                  "why": "White develops and prepares to castle.",
+                                                  "then": {
+                                                    "hints": [
+                                                      "Develop toward the break you want later.",
+                                                      "The queen's knight supports c5 and f6 from one square.",
+                                                      "Knight to d7."
+                                                    ],
+                                                    "moves": [
+                                                      {
+                                                        "san": "Nd7",
+                                                        "quality": "best",
+                                                        "why": "Heading for b6 or f8, supporting the c5 break, and keeping the other knight's squares free. Flexible rather than flashy.",
+                                                        "then": {
+                                                          "moves": [
+                                                            {
+                                                              "san": "O-O",
+                                                              "quality": "best",
+                                                              "why": "White castles and the opening is over.",
+                                                              "then": {
+                                                                "terminal": {
+                                                                  "verdict": "pass",
+                                                                  "summary": "A completely healthy Caro-Kann: no weaknesses, the problem bishop solved before it became a problem, and a clear plan — finish developing, then hit d4 with c5. You have slightly less space and nothing for your opponent to attack, which is exactly the trade this opening offers. Against someone who only knows how to attack, that is often enough on its own."
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ],
+                            "mistakes": [
+                              {
+                                "san": "e6",
+                                "why": "The move order error that costs you the whole opening. Your bishop on c8 is now behind pawns on d5 and e6 and will spend the game staring at them. You have reached a French Defence, except you also spent a move on c6 that a French player uses for something better."
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "e5",
+        "quality": "ok",
+        "why": "The Open Game. Perfectly sound, and a completely different kind of chess — sharper, and better prepared by the person who plays it every day."
+      },
+      {
+        "san": "c5",
+        "quality": "ok",
+        "why": "The Sicilian. Excellent and enormous. If you want a fight rather than a fortress, this is where you go."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Walk through the set-up"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Play it from memory"
+    }
+  ],
+  "related": [
+    "caro-kann",
+    "good-and-bad-bishops"
+  ]
+}

@@ -1,0 +1,313 @@
+{
+  "id": "italian-opening",
+  "title": "Playing the Italian",
+  "tier": 2,
+  "side": "white",
+  "eco": "C50",
+  "idea": "Your White opening, from move one. Every move has a job you can say out loud: the pawn takes the centre, the knight attacks e5 and covers d4, the bishop goes to the square that hits f7, and then c3 and d3 quietly prepare the pawn break d4 that the whole set-up exists to achieve. Play it enough times that the moves stop being a list and start being consequences.",
+  "cues": [
+    {
+      "text": "1.e4 e5 2.Nf3 Nc6 3.Bc4 — the bishop on c4 is what makes this the Italian.",
+      "squares": [
+        "c4",
+        "f7"
+      ]
+    },
+    {
+      "text": "c3 and d3 look modest. They are preparing d4, which is the point of the entire opening.",
+      "squares": [
+        "c3",
+        "d3",
+        "d4"
+      ]
+    },
+    {
+      "text": "Castle before you break. The centre opening while your king is home is how this goes wrong.",
+      "squares": [
+        "e1",
+        "g1"
+      ]
+    }
+  ],
+  "plan": [
+    {
+      "goal": "Occupy the centre, develop the knight before the bishop, and castle by move seven.",
+      "hard": true
+    },
+    {
+      "goal": "Support d4 with c3 before you push it."
+    },
+    {
+      "goal": "Do not grab e5 — it is defended, and the tactics do not work."
+    }
+  ],
+  "setup": [],
+  "line": {
+    "threat": "Your move, from the starting position. Take the centre.",
+    "focusSquares": [
+      "d4",
+      "e4",
+      "d5",
+      "e5"
+    ],
+    "hints": [
+      "Start in the middle. Which pawn move takes the most central squares and frees the most pieces?",
+      "The move opens both your queen and your light-squared bishop.",
+      "Push the king's pawn two squares."
+    ],
+    "moves": [
+      {
+        "san": "e4",
+        "quality": "best",
+        "why": "Takes a central square, frees the queen and the light-squared bishop, and stakes a claim on d5. The most-played move in chess for good reasons.",
+        "then": {
+          "moves": [
+            {
+              "san": "e5",
+              "quality": "best",
+              "why": "Black mirrors you and the Open Game begins.",
+              "then": {
+                "hints": [
+                  "Develop a piece that also attacks something.",
+                  "A knight, toward the centre.",
+                  "Knight to f3, hitting e5."
+                ],
+                "moves": [
+                  {
+                    "san": "Nf3",
+                    "quality": "best",
+                    "why": "Develops with a threat, covers d4, and clears the way to castle. Knights before bishops.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Nc6",
+                          "quality": "best",
+                          "why": "Black defends e5 the same way — by developing.",
+                          "then": {
+                            "hints": [
+                              "Now the bishop. Which diagonal has a target on it?",
+                              "f7 is the square only the black king defends.",
+                              "Bishop to c4."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Bc4",
+                                "quality": "best",
+                                "why": "This move makes it the Italian. The bishop takes the best diagonal it will ever have, aims at f7, and clears the back rank for castling.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Bc5",
+                                      "quality": "best",
+                                      "why": "Black copies. The Giuoco Piano — the quiet game.",
+                                      "then": {
+                                        "threat": "Nothing is threatened. This is the moment the Italian's real plan starts, and it does not look like an attack.",
+                                        "focusSquares": [
+                                          "c3",
+                                          "d4"
+                                        ],
+                                        "hints": [
+                                          "You want to play d4 eventually. What has to happen first?",
+                                          "Support the square before you occupy it.",
+                                          "Pawn to c3."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "c3",
+                                            "quality": "best",
+                                            "why": "The quiet move that defines the plan: it supports d4, so when you finally push, the pawn is backed up. Everything else in this opening is arranged around getting d4 in under good conditions.",
+                                            "then": {
+                                              "moves": [
+                                                {
+                                                  "san": "Nf6",
+                                                  "quality": "best",
+                                                  "why": "Black develops and eyes your e4 pawn.",
+                                                  "then": {
+                                                    "hints": [
+                                                      "e4 is attacked. Defend it with a move that also helps the plan.",
+                                                      "A pawn move, not a piece move — you want the pieces free.",
+                                                      "Pawn to d3."
+                                                    ],
+                                                    "moves": [
+                                                      {
+                                                        "san": "d3",
+                                                        "quality": "best",
+                                                        "why": "Defends e4, opens the dark-squared bishop, and keeps d4 in reserve for when it really hurts. Modest and correct.",
+                                                        "then": {
+                                                          "moves": [
+                                                            {
+                                                              "san": "d6",
+                                                              "quality": "best",
+                                                              "why": "Black shores up e5 in the same way.",
+                                                              "then": {
+                                                                "hints": [
+                                                                  "Your development is nearly done. What is the one thing you have not done?",
+                                                                  "The king.",
+                                                                  "Castle kingside."
+                                                                ],
+                                                                "moves": [
+                                                                  {
+                                                                    "san": "O-O",
+                                                                    "quality": "best",
+                                                                    "why": "King safe, rook to f1. Now the centre can open without it being your problem.",
+                                                                    "then": {
+                                                                      "moves": [
+                                                                        {
+                                                                          "san": "O-O",
+                                                                          "quality": "best",
+                                                                          "why": "Black tucks his king away too.",
+                                                                          "then": {
+                                                                            "hints": [
+                                                                              "One rook is already useful. Give the other one a job.",
+                                                                              "Which file will open when you eventually play d4?",
+                                                                              "Rook to e1."
+                                                                            ],
+                                                                            "moves": [
+                                                                              {
+                                                                                "san": "Re1",
+                                                                                "quality": "best",
+                                                                                "why": "The rook takes the file that is about to matter, and adds a defender to e4 so the d4 break finally becomes possible.",
+                                                                                "then": {
+                                                                                  "terminal": {
+                                                                                    "verdict": "pass",
+                                                                                    "summary": "That is the Italian set-up complete, and you should be able to explain every move without naming the opening: centre, knight, bishop, support the break, defend the centre, castle, rook to the open file. The plan from here is Nbd2, Bb3 and then d4 — but notice that you have not needed a single memorised variation to get a good position. That is what a repertoire is for."
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "mistakes": [
+                                                                  {
+                                                                    "san": "Ng5",
+                                                                    "why": "Jumping at f7 before castling. Black defends easily with d5 or Qe7, and your knight has to come back having achieved nothing while your king is still in the centre."
+                                                                  }
+                                                                ]
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ],
+                                                    "mistakes": [
+                                                      {
+                                                        "san": "Nxe5",
+                                                        "why": "e5 is defended by the knight on c6. Taking simply loses a piece for a pawn — there is no follow-up.",
+                                                        "punish": [
+                                                          "Nxe5"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "san": "d3",
+                                            "quality": "ok",
+                                            "why": "Also perfectly sound — you can play d3 first and c3 later. The order matters less than the intention."
+                                          },
+                                          {
+                                            "san": "O-O",
+                                            "quality": "ok",
+                                            "why": "Castling early is never wrong. You will still want c3 and d3 afterwards."
+                                          }
+                                        ],
+                                        "mistakes": [
+                                          {
+                                            "san": "Nxe5",
+                                            "why": "The pawn is defended. After Nxe5 Nxe5 you are a piece down for a pawn with nothing to show for it.",
+                                            "punish": [
+                                              "Nxe5"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "d4",
+        "quality": "ok",
+        "why": "A completely respectable first move that leads to a different world — the Queen's Gambit and its relatives. Not this lesson."
+      },
+      {
+        "san": "Nf3",
+        "quality": "ok",
+        "why": "Flexible and sound, and it can transpose back into everything. Fine, but it delays the fight for the centre."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Walk through the set-up"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Play it from memory"
+    }
+  ],
+  "related": [
+    "italian-game",
+    "opening-principles"
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "Nc6",
+      "Bc4",
+      "Bc5",
+      "c3"
+    ],
+    "prompt": "White has played the quiet move c3. What is it for?",
+    "choices": [
+      {
+        "text": "It supports the pawn break d4",
+        "correct": true,
+        "why": "d4 is the move the whole opening is arranged around. Playing it without support just loses a pawn; with c3 behind it, the break comes with the centre backed up. Every other quiet move in the Italian serves the same goal."
+      },
+      {
+        "text": "It makes a square for the knight on b1",
+        "correct": false,
+        "why": "It actually takes c3 away from that knight, which then has to go via d2 instead. That is a cost White accepts for the break."
+      },
+      {
+        "text": "It stops Black playing Nd4",
+        "correct": false,
+        "why": "A useful side effect, and not the reason. The reason is d4."
+      },
+      {
+        "text": "It opens a diagonal for the queen",
+        "correct": false,
+        "why": "The queen already has the d1-h5 diagonal. c3 is a pawn move about a pawn break."
+      }
+    ]
+  }
+}

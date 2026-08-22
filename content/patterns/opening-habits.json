@@ -1,0 +1,305 @@
+{
+  "id": "opening-habits",
+  "title": "Ten Moves of Good Habits",
+  "tier": 0,
+  "side": "white",
+  "eco": "C50",
+  "idea": "No trap, no opponent's plan to refute — just the five habits, one move at a time, with the app measuring whether you are actually following them. There is deliberately more than one right answer at almost every step, because the point is not a move order. The point is that every move you make should take a central square, bring out a new piece, or get your king safe, and you should be able to say which.",
+  "cues": [
+    {
+      "text": "Centre first: d4, e4, d5 and e5 are worth more than any other squares.",
+      "squares": [
+        "d4",
+        "e4",
+        "d5",
+        "e5"
+      ]
+    },
+    {
+      "text": "Every piece once, before any piece twice.",
+      "squares": [
+        "b1",
+        "c1",
+        "f1",
+        "g1"
+      ]
+    },
+    {
+      "text": "The king belongs off e1 by about move eight.",
+      "squares": [
+        "e1",
+        "g1"
+      ]
+    }
+  ],
+  "plan": [
+    {
+      "goal": "Take a central square, develop a new piece, or castle. Every move.",
+      "hard": true
+    },
+    {
+      "goal": "Knights before bishops, and neither before you know where they are going."
+    },
+    {
+      "goal": "Keep the queen at home until the minor pieces are out."
+    }
+  ],
+  "setup": [],
+  "line": {
+    "threat": "Move one. There is no threat — there is only the question of what a good opening move is for.",
+    "focusSquares": [
+      "d4",
+      "e4"
+    ],
+    "hints": [
+      "A good first move takes central squares and opens lines for your pieces.",
+      "Two pawn moves do this better than any other. Both are in the middle.",
+      "Push a central pawn two squares — e4 is the most direct."
+    ],
+    "moves": [
+      {
+        "san": "e4",
+        "quality": "best",
+        "why": "Takes a central square and frees two pieces at once. Any move that does both of those things is a good opening move.",
+        "then": {
+          "moves": [
+            {
+              "san": "e5",
+              "quality": "best",
+              "why": "Black stakes the same claim.",
+              "then": {
+                "threat": "Both sides have a pawn in the centre. Now it is about pieces.",
+                "focusSquares": [
+                  "g1",
+                  "b1"
+                ],
+                "hints": [
+                  "Develop a piece — and prefer one that also does a job.",
+                  "Knights before bishops, because you already know where the knight belongs.",
+                  "Knight to f3, attacking e5 and covering d4."
+                ],
+                "moves": [
+                  {
+                    "san": "Nf3",
+                    "quality": "best",
+                    "why": "Develops, attacks something, covers a central square, and clears a path to castle. Four jobs in one move — that is what makes it the most played second move in chess.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Nc6",
+                          "quality": "best",
+                          "why": "Black defends and develops in the same move.",
+                          "then": {
+                            "hints": [
+                              "Another piece. Which one has a clear best square?",
+                              "The light-squared bishop, and it wants the diagonal that points at f7.",
+                              "Bishop to c4."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Bc4",
+                                "quality": "best",
+                                "why": "The bishop takes its best diagonal and you are one move from castling.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Nf6",
+                                      "quality": "best",
+                                      "why": "Black develops and hits e4.",
+                                      "then": {
+                                        "hints": [
+                                          "Three pieces are out. What has not happened yet?",
+                                          "Your king is still in the centre and the position is about to open.",
+                                          "Castle."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "O-O",
+                                            "quality": "best",
+                                            "why": "King safe, rook connected to the game. Almost every trap in this app's Tier 1 stops working the moment this move is played.",
+                                            "then": {
+                                              "moves": [
+                                                {
+                                                  "san": "Be7",
+                                                  "quality": "best",
+                                                  "why": "Black develops and prepares to castle in turn.",
+                                                  "then": {
+                                                    "terminal": {
+                                                      "verdict": "pass",
+                                                      "summary": "Four moves, four habits: a central pawn, a knight, a bishop, and the king to safety. Notice that you never had to calculate anything. If you can do this reliably — and check the metric tiles to see it happening — you will stop losing games in the opening, which is most of what separates you from the players currently beating you."
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "san": "d3",
+                                            "quality": "ok",
+                                            "why": "Defends e4 and opens the last minor piece. Fine, as long as castling comes next."
+                                          },
+                                          {
+                                            "san": "Nc3",
+                                            "quality": "ok",
+                                            "why": "Another piece out, defending e4. Also good — this is a position with several right answers."
+                                          }
+                                        ],
+                                        "mistakes": [
+                                          {
+                                            "san": "Ng5",
+                                            "why": "Moving a developed piece a second time to attack f7 before you have castled. Black answers d5 and the knight has to come back, having achieved nothing while your king sits in the centre."
+                                          },
+                                          {
+                                            "san": "h3",
+                                            "why": "A waiting move while a bishop and a knight are still on their starting squares and your king is in the middle. In the opening, a move that develops nothing is a move given away."
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "san": "Bb5",
+                                "quality": "ok",
+                                "why": "The Ruy Lopez — an excellent square, pinning the knight that defends e5."
+                              },
+                              {
+                                "san": "d4",
+                                "quality": "ok",
+                                "why": "Striking in the centre immediately. Sharp and completely sound."
+                              }
+                            ],
+                            "mistakes": [
+                              {
+                                "san": "Bd3",
+                                "why": "The bishop is now staring at its own unmoved d-pawn, and it blocks that pawn from ever advancing. Never place a piece in front of a pawn you still want to move."
+                              },
+                              {
+                                "san": "Qe2",
+                                "why": "The queen blocks her own bishop on f1. You cannot develop it now without moving the queen a second time, which costs you a move and breaks the rule about moving pieces twice."
+                              },
+                              {
+                                "san": "a3",
+                                "why": "A rook's pawn move while two minor pieces are at home and your king is in the centre. It takes no central square, develops nothing, and does not help your king."
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "san": "Nc3",
+                    "quality": "ok",
+                    "why": "Develops toward the centre. Perfectly good, though it does not attack anything yet."
+                  },
+                  {
+                    "san": "d4",
+                    "quality": "ok",
+                    "why": "A second central pawn, immediately. Sound and aggressive."
+                  },
+                  {
+                    "san": "f4",
+                    "quality": "ok",
+                    "why": "The King's Gambit — a real opening and a genuine fight. It breaks the habits deliberately, which is fine once you know what you are giving up. Not what this drill is teaching."
+                  }
+                ],
+                "mistakes": [
+                  {
+                    "san": "Qh5",
+                    "why": "The Wayward Queen. Everything Black plays from here develops a piece and attacks her, so you spend the opening running away. There is a whole lesson on this in Tier 1."
+                  },
+                  {
+                    "san": "Nh3",
+                    "why": "A knight on the rim touches four squares instead of eight, and it does nothing about the centre. Knights belong on f3 and c3."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "d4",
+        "quality": "ok",
+        "why": "Equally good. Takes a central square, opens the dark-squared bishop, and leads to quieter positions."
+      },
+      {
+        "san": "Nf3",
+        "quality": "ok",
+        "why": "Develop first, decide the pawn structure later. Flexible and completely sound."
+      },
+      {
+        "san": "c4",
+        "quality": "ok",
+        "why": "The English. It controls d5 from a distance rather than occupying the centre — a different but legitimate way to fight for the same squares."
+      }
+    ],
+    "mistakes": [
+      {
+        "san": "h4",
+        "why": "A rook's pawn takes no central squares, develops nothing, and weakens the squares around where your king is going to live. Ask of every opening move: centre, piece, or king safety? This is none of the three."
+      },
+      {
+        "san": "Nh3",
+        "why": "A knight on the rim. From h3 it touches four squares; from f3 it touches eight and attacks the centre."
+      },
+      {
+        "san": "a4",
+        "why": "Same problem as h4 — it does not fight for the centre, it does not develop, and it does not help your king. In the opening that is a move handed to your opponent."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Learn the habits"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Ten moves, no help"
+    }
+  ],
+  "related": [
+    "opening-principles"
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "Nc6",
+      "Bd3"
+    ],
+    "prompt": "White has just played Bd3. Which habit does it break?",
+    "choices": [
+      {
+        "text": "It blocks a pawn White still wants to move",
+        "correct": true,
+        "why": "The bishop now stands directly in front of the unmoved d-pawn. That pawn cannot advance without the bishop moving again, so the bishop will spend the game looking at its own pawn. Bc4 does the same job on a diagonal that is actually open."
+      },
+      {
+        "text": "It develops a bishop before a knight",
+        "correct": false,
+        "why": "Both knights are already out, so that rule is satisfied. The problem is the square, not the order."
+      },
+      {
+        "text": "It brings the queen out early",
+        "correct": false,
+        "why": "The queen has not moved. This is about the bishop."
+      },
+      {
+        "text": "Nothing — d3 is a normal square for that bishop",
+        "correct": false,
+        "why": "It is a normal square once the d-pawn has moved. With the pawn still on d2 it is a self-inflicted traffic jam."
+      }
+    ]
+  }
+}

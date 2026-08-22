@@ -1,0 +1,207 @@
+{
+  "id": "outpost-plan",
+  "title": "Winning the Outpost",
+  "tier": 3,
+  "side": "white",
+  "eco": "B90",
+  "idea": "Black has played e5 and a6, and in doing so has made a permanent hole on d5. A knight there would be untouchable — no pawn can ever attack it. But d5 is currently guarded by the knight on f6, so the plan is three moves long: trade off the defender, then occupy the square. Manoeuvring for a square rather than a piece is the thing that most separates a club player from a strong one.",
+  "cues": [
+    {
+      "text": "Black's pawns on e5 and a6 mean no black pawn can ever attack d5 or b5 again.",
+      "squares": [
+        "e5",
+        "a6",
+        "d5",
+        "b5"
+      ]
+    },
+    {
+      "text": "The only thing defending d5 is the knight on f6.",
+      "squares": [
+        "f6",
+        "d5"
+      ]
+    },
+    {
+      "text": "Your bishop on c1 can reach g5, where it attacks that defender.",
+      "squares": [
+        "c1",
+        "g5",
+        "f6"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "c5",
+      "Nf3",
+      "d6",
+      "d4",
+      "cxd4",
+      "Nxd4",
+      "Nf6",
+      "Nc3",
+      "a6",
+      "Be2",
+      "e5",
+      "Nb3",
+      "Be7",
+      "O-O",
+      "O-O"
+    ],
+    "prompt": "Black has pawns on e5 and a6. What have those two moves cost him?",
+    "choices": [
+      {
+        "text": "d5 is a permanent hole",
+        "correct": true,
+        "why": "With the e-pawn on e5 and the c-pawn long gone, no black pawn can ever attack d5. A knight there is safe forever, which is why the entire plan is about getting one to that square."
+      },
+      {
+        "text": "The e5 pawn is weak and can be won",
+        "correct": false,
+        "why": "It is defended and hard to attack. The square matters more than the pawn."
+      },
+      {
+        "text": "Black's king is exposed",
+        "correct": false,
+        "why": "The king is fine. This is a structural weakness, not a tactical one."
+      },
+      {
+        "text": "Nothing — both are useful moves",
+        "correct": false,
+        "why": "They are useful moves, and they still cost a square permanently. Every pawn move does."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Trade off the knight on f6, because it is the only defender of d5.",
+      "hard": true
+    },
+    {
+      "goal": "Then put a knight on d5 and leave it there."
+    },
+    {
+      "goal": "Do not push a pawn that would let Black challenge the square."
+    }
+  ],
+  "setup": [
+    "e4",
+    "c5",
+    "Nf3",
+    "d6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nf6",
+    "Nc3",
+    "a6",
+    "Be2",
+    "e5",
+    "Nb3",
+    "Be7",
+    "O-O",
+    "O-O"
+  ],
+  "line": {
+    "threat": "Nothing hangs. There is a hole on d5 and one black piece defending it.",
+    "focusSquares": [
+      "d5",
+      "f6"
+    ],
+    "hints": [
+      "You want a knight on d5. Something is stopping you.",
+      "Attack the defender rather than the square.",
+      "Bishop to g5, hitting the knight on f6."
+    ],
+    "moves": [
+      {
+        "san": "Bg5",
+        "quality": "best",
+        "why": "Attacks the only piece defending d5. You are not developing for its own sake — you are removing a guard.",
+        "then": {
+          "moves": [
+            {
+              "san": "Be6",
+              "quality": "best",
+              "why": "Black contests d5 with a piece instead, which is the right idea but not enough.",
+              "then": {
+                "hints": [
+                  "Carry out what Bg5 was for.",
+                  "Remove the defender, even though it means giving up a bishop for a knight.",
+                  "Take on f6."
+                ],
+                "moves": [
+                  {
+                    "san": "Bxf6",
+                    "quality": "best",
+                    "why": "Trading a bishop for a knight looks like a small concession and is not. In a position with a permanent hole, the knight that guards it is worth more than the bishop that removes it.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Bxf6",
+                          "quality": "best",
+                          "why": "Black recaptures, and d5 is now defended only by the bishop on e6.",
+                          "then": {
+                            "hints": [
+                              "The square is yours. Take it.",
+                              "Which knight can reach d5?",
+                              "Knight to d5."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Nd5",
+                                "quality": "best",
+                                "why": "The outpost is occupied. Black can trade the bishop for it, but then you simply recapture with a pawn and the square stays yours — and the knight cannot be driven off by anything.",
+                                "then": {
+                                  "terminal": {
+                                    "verdict": "pass",
+                                    "summary": "Three moves, one idea: find the square no pawn can ever attack, remove whatever defends it, and put a knight there. Nothing was captured for profit and no tactic was calculated. This is the manoeuvre to reach for when you look at a quiet position and do not know what to do — there is almost always a hole somewhere, and working out which of your pieces can get to it is a real plan."
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "Be3",
+        "quality": "ok",
+        "why": "Solid development, but it does nothing about the knight on f6, so the outpost stays guarded."
+      },
+      {
+        "san": "a4",
+        "quality": "ok",
+        "why": "Stops b5 and takes another square from Black. Useful, and slower than going straight for the plan."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Learn the manoeuvre"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Find it cold"
+    }
+  ],
+  "related": [
+    "outposts-and-holes"
+  ]
+}

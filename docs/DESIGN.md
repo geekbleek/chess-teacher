@@ -179,6 +179,13 @@ trees, and the FEN index is built when the app loads.
 transpositions still land on the right node — the benefit of the original design without
 the hand-typed keys.
 
+### 4.1a Starting a drill deeper in the tree
+
+A drill may set `from`, a list of SAN moves from the lesson root, and start there.
+Written for the Elephant Trap — the interesting moment is seven plies into a branch,
+and a drill that only reaches it if the learner happens to pick a sideline is not a
+drill. CI checks that `from` actually follows the tree.
+
 ### 4.2 Who plays the other side
 
 The opponent is a **book**, not an engine — by design.
@@ -368,7 +375,8 @@ Portrait, one thumb, no scrolling during play.
 ```
 
 - Board fills the width; everything else is below it and reachable.
-- Haptic tick on legal move, buzz on a rejected move.
+- No haptics. `navigator.vibrate` is unimplemented in iOS Safari, so the tick-on-move
+  idea in the original sketch would have been dead code on the target platform.
 - Overlays use **square tints and target-square dots**, deliberately *not* move
   arrows — arrows give away moves, which is exactly what you asked it not to do.
 - Dark by default, `prefers-color-scheme` aware.
@@ -385,7 +393,7 @@ Portrait, one thumb, no scrolling during play.
 | 4 ✅ | Learn mode with the hint ladder. |
 | 5 ✅ | Test mode + Replay with the metric strip. |
 | 6 ✅ | Progress + SM-2 scheduling + home screen. |
-| 7 | More Tier 1 lessons; drillable Tier 2 and Tier 3 (both currently articles). |
+| 7 ✅ | Tier 1 filled out, and Tier 2 and Tier 3 made drillable as well as readable. |
 
 Phases 1–3 are the real work. After that, adding content is writing JSON.
 

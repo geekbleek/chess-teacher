@@ -1,0 +1,238 @@
+{
+  "id": "minority-attack-plan",
+  "title": "Executing the Minority Attack",
+  "tier": 3,
+  "side": "white",
+  "eco": "D35",
+  "idea": "The Carlsbad structure, and the plan that comes with it. You have two pawns against three on the queenside and you attack there anyway, because the goal is not material — it is to force a permanent weakness on c6 and then spend the rest of the game attacking it. Four moves, in a specific order, and none of them are tactics. This is what having a plan on move twelve actually looks like.",
+  "cues": [
+    {
+      "text": "White pawns on a2 and b2 against black pawns on a7, b7 and c6. Fewer pawns, attacking anyway.",
+      "squares": [
+        "a2",
+        "b2",
+        "c6"
+      ]
+    },
+    {
+      "text": "The c-file is half open for you and Black's c6 pawn sits on it.",
+      "squares": [
+        "c6"
+      ]
+    },
+    {
+      "text": "Black's pawn on d5 fixes the structure, so the weakness you create cannot be undone.",
+      "squares": [
+        "d5"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "d4",
+      "d5",
+      "c4",
+      "e6",
+      "Nc3",
+      "Nf6",
+      "cxd5",
+      "exd5",
+      "Bg5",
+      "c6",
+      "e3",
+      "Be7",
+      "Bd3",
+      "O-O",
+      "Nge2",
+      "Nbd7",
+      "O-O",
+      "Re8"
+    ],
+    "prompt": "You have two queenside pawns against three. What are you playing for?",
+    "choices": [
+      {
+        "text": "To force a backward pawn on c6 by playing b4-b5",
+        "correct": true,
+        "why": "Push b5 and Black must either take, leaving a backward c-pawn on a half-open file, or allow bxc6, which leaves the same weakness. It cannot be repaired by a pawn, so it is a target for the rest of the game."
+      },
+      {
+        "text": "To win a pawn on the queenside",
+        "correct": false,
+        "why": "You are outnumbered there. Material is not the goal — the structural concession is."
+      },
+      {
+        "text": "To attack the king",
+        "correct": false,
+        "why": "That is Black's plan in this structure, not yours. Your play is on the other wing."
+      },
+      {
+        "text": "To trade everything and reach an endgame",
+        "correct": false,
+        "why": "The endgame is where the weakness pays off, but you have to create it first."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Prepare b4 with a3, then push b4-b5 to hit c6.",
+      "hard": true
+    },
+    {
+      "goal": "Put a rook on b1 before pushing, so the file opens onto something."
+    },
+    {
+      "goal": "Do not open the centre — the frozen d5 pawn is what makes the weakness permanent."
+    }
+  ],
+  "setup": [
+    "d4",
+    "d5",
+    "c4",
+    "e6",
+    "Nc3",
+    "Nf6",
+    "cxd5",
+    "exd5",
+    "Bg5",
+    "c6",
+    "e3",
+    "Be7",
+    "Bd3",
+    "O-O",
+    "Nge2",
+    "Nbd7",
+    "O-O",
+    "Re8"
+  ],
+  "line": {
+    "threat": "Nothing is threatened by either side. This is the moment club players drift and strong players start a plan.",
+    "focusSquares": [
+      "b2",
+      "b4",
+      "c6"
+    ],
+    "hints": [
+      "Your play is on the queenside, and it starts with a pawn you have not moved.",
+      "You want b4 next, but it needs support first.",
+      "Play a3."
+    ],
+    "moves": [
+      {
+        "san": "a3",
+        "quality": "best",
+        "why": "The quiet start. It supports b4 so the pawn cannot be met by a piece landing there, and it commits to nothing else.",
+        "then": {
+          "moves": [
+            {
+              "san": "Nf8",
+              "quality": "best",
+              "why": "Black regroups toward the kingside, which is where his counterplay lives.",
+              "then": {
+                "hints": [
+                  "Continue the plan.",
+                  "The pawn a3 was preparing.",
+                  "Push b4."
+                ],
+                "moves": [
+                  {
+                    "san": "b4",
+                    "quality": "best",
+                    "why": "The minority advances. Next comes b5, and Black cannot stop it with pawns without creating a different weakness.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Ng6",
+                          "quality": "best",
+                          "why": "Black brings the knight toward the kingside.",
+                          "then": {
+                            "hints": [
+                              "Before the final push, put a piece behind it.",
+                              "Which file are you about to open?",
+                              "Rook to b1."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Rb1",
+                                "quality": "best",
+                                "why": "The rook takes the file before it opens. This is the move club players skip, and it is the difference between a plan and a pawn push.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Bd6",
+                                      "quality": "best",
+                                      "why": "Black eyes the kingside and waits.",
+                                      "then": {
+                                        "hints": [
+                                          "Now execute.",
+                                          "Hit c6.",
+                                          "Push b5."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "b5",
+                                            "quality": "best",
+                                            "why": "There it is. Whatever Black does, c6 ends up backward on a half-open file with your rook already looking at it.",
+                                            "then": {
+                                              "terminal": {
+                                                "verdict": "pass",
+                                                "summary": "Four quiet moves and Black has a weakness that cannot be repaired for the rest of the game. Notice what you did not do: no tactics, no calculation, no attack on the king. You looked at the pawn structure, identified the one concession you could force, and spent four moves forcing it. That is the whole skill. The follow-up is mechanical — trade off the defenders, double on the c-file, and win the pawn or the endgame it produces."
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "mistakes": [
+                  {
+                    "san": "e4",
+                    "why": "Breaking in the centre throws away the entire plan. The frozen d5 pawn is what makes c6 a permanent target — release the tension and Black's pieces come alive and there is no weakness to attack."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "Rb1",
+        "quality": "ok",
+        "why": "Rook first is also fine. The order of a3 and Rb1 is flexible; what matters is that both happen before b4-b5."
+      },
+      {
+        "san": "Qc2",
+        "quality": "inferior",
+        "why": "A reasonable developing move that does not advance the plan. In a position with no tactics, a move that does not serve the plan is a wasted move."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Learn the plan"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Execute it cold"
+    }
+  ],
+  "related": [
+    "minority-attack",
+    "open-files-and-the-seventh"
+  ]
+}

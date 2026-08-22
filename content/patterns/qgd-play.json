@@ -1,0 +1,337 @@
+{
+  "id": "qgd-play",
+  "title": "Playing the Queen's Gambit Declined",
+  "tier": 2,
+  "side": "black",
+  "eco": "D35",
+  "idea": "Your answer to 1.d4. You hold the centre with d5 and support it with e6, accepting that the light-squared bishop will need a plan later in exchange for a position nobody can knock over. Two things to get right: the gambit is not really a gambit, so do not try to keep the c4 pawn; and when White pins your knight with Bg5, know that grabbing on d5 is a trap White can fall into as well as you.",
+  "cues": [
+    {
+      "text": "1.d4 d5 2.c4 — White offers the c-pawn. It is a loan, not a gift.",
+      "squares": [
+        "c4",
+        "d5"
+      ]
+    },
+    {
+      "text": "e6 supports d5 and shuts in the c8 bishop. That bishop is the piece you will need a plan for.",
+      "squares": [
+        "e6",
+        "c8"
+      ]
+    },
+    {
+      "text": "Bg5 pins your knight against the queen. That pin cuts both ways.",
+      "squares": [
+        "g5",
+        "f6",
+        "d8"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "d4",
+      "d5",
+      "c4"
+    ],
+    "prompt": "White has played the Queen's Gambit. Can you keep the pawn?",
+    "choices": [
+      {
+        "text": "No — and trying to hold it loses material",
+        "correct": true,
+        "why": "After dxc4 White plays e3 and if you defend with b5, a4 breaks it up and wins the pawn back with interest. You can take on c4 later as part of a plan to develop the bishop, but never to keep it."
+      },
+      {
+        "text": "Yes, defend it with b5",
+        "correct": false,
+        "why": "a4 hits the b5 pawn immediately and the whole chain collapses. This is the single most common beginner mistake against the Queen's Gambit."
+      },
+      {
+        "text": "Yes, it is a genuine sacrifice",
+        "correct": false,
+        "why": "It is called a gambit for historical reasons. White always regains the pawn if he wants it."
+      },
+      {
+        "text": "Only if you play c6 first",
+        "correct": false,
+        "why": "c6 then dxc4 is a real system — the Slav — but it is a plan for development, not a way to keep material."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Hold the centre with d5 and e6. Do not chase the c4 pawn.",
+      "hard": true
+    },
+    {
+      "goal": "Have a plan for the light-squared bishop before you need one."
+    },
+    {
+      "goal": "Know that a knight capture on d5 can be met by taking back and winning a piece."
+    }
+  ],
+  "setup": [
+    "d4"
+  ],
+  "line": {
+    "threat": "White has taken the centre with the queen's pawn. Meet it head on.",
+    "focusSquares": [
+      "d4",
+      "d5"
+    ],
+    "hints": [
+      "Contest the centre directly rather than around it.",
+      "Mirror the move.",
+      "Play d5."
+    ],
+    "moves": [
+      {
+        "san": "d5",
+        "quality": "best",
+        "why": "Stakes an equal claim in the centre and stops e4. The most principled reply there is.",
+        "then": {
+          "moves": [
+            {
+              "san": "c4",
+              "quality": "best",
+              "why": "The Queen's Gambit. White offers the pawn to deflect yours from the centre.",
+              "then": {
+                "threat": "The c4 pawn is free to take. It is bait — not because you get mated, but because you cannot hold it.",
+                "focusSquares": [
+                  "c4",
+                  "d5",
+                  "e6"
+                ],
+                "hints": [
+                  "You can take the pawn. Ask whether you can keep it.",
+                  "Decline, and support d5 with a pawn instead.",
+                  "Play e6 — accepting that it shuts in one bishop."
+                ],
+                "moves": [
+                  {
+                    "san": "e6",
+                    "quality": "best",
+                    "why": "Declining. d5 is now rock solid, your dark-squared bishop is free, and you have a known problem with the other one that you will solve deliberately later.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Nc3",
+                          "quality": "best",
+                          "why": "White develops and adds pressure to d5.",
+                          "then": {
+                            "hints": [
+                              "Develop toward the centre and add a defender to d5.",
+                              "The king's knight.",
+                              "Knight to f6."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Nf6",
+                                "quality": "best",
+                                "why": "Defends d5 a third time and develops. Standard and correct.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Bg5",
+                                      "quality": "best",
+                                      "why": "White pins the knight against your queen, hoping to weaken d5.",
+                                      "then": {
+                                        "threat": "Your f6 knight is pinned to the queen, which means it is not really defending d5 any more.",
+                                        "focusSquares": [
+                                          "g5",
+                                          "f6",
+                                          "d5"
+                                        ],
+                                        "hints": [
+                                          "Break the pin, or make it harmless.",
+                                          "A piece that blocks the g5-d8 diagonal solves it and develops at the same time.",
+                                          "Bishop to e7."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "Be7",
+                                            "quality": "best",
+                                            "why": "Blocks the pin, develops, and prepares to castle. The main line for a hundred years, because it is simply the most sensible move.",
+                                            "then": {
+                                              "moves": [
+                                                {
+                                                  "san": "e3",
+                                                  "quality": "best",
+                                                  "why": "White solidifies and opens his bishop.",
+                                                  "then": {
+                                                    "hints": [
+                                                      "You have three pieces out and a safe structure. Do the obvious thing.",
+                                                      "The king.",
+                                                      "Castle."
+                                                    ],
+                                                    "moves": [
+                                                      {
+                                                        "san": "O-O",
+                                                        "quality": "best",
+                                                        "why": "King safe, rook connected, no weaknesses anywhere. The opening has done its job.",
+                                                        "then": {
+                                                          "moves": [
+                                                            {
+                                                              "san": "Nf3",
+                                                              "quality": "best",
+                                                              "why": "White completes development.",
+                                                              "then": {
+                                                                "terminal": {
+                                                                  "verdict": "pass",
+                                                                  "summary": "A textbook Queen's Gambit Declined. Nothing is weak, nothing is loose, and you have a clear next job: solve the c8 bishop, usually with b6 and Bb7, or with dxc4 followed by b5 and Bb7. If White ever plays cxd5 exd5 you get the Carlsbad structure and the minority attack becomes the story of the game — which is the next thing to learn."
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "san": "Nbd7",
+                                            "quality": "ok",
+                                            "why": "Also playable, and it sets a famous trap: it looks like d5 is now hanging, and it is not.",
+                                            "then": {
+                                              "moves": [
+                                                {
+                                                  "san": "cxd5",
+                                                  "quality": "best",
+                                                  "why": "White opens the position and eyes the d5 pawn.",
+                                                  "then": {
+                                                    "hints": [
+                                                      "Recapture toward the centre.",
+                                                      "The e-pawn.",
+                                                      "Play exd5."
+                                                    ],
+                                                    "moves": [
+                                                      {
+                                                        "san": "exd5",
+                                                        "quality": "best",
+                                                        "why": "Recapture, and now d5 is attacked twice and defended twice — with the f6 knight apparently pinned. White has a decision to make.",
+                                                        "then": {
+                                                          "threat": "White can take on d5 with the knight. It looks like it wins a pawn, because your knight on f6 is pinned.",
+                                                          "focusSquares": [
+                                                            "d5",
+                                                            "f6",
+                                                            "g5",
+                                                            "d8"
+                                                          ],
+                                                          "moves": [
+                                                            {
+                                                              "san": "Nf3",
+                                                              "quality": "best",
+                                                              "why": "White develops sensibly and avoids the trap.",
+                                                              "then": {
+                                                                "terminal": {
+                                                                  "verdict": "pass",
+                                                                  "summary": "A normal Carlsbad structure, and you know something your opponent may not: taking on d5 with the knight loses a piece to the Elephant Trap. Keep it in your pocket."
+                                                                }
+                                                              }
+                                                            }
+                                                          ],
+                                                          "mistakes": [
+                                                            {
+                                                              "san": "Nxd5",
+                                                              "why": "The Elephant Trap. The pin is an illusion — you take back with the knight anyway, and after Bxd8 comes Bb4+, winning the queen back with check and leaving you a whole piece up. The pinned piece could move because moving it created a bigger threat than the queen.",
+                                                              "punish": [
+                                                                "Nxd5",
+                                                                "Bxd8",
+                                                                "Bb4+",
+                                                                "Qd2",
+                                                                "Bxd2+",
+                                                                "Kxd2",
+                                                                "Kxd8"
+                                                              ]
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "san": "c6",
+                    "quality": "ok",
+                    "why": "The Slav. Supports d5 without shutting in the bishop, and it is an excellent alternative — just a different lesson."
+                  }
+                ],
+                "mistakes": [
+                  {
+                    "san": "dxc4",
+                    "why": "Taking is fine as part of a plan, but taking in order to keep the pawn is not. White plays e3, and when you defend with b5 the move a4 tears the whole thing apart — you end up with a wrecked queenside and no extra pawn.",
+                    "punish": [
+                      "e3",
+                      "b5",
+                      "a4"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "Nf6",
+        "quality": "ok",
+        "why": "Flexible, and it can transpose to almost anything — the Indian defences. Sound, but a bigger world to learn."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Walk through the set-up"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Play it from memory"
+    },
+    {
+      "id": "elephant",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "mistakes",
+      "label": "Punish the Elephant Trap",
+      "from": [
+        "d5",
+        "c4",
+        "e6",
+        "Nc3",
+        "Nf6",
+        "Bg5",
+        "Nbd7"
+      ]
+    }
+  ],
+  "related": [
+    "queens-gambit-declined",
+    "minority-attack"
+  ]
+}

@@ -8,8 +8,35 @@
       "heading": "Rooks are useless until a file opens",
       "body": "In the opening a rook does nothing, which is why the principles tell you to castle and connect them and then leave them alone. In the middlegame their entire value comes from files. A rook on an open file exerts pressure down the whole board; the same rook one square to the side is a spectator.",
       "diagram": {
-        "at": ["d4", "d5", "c4", "dxc4", "e3", "Nf6", "Bxc4", "e6", "Nf3", "c5", "O-O", "cxd4", "exd4", "Be7", "Nc3", "O-O", "Re1", "Nc6", "a3", "b6", "Bg5", "Bb7"],
-        "highlight": ["e1", "e6", "d4"],
+        "at": [
+          "d4",
+          "d5",
+          "c4",
+          "dxc4",
+          "e3",
+          "Nf6",
+          "Bxc4",
+          "e6",
+          "Nf3",
+          "c5",
+          "O-O",
+          "cxd4",
+          "exd4",
+          "Be7",
+          "Nc3",
+          "O-O",
+          "Re1",
+          "Nc6",
+          "a3",
+          "b6",
+          "Bg5",
+          "Bb7"
+        ],
+        "highlight": [
+          "e1",
+          "e6",
+          "d4"
+        ],
         "caption": "White's rook has taken the half-open e-file and points straight at e6. The isolated d-pawn is the price for exactly this kind of activity."
       }
     },
@@ -26,5 +53,8 @@
       "body": "Find the file that is open or half-open. Ask whether you can take it before your opponent does, because whoever gets there first usually keeps it. Double rooks if the file is contested. Then look for the seventh. That is a complete plan and you can execute it in most middlegames without calculating anything deep, which is the point — strategy is what you do when there is no tactic."
     }
   ],
-  "related": ["minority-attack", "isolated-queens-pawn"]
+  "related": [
+    "c-file-plan",
+    "minority-attack"
+  ]
 }

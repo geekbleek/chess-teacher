@@ -167,5 +167,8 @@
       "opponent": "best",
       "label": "Defend it as Black"
     }
+  ],
+  "related": [
+    "how-traps-work"
   ]
 }

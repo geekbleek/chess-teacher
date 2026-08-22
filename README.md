@@ -16,28 +16,36 @@ content model, and the static evaluator that does the teaching.
 
 ## Status
 
-Playable. Six drillable lessons, ten library articles, three modes, and progress that
-schedules itself.
+Complete through the build order. Eighteen drillable lessons and ten library
+articles across four stages, three modes, and progress that schedules itself.
 
-- **Library** — read first. Articles explain what a position wants; lessons show you
-  the position and judge what you do in it.
+| Stage | Read | Drill |
+| --- | --- | --- |
+| 0. Habits | The Five Habits | Ten Moves of Good Habits |
+| 1. Traps | How Opening Traps Actually Work | Scholar's Mate, Wayward Queen, Fried Liver, Legal's Mate, Blackburne Shilling, Fishing Pole, Englund Gambit, Danish Gambit, punishing 2...f6 |
+| 2. Repertoire | Italian, Caro-Kann, QGD | Playing each of the three |
+| 3. Structures | IQP, minority attack, outposts, good/bad bishops, open files | A plan drill for each |
+
+- **Library** — read first. Articles explain what a position wants; lessons drop you
+  into one and judge what you do. Every article links to the drills that practise it
+  and back again.
 - **Learn** — feedback after every move, and a four-step hint ladder that only reveals
   the move at the very end. Play a losing move and the refutation is played out on the
   board, then you rewind and try again.
 - **Test** — silence until something goes wrong, then it stops and replays the game
   back to you with the divergence marked and the measurement that collapsed flagged.
-- **Either side** — every trap can be played as the defender or as the attacker, where
-  the app deliberately plays the losing defences for you to punish.
+- **Either side** — a drill can set `opponent: "mistakes"` and the app will play the
+  losing moves for you to punish, so every trap is drillable from both sides.
 - **Free play** — no lesson, just the board and the Referee.
 
-Progress uses SM-2 spaced repetition. Failing a drill, or asking for the final hint,
-brings it back tomorrow.
+Progress uses SM-2 spaced repetition, on device. Failing a drill, or asking for the
+final hint, brings it back tomorrow.
 
 ```bash
 npm install
 npm run dev              # local dev server
-npm test                 # 84 unit tests
-npm run validate:content # replay every lesson through chess.js
+npm test                 # unit tests, including a sweep of every drill
+npm run validate:content # replays every lesson through chess.js
 npm run build            # typecheck + production build
 ```
 
@@ -51,8 +59,9 @@ npm run build            # typecheck + production build
 - `src/content/` — loads the lessons and builds a FEN index so transpositions work.
 - `content/patterns/` — lessons, authored as SAN move trees.
 - `content/library/` — articles.
-- `tools/validate-content.js` — the contract. Replays every lesson through `chess.js`
-  in CI, so an illegal line or a false mate claim cannot ship.
+- `tools/validate-content.js` — the contract, and the single source of truth for what
+  a lesson may contain. Run in CI so a broken line cannot ship.
+- `tools/line.js` — authoring helper: prints the position after each ply of a line.
 
 ## Deploying
 

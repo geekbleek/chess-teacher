@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { patternById } from '../content';
+import { patternById, patterns } from '../content';
 import { createDrill, opponentMove, playerMove, theirTurn, yourTurn, hint, rewind, bestMove } from './drill';
 import type { Drill, Pattern } from '../content/types';
 
@@ -132,20 +132,48 @@ describe('playing the attacking side', () => {
 });
 
 describe('every drill in the library', () => {
-  it('is playable to a conclusion by following the lesson', () => {
-    for (const p of [patternById('wayward-queen'), patternById('fried-liver-defense'), patternById('legals-mate'), patternById('blackburne-shilling'), patternById('damiano-punish')]) {
-      for (const drill of p!.drills) {
-        let s = createDrill(p!, drill);
-        for (let guard = 0; guard < 40 && s.status === 'playing'; guard++) {
-          if (theirTurn(s)) {
-            s = opponentMove(s);
-            continue;
+  // A sweep, not a sample: every drill of every lesson, played by always taking the
+  // move the lesson calls best. Content that cannot be completed -- a dangling
+  // branch, a punishment that never resolves -- fails here rather than on a phone.
+  it(
+    'is playable to a pass, and offers a punishment in every punish drill',
+    () => {
+      for (const pattern of patterns) {
+        for (const drill of pattern.drills) {
+          let s = createDrill(pattern, drill);
+          let sawScript = false;
+          for (let guard = 0; guard < 80 && s.status === 'playing'; guard++) {
+            if (theirTurn(s)) {
+              s = opponentMove(s);
+              sawScript ||= s.script !== null;
+              continue;
+            }
+            const expected = s.script ? s.script[s.scriptIndex] : bestMove(s)?.san;
+            if (!expected) break;
+            s = playerMove(s, expected);
           }
-          const expected = s.script ? s.script[s.scriptIndex] : bestMove(s)?.san;
-          if (!expected) break;
-          s = playerMove(s, expected);
+          const id = `${pattern.id}/${drill.id}`;
+          expect(`${id}: ${s.status}`).toBe(`${id}: passed`);
+          if (drill.opponent === 'mistakes') {
+            // The app must actually play a losing move somewhere, or the drill is
+            // silently identical to an ordinary one.
+            expect(`${id}: ${sawScript ? 'punishable' : 'never offered a mistake'}`).toBe(
+              `${id}: punishable`,
+            );
+          }
         }
-        expect(`${p!.id}/${drill.id}: ${s.status}`).toBe(`${p!.id}/${drill.id}: passed`);
+      }
+    },
+    30_000,
+  );
+
+  it('starts every drill with a legal side to move', () => {
+    for (const pattern of patterns) {
+      for (const drill of pattern.drills) {
+        const s = createDrill(pattern, drill);
+        expect(`${pattern.id}/${drill.id}`).toBe(
+          yourTurn(s) || theirTurn(s) ? `${pattern.id}/${drill.id}` : 'nobody to move',
+        );
       }
     }
   });

@@ -1,0 +1,224 @@
+{
+  "id": "fishing-pole",
+  "title": "The Fishing Pole (Ng4 and h5)",
+  "tier": 1,
+  "side": "white",
+  "eco": "C65",
+  "idea": "Black hangs a knight on g4 for no visible reason. Poke it with h3 and Black does not retreat — instead the h-pawn comes to h5, offering the knight again. Take it and the h-file opens straight onto your castled king, with the g4 pawn as a battering ram. The whole trap depends on you grabbing the piece. The refutation is to notice that the knight was never really the point, and to take the pawn in the centre instead.",
+  "cues": [
+    {
+      "text": "A black knight arrives on g4 with nothing defending it and nothing obvious attacked.",
+      "squares": [
+        "g4"
+      ]
+    },
+    {
+      "text": "You play h3 and Black answers h5 rather than retreating. That is not a blunder, it is an invitation.",
+      "squares": [
+        "h3",
+        "h5"
+      ]
+    },
+    {
+      "text": "Your king is castled behind h2 and g2, and the h-file is one capture away from opening.",
+      "squares": [
+        "g1",
+        "h2",
+        "h1"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "Nc6",
+      "Bb5",
+      "Nf6",
+      "O-O",
+      "Ng4",
+      "h3",
+      "h5"
+    ],
+    "prompt": "You attacked the knight with h3 and Black played h5 instead of moving it. Why?",
+    "choices": [
+      {
+        "text": "Taking the knight rips open the h-file at your king",
+        "correct": true,
+        "why": "After hxg4 hxg4 the h-file is open, your knight on f3 has to move, and the black queen comes to h4 with a mating attack that you cannot meet."
+      },
+      {
+        "text": "Black has simply blundered a piece",
+        "correct": false,
+        "why": "That is what the trap needs you to think. The knight is offered twice on purpose."
+      },
+      {
+        "text": "Black is threatening Nxf2",
+        "correct": false,
+        "why": "Nxf2 would just lose the knight to your rook. The threat is the file, not the fork."
+      },
+      {
+        "text": "Black wants to trade knights",
+        "correct": false,
+        "why": "Nothing is being traded — the knight is being given away to open a line."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Do not open a file toward your own king to win a piece.",
+      "hard": true
+    },
+    {
+      "goal": "When a piece is offered twice, the offer is the plan. Ask what opens if you take."
+    },
+    {
+      "goal": "Answer a wing attack with a strike in the centre."
+    }
+  ],
+  "setup": [
+    "e4",
+    "e5",
+    "Nf3",
+    "Nc6",
+    "Bb5",
+    "Nf6",
+    "O-O",
+    "Ng4"
+  ],
+  "line": {
+    "threat": "Nothing yet. Black's knight on g4 is undefended and attacking nothing important — which should make you suspicious rather than hungry.",
+    "focusSquares": [
+      "g4",
+      "h2",
+      "g1"
+    ],
+    "hints": [
+      "The knight is loose. Before you work out how to win it, ask why it is there.",
+      "Chasing it is fine. The question is what you do when it refuses to move.",
+      "Ask it the question with the h-pawn and see what happens."
+    ],
+    "moves": [
+      {
+        "san": "h3",
+        "quality": "best",
+        "why": "Perfectly good — you should ask the knight what it is doing. The mistake comes one move later, not now.",
+        "then": {
+          "moves": [
+            {
+              "san": "h5",
+              "quality": "best",
+              "why": "Black offers the knight a second time. This is the moment the trap either works or does not.",
+              "then": {
+                "threat": "The knight on g4 is hanging and defended by nothing. Taking it opens the h-file directly onto your king.",
+                "focusSquares": [
+                  "g4",
+                  "h5",
+                  "h1"
+                ],
+                "hints": [
+                  "Count what opens if you capture, not what you win.",
+                  "Your king sits on the file that is about to open. Find something better to do.",
+                  "There is a free pawn in the centre, and taking it also removes a defender."
+                ],
+                "moves": [
+                  {
+                    "san": "Nxe5",
+                    "quality": "best",
+                    "why": "Take the pawn in the centre instead. Your knight leaves f3 with tempo, the h-file stays shut, and now the knight on g4 really is just hanging.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Ngxe5",
+                          "quality": "best",
+                          "why": "Black recaptures with the loose knight, which is the only way to save it.",
+                          "then": {
+                            "moves": [
+                              {
+                                "san": "d4",
+                                "quality": "best",
+                                "why": "Fork the knight and open your position. The attack never existed.",
+                                "then": {
+                                  "terminal": {
+                                    "verdict": "pass",
+                                    "summary": "You declined the piece and took the centre instead, and Black has nothing. The transferable rule is worth more than the line: a piece offered twice is not a gift, it is a lever. Before any capture near your own king, ask which file or diagonal opens — and if the answer points at your king, find another move."
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "san": "d4",
+                    "quality": "ok",
+                    "why": "Ignore the whole thing and hit the centre. Also completely sound — the g4 knight is not doing anything."
+                  },
+                  {
+                    "san": "Bxc6",
+                    "quality": "inferior",
+                    "why": "Trading first is playable but it helps Black's structure and does nothing about the knight."
+                  }
+                ],
+                "mistakes": [
+                  {
+                    "san": "hxg4",
+                    "why": "The bite. Once the h-file opens the attack plays itself: the pawn recaptures, your knight on f3 is attacked and has to run, the queen arrives on h4, and the g-pawn walks down to strangle the corner. This is why the knight was offered twice.",
+                    "punish": [
+                      "hxg4",
+                      "Ne1",
+                      "Qh4",
+                      "f4",
+                      "g3",
+                      "Nf3",
+                      "Qh1#"
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "d4",
+        "quality": "ok",
+        "why": "Strike in the centre and let the knight sit there. Sound, and it sidesteps the whole idea."
+      },
+      {
+        "san": "Bxc6",
+        "quality": "inferior",
+        "why": "Playable, but it releases the tension for no reason and leaves the knight where it is."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Learn to refuse it"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Refuse it cold"
+    },
+    {
+      "id": "trap",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "mistakes",
+      "label": "Cast the pole yourself"
+    }
+  ],
+  "related": [
+    "how-traps-work"
+  ]
+}

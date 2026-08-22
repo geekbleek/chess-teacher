@@ -53,24 +53,7 @@ function ArticleView({ article }: { article: Article }) {
         </section>
       ))}
 
-      {article.related && article.related.length > 0 && (
-        <section>
-          <h2 class="section">Next</h2>
-          {article.related.map((id) => {
-            const target = byId.get(id);
-            if (!target) return null;
-            return (
-              <button key={id} type="button" class="row" onClick={() => go(`#/e/${id}`)}>
-                <span class="row-main">
-                  <strong>{target.title}</strong>
-                  <small>{target.kind === 'article' ? target.summary : target.idea.slice(0, 90) + '…'}</small>
-                </span>
-                <span class="row-tag">{target.kind}</span>
-              </button>
-            );
-          })}
-        </section>
-      )}
+      <Related ids={article.related} heading="Practise it" />
 
       <button
         type="button"
@@ -187,7 +170,30 @@ function PatternView({ pattern }: { pattern: Pattern }) {
           ))}
         </>
       )}
+
+      <Related ids={pattern.related} heading="Read alongside" />
     </div>
+  );
+}
+
+function Related({ ids, heading }: { ids?: string[]; heading: string }) {
+  const targets = (ids ?? []).map((id) => byId.get(id)).filter(Boolean);
+  if (targets.length === 0) return null;
+  return (
+    <section>
+      <h2 class="section">{heading}</h2>
+      {targets.map((target) => (
+        <button key={target!.id} type="button" class="row" onClick={() => go(`#/e/${target!.id}`)}>
+          <span class="row-main">
+            <strong>{target!.title}</strong>
+            <small>
+              {target!.kind === 'article' ? target!.summary : `${target!.idea.slice(0, 90)}…`}
+            </small>
+          </span>
+          <span class="row-tag">{target!.kind === 'article' ? 'read' : 'drill'}</span>
+        </button>
+      ))}
+    </section>
   );
 }
 

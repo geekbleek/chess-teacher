@@ -12,8 +12,24 @@
       "heading": "1. Fight for the centre",
       "body": "The four squares d4, e4, d5 and e5 are worth more than any others, because a piece in the centre touches more squares and can get anywhere quickly. Occupying them with pawns is the strongest form of control; attacking them with pieces from a distance is the flexible form. Both count. A knight on the rim touches four squares; the same knight in the centre touches eight.",
       "diagram": {
-        "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "O-O", "Nf6", "d3", "O-O"],
-        "highlight": ["d4", "e4", "d5", "e5"],
+        "at": [
+          "e4",
+          "e5",
+          "Nf3",
+          "Nc6",
+          "Bc4",
+          "Bc5",
+          "O-O",
+          "Nf6",
+          "d3",
+          "O-O"
+        ],
+        "highlight": [
+          "d4",
+          "e4",
+          "d5",
+          "e5"
+        ],
         "caption": "A normal Italian. Both sides have a pawn in the centre and every developed piece points at the four central squares."
       }
     },
@@ -29,8 +45,14 @@
       "heading": "4. Bring the queen out late",
       "body": "The queen is the most valuable piece and therefore the easiest to attack. Every time an opponent develops a piece with an attack on your queen, they get a free move and you get nothing. This is the whole content of the Wayward Queen lesson: White's queen sortie is not refuted by a clever idea, it is refuted by developing normally and letting her be chased.",
       "diagram": {
-        "at": ["e4", "e5", "Qh5"],
-        "highlight": ["h5"],
+        "at": [
+          "e4",
+          "e5",
+          "Qh5"
+        ],
+        "highlight": [
+          "h5"
+        ],
         "caption": "2.Qh5. Every black developing move from here also attacks or restricts the queen, so White is effectively playing a move behind."
       }
     },
@@ -43,5 +65,8 @@
       "body": "Read this once, then stop reading and start drilling. The habits only become automatic through the Test drills, where nobody tells you anything until you have already gone wrong. Start with the Tier 1 traps: they are the fastest way to make these five rules feel like consequences rather than commandments."
     }
   ],
-  "related": ["scholars-mate-defense", "wayward-queen"]
+  "related": [
+    "opening-habits",
+    "italian-opening"
+  ]
 }

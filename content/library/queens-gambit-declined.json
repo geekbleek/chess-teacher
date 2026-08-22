@@ -8,8 +8,27 @@
       "heading": "Why this against 1.d4",
       "body": "The QGD is recommended partly because it is sound and mostly because of what it teaches. It leads directly to the Carlsbad structure and the minority attack, which is the single most instructive strategic plan a club player can learn. You are not just getting a defence, you are getting a middlegame syllabus.",
       "diagram": {
-        "at": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5", "Be7", "e3", "O-O", "Nf3", "h6", "Bh4", "b6"],
-        "highlight": ["d5", "e6", "c7"],
+        "at": [
+          "d4",
+          "d5",
+          "c4",
+          "e6",
+          "Nc3",
+          "Nf6",
+          "Bg5",
+          "Be7",
+          "e3",
+          "O-O",
+          "Nf3",
+          "h6",
+          "Bh4",
+          "b6"
+        ],
+        "highlight": [
+          "d5",
+          "e6",
+          "c7"
+        ],
         "caption": "A standard QGD. Black's pawn chain d5–e6 is solid, and the light-squared bishop is the piece that needs a plan."
       }
     },
@@ -26,5 +45,8 @@
       "body": "When White plays cxd5 exd5 you get the Carlsbad structure, and the game becomes a race between White's minority attack on the queenside and your play in the centre or against the king. Read the Minority Attack article next: it is the plan you will face most often as a QGD player, and understanding it from both sides is worth more than any opening line."
     }
   ],
-  "related": ["minority-attack", "opening-principles"]
+  "related": [
+    "qgd-play",
+    "minority-attack"
+  ]
 }

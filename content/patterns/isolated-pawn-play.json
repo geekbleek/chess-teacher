@@ -1,0 +1,221 @@
+{
+  "id": "isolated-pawn-play",
+  "title": "Playing With an Isolated Pawn",
+  "tier": 3,
+  "side": "black",
+  "eco": "B22",
+  "idea": "You have an isolated pawn on d5. In an endgame it is a liability you cannot defend with another pawn — so do not go to an endgame. Keep pieces on, use the two half-open files the isolated pawn gave you, put your pieces on the active squares it created, and play for an attack while the position still has enough material for one. The pawn is a clock: your activity expires when the queens come off.",
+  "cues": [
+    {
+      "text": "Your pawn on d5 has no pawns on the c- or e-files. It can never be defended by a pawn again.",
+      "squares": [
+        "d5"
+      ]
+    },
+    {
+      "text": "In exchange, the c-file and e-file are half open for your rooks.",
+      "squares": [
+        "c8",
+        "e8"
+      ]
+    },
+    {
+      "text": "The square in front of the pawn, d4, is where your opponent wants a knight forever.",
+      "squares": [
+        "d4"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "c5",
+      "Nf3",
+      "e6",
+      "d4",
+      "cxd4",
+      "Nxd4",
+      "Nf6",
+      "Nc3",
+      "d5",
+      "exd5",
+      "exd5",
+      "Be2"
+    ],
+    "prompt": "You have just acquired an isolated pawn on d5. What is your plan?",
+    "choices": [
+      {
+        "text": "Keep pieces on and play actively down the open files",
+        "correct": true,
+        "why": "The isolated pawn gives you space and two half-open files. Those are middlegame assets that vanish when the pieces do — so trades help your opponent, and activity helps you."
+      },
+      {
+        "text": "Trade pieces to simplify",
+        "correct": false,
+        "why": "Exactly backwards. Every trade brings the endgame closer, and in the endgame the pawn is simply weak."
+      },
+      {
+        "text": "Push the pawn to d4 immediately",
+        "correct": false,
+        "why": "The break is your long-term resource, but pushing it before your pieces are placed just loses the pawn."
+      },
+      {
+        "text": "Defend d5 with as many pieces as possible",
+        "correct": false,
+        "why": "Tying your pieces to a pawn is how you lose slowly. Activity is the compensation, not defence."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Develop, castle, and put a rook on the e-file.",
+      "hard": true
+    },
+    {
+      "goal": "Avoid trades, especially of queens."
+    },
+    {
+      "goal": "Aim pieces at the kingside while the position is still full."
+    }
+  ],
+  "setup": [
+    "e4",
+    "c5",
+    "Nf3",
+    "e6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nf6",
+    "Nc3",
+    "d5",
+    "exd5",
+    "exd5",
+    "Be2"
+  ],
+  "line": {
+    "threat": "Nothing immediate. Your d5 pawn is isolated, which means you are playing for activity from this moment on.",
+    "focusSquares": [
+      "d5",
+      "d4",
+      "e8"
+    ],
+    "hints": [
+      "You are playing for activity, so develop the piece that lets you castle fastest.",
+      "The dark-squared bishop has one natural square.",
+      "Bishop to e7."
+    ],
+    "moves": [
+      {
+        "san": "Be7",
+        "quality": "best",
+        "why": "Simple development that keeps everything flexible and gets you a move closer to castling. Nothing clever — you cannot afford to be slow with an isolated pawn.",
+        "then": {
+          "moves": [
+            {
+              "san": "O-O",
+              "quality": "best",
+              "why": "White castles.",
+              "then": {
+                "hints": [
+                  "Do the same.",
+                  "King safety first, always.",
+                  "Castle."
+                ],
+                "moves": [
+                  {
+                    "san": "O-O",
+                    "quality": "best",
+                    "why": "King safe and the rook heads for the file that the isolated pawn opened.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Bf3",
+                          "quality": "best",
+                          "why": "White starts pressing d5 — the standard treatment against an isolated pawn.",
+                          "then": {
+                            "hints": [
+                              "The isolated pawn gave you two half-open files. Use one.",
+                              "Which file points at something of White's?",
+                              "Rook to e8."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Re8",
+                                "quality": "best",
+                                "why": "The rook takes the e-file, which is the file the isolated pawn paid for. This is the compensation — not the pawn, the lines.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Nce2",
+                                      "quality": "best",
+                                      "why": "White heads for the blockade square, aiming a knight at d4 and f4.",
+                                      "then": {
+                                        "hints": [
+                                          "White is about to blockade. Create a problem before that happens.",
+                                          "Pin something, or hit the piece that is pressing d5.",
+                                          "Bishop to g4."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "Bg4",
+                                            "quality": "best",
+                                            "why": "Hits the bishop that was attacking d5 and develops with tempo. Every move you make should ask a question — you do not have time for quiet ones.",
+                                            "then": {
+                                              "terminal": {
+                                                "verdict": "pass",
+                                                "summary": "All four pieces out, king safe, rook on the open file, and White has been given something to answer on every move. That is what playing with an isolated pawn looks like — you are not defending it, you are using what it bought. Keep this rule: with the isolated pawn, avoid trades and keep asking questions; against it, trade pieces and put a knight on the blockade square. The same pawn is an asset or a liability depending on which of those two things happens first."
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "Nc6",
+        "quality": "ok",
+        "why": "Also natural. Develops toward the centre, though it slightly gets in the way of the c-file you may want later."
+      },
+      {
+        "san": "Bd6",
+        "quality": "ok",
+        "why": "Aims at h2, which fits the attacking plan. Slightly more committal than Be7."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Learn the plan"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Execute it cold"
+    }
+  ],
+  "related": [
+    "isolated-queens-pawn",
+    "open-files-and-the-seventh"
+  ]
+}

@@ -8,8 +8,23 @@
       "heading": "The rule in one line",
       "body": "Put your pawns on the opposite colour to your bishop. A bishop whose own pawns sit on its colour is looking at a wall it built itself. It is called a bad bishop, and in a closed position it can be worth less than a pawn.",
       "diagram": {
-        "at": ["e4", "e6", "d4", "d5", "e5", "c5", "c3", "Nc6", "Nf3", "Qb6"],
-        "highlight": ["c8", "d5", "e6"],
+        "at": [
+          "e4",
+          "e6",
+          "d4",
+          "d5",
+          "e5",
+          "c5",
+          "c3",
+          "Nc6",
+          "Nf3",
+          "Qb6"
+        ],
+        "highlight": [
+          "c8",
+          "d5",
+          "e6"
+        ],
         "caption": "The French Advance. Black's light-squared bishop on c8 is the textbook bad bishop — its own pawns on d5 and e6 are on light squares."
       }
     },
@@ -26,5 +41,8 @@
       "body": "This is the idea that turns 'I do not know what to do' into a plan on almost any quiet move. Look at the pawn structure, decide which bishop is worse, and either trade yours or trap theirs. It costs nothing to check and it points at a plan in more positions than any other single question."
     }
   ],
-  "related": ["caro-kann", "outposts-and-holes"]
+  "related": [
+    "bad-bishop-plan",
+    "outposts-and-holes"
+  ]
 }

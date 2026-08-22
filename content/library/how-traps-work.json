@@ -12,8 +12,18 @@
       "heading": "Idea 1: the square only the king defends",
       "body": "f7 for Black and f2 for White are defended by the king alone at the start of the game. Point two pieces at that square before the defender has developed and you have a real threat, because the king cannot recapture without walking into the open. Scholar's Mate, the Fried Liver, and the refutation of 2...f6 are all the same idea wearing different clothes. The counting rule is blunt and reliable: after every enemy move, ask how many pieces attack f7 and how many defend it.",
       "diagram": {
-        "at": ["e4", "e5", "Bc4", "Nc6", "Qh5"],
-        "highlight": ["f7", "c4", "h5"],
+        "at": [
+          "e4",
+          "e5",
+          "Bc4",
+          "Nc6",
+          "Qh5"
+        ],
+        "highlight": [
+          "f7",
+          "c4",
+          "h5"
+        ],
         "caption": "Two attackers on f7, one defender. From here every black move that does not address f7 loses immediately."
       }
     },
@@ -30,5 +40,15 @@
       "body": "Before each move, in this order: what does my opponent's last move attack; what does my intended move leave undefended; and what is their best reply. That takes about five seconds and defuses nearly every trap in club chess. The Test drills in this app stop the moment you skip it, and the replay shows you the exact move where you did."
     }
   ],
-  "related": ["scholars-mate-defense", "fried-liver-defense", "legals-mate", "blackburne-shilling", "damiano-punish", "wayward-queen"]
+  "related": [
+    "scholars-mate-defense",
+    "fried-liver-defense",
+    "legals-mate",
+    "blackburne-shilling",
+    "fishing-pole",
+    "englund-gambit",
+    "danish-gambit",
+    "damiano-punish",
+    "wayward-queen"
+  ]
 }

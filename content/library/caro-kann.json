@@ -8,8 +8,23 @@
       "heading": "Why this against 1.e4",
       "body": "The Caro-Kann is chosen here for exactly the problem you described: opponents who beat you with prepared aggression. It gives them nothing to attack. You support d5 with the c-pawn rather than the e-pawn, which means your light-squared bishop gets out before you lock it in — the single most common structural complaint about the French. The cost is a tempo and a slightly passive position. That is a good trade while you are learning to punish over-extension.",
       "diagram": {
-        "at": ["e4", "c6", "d4", "d5", "e5", "Bf5", "Nf3", "e6", "Be2", "Nd7"],
-        "highlight": ["f5", "c6", "d5"],
+        "at": [
+          "e4",
+          "c6",
+          "d4",
+          "d5",
+          "e5",
+          "Bf5",
+          "Nf3",
+          "e6",
+          "Be2",
+          "Nd7"
+        ],
+        "highlight": [
+          "f5",
+          "c6",
+          "d5"
+        ],
         "caption": "The Advance Variation. Note the bishop on f5, outside the pawn chain — the whole point of playing c6 rather than e6."
       }
     },
@@ -26,5 +41,8 @@
       "body": "Be honest about it: the Caro-Kann rarely produces a quick attack, and against a well-prepared opponent you will often be defending a slightly worse endgame. Many strong club players find that dull. The reason it is recommended is that it will stop you losing in twenty moves, and losing in twenty moves is the actual problem."
     }
   ],
-  "related": ["opening-principles"]
+  "related": [
+    "caro-kann-advance",
+    "bad-bishop-plan"
+  ]
 }

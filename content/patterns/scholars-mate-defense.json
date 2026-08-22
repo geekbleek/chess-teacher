@@ -6,29 +6,88 @@
   "eco": "C20",
   "idea": "f7 is the only square in Black's camp defended by nothing but the king. White's fastest cheap plan is to aim two pieces at it — a bishop on c4 and the queen — and mate before Black develops. Your job is not to memorise a refutation. It is to notice the double attack the moment the second attacker arrives, and to answer it with a move that also does something useful: gains a tempo on the queen, or develops a piece. Meet it correctly and White has an exposed queen, no development, and a lost opening.",
   "cues": [
-    { "text": "A white bishop lands on c4. It is already aiming at f7.", "squares": ["c4", "f7"] },
-    { "text": "The white queen goes to h5 or f3. Now two pieces hit f7 and only your king defends it.", "squares": ["h5", "f3", "f7"] },
-    { "text": "White has moved the queen early and developed nothing else. Every move you make that hits the queen is a free tempo.", "squares": ["b1", "c1", "g1"] }
+    {
+      "text": "A white bishop lands on c4. It is already aiming at f7.",
+      "squares": [
+        "c4",
+        "f7"
+      ]
+    },
+    {
+      "text": "The white queen goes to h5 or f3. Now two pieces hit f7 and only your king defends it.",
+      "squares": [
+        "h5",
+        "f3",
+        "f7"
+      ]
+    },
+    {
+      "text": "White has moved the queen early and developed nothing else. Every move you make that hits the queen is a free tempo.",
+      "squares": [
+        "b1",
+        "c1",
+        "g1"
+      ]
+    }
   ],
   "recognition": {
-    "at": ["e4", "e5", "Bc4", "Nc6", "Qh5"],
+    "at": [
+      "e4",
+      "e5",
+      "Bc4",
+      "Nc6",
+      "Qh5"
+    ],
     "prompt": "White has just played the queen to h5. What is actually happening?",
     "choices": [
-      { "text": "Mate next move on f7", "correct": true, "why": "The queen on h5 and the bishop on c4 both hit f7, and only your king defends it — he cannot take the queen because the bishop guards her." },
-      { "text": "The e5 pawn is attacked and will fall", "correct": false, "why": "The queen does attack e5, but your knight on c6 defends it. That is not the problem." },
-      { "text": "Nothing — the queen is just badly placed", "correct": false, "why": "The queen IS badly placed, which is why this whole line is bad for White. But the threat is real: ignore it and the game ends." },
-      { "text": "White threatens to trap the knight on c6", "correct": false, "why": "Nothing attacks c6." }
+      {
+        "text": "Mate next move on f7",
+        "correct": true,
+        "why": "The queen on h5 and the bishop on c4 both hit f7, and only your king defends it — he cannot take the queen because the bishop guards her."
+      },
+      {
+        "text": "The e5 pawn is attacked and will fall",
+        "correct": false,
+        "why": "The queen does attack e5, but your knight on c6 defends it. That is not the problem."
+      },
+      {
+        "text": "Nothing — the queen is just badly placed",
+        "correct": false,
+        "why": "The queen IS badly placed, which is why this whole line is bad for White. But the threat is real: ignore it and the game ends."
+      },
+      {
+        "text": "White threatens to trap the knight on c6",
+        "correct": false,
+        "why": "Nothing attacks c6."
+      }
     ]
   },
   "plan": [
-    { "goal": "Never let f7 be attacked more times than it is defended.", "hard": true },
-    { "goal": "Every defensive move should also develop a piece or hit the queen." },
-    { "goal": "Keep the king able to castle. Do not solve this by pushing the f- or h-pawn." }
+    {
+      "goal": "Never let f7 be attacked more times than it is defended.",
+      "hard": true
+    },
+    {
+      "goal": "Every defensive move should also develop a piece or hit the queen."
+    },
+    {
+      "goal": "Keep the king able to castle. Do not solve this by pushing the f- or h-pawn."
+    }
   ],
-  "setup": ["e4", "e5", "Bc4", "Nc6", "Qh5"],
+  "setup": [
+    "e4",
+    "e5",
+    "Bc4",
+    "Nc6",
+    "Qh5"
+  ],
   "line": {
     "threat": "Qxf7 is mate. f7 is attacked by the queen and the bishop, and defended only by the king — who cannot recapture, because the bishop on c4 guards f7.",
-    "focusSquares": ["f7", "c4", "h5"],
+    "focusSquares": [
+      "f7",
+      "c4",
+      "h5"
+    ],
     "hints": [
       "Something in your position is attacked twice and defended once. Find it before you consider anything else.",
       "You can block the attacker's path or add a defender. One of those choices also kicks the queen, which wins you a move.",
@@ -47,7 +106,11 @@
               "why": "The queen steps onto the f-file and renews exactly the same threat on f7. Nothing has changed for you. Recognise it again.",
               "then": {
                 "threat": "The same threat from a new square. Qxf7 is still mate: the queen on f3 and the bishop on c4 both hit f7.",
-                "focusSquares": ["f7", "c4", "f3"],
+                "focusSquares": [
+                  "f7",
+                  "c4",
+                  "f3"
+                ],
                 "hints": [
                   "White repeated the idea from a different square. Ask yourself the same question you asked last move.",
                   "This time the queen attacks along the f-file rather than the diagonal. Block the file.",
@@ -74,31 +137,103 @@
                       ]
                     }
                   },
-                  { "san": "Qe7", "quality": "ok", "why": "Defends f7 again. Solid, but you are spending queen moves on defence while your pieces sit at home." },
-                  { "san": "Qf6", "quality": "ok", "why": "Defends f7 and offers a queen trade, which is fine for you — trading queens kills White's entire plan. The cost is that your knight loses its best square." }
+                  {
+                    "san": "Qe7",
+                    "quality": "ok",
+                    "why": "Defends f7 again. Solid, but you are spending queen moves on defence while your pieces sit at home."
+                  },
+                  {
+                    "san": "Qf6",
+                    "quality": "ok",
+                    "why": "Defends f7 and offers a queen trade, which is fine for you — trading queens kills White's entire plan. The cost is that your knight loses its best square."
+                  }
                 ],
                 "mistakes": [
-                  { "san": "Nd4", "why": "The trap inside the trap. It looks wonderful — you hit the queen and c2 at once — but it does nothing about f7, and your own queen on d8 is covering her king's only flight square.", "punish": ["Qxf7#"] },
-                  { "san": "Bg7", "why": "Fianchettoing is the right long-term idea and the wrong move right now. It does not touch f7.", "punish": ["Qxf7#"] }
+                  {
+                    "san": "Nd4",
+                    "why": "The trap inside the trap. It looks wonderful — you hit the queen and c2 at once — but it does nothing about f7, and your own queen on d8 is covering her king's only flight square.",
+                    "punish": [
+                      "Qxf7#"
+                    ]
+                  },
+                  {
+                    "san": "Bg7",
+                    "why": "Fianchettoing is the right long-term idea and the wrong move right now. It does not touch f7.",
+                    "punish": [
+                      "Qxf7#"
+                    ]
+                  }
                 ]
               }
             }
           ]
         }
       },
-      { "san": "Qe7", "quality": "ok", "why": "Adds a defender to f7, which is enough. The cost is that your queen now blocks the f8 bishop, so development gets awkward." },
-      { "san": "Qf6", "quality": "ok", "why": "Defends f7 and eyes f2. Playable, but your queen takes the square your knight wants." },
-      { "san": "Nh6", "quality": "inferior", "why": "The knight does cover f7, so you survive — but Bxh6 wrecks the pawns in front of the king you were about to castle toward. You solved the tactic and bought a long-term weakness." }
+      {
+        "san": "Qe7",
+        "quality": "ok",
+        "why": "Adds a defender to f7, which is enough. The cost is that your queen now blocks the f8 bishop, so development gets awkward."
+      },
+      {
+        "san": "Qf6",
+        "quality": "ok",
+        "why": "Defends f7 and eyes f2. Playable, but your queen takes the square your knight wants."
+      },
+      {
+        "san": "Nh6",
+        "quality": "inferior",
+        "why": "The knight does cover f7, so you survive — but Bxh6 wrecks the pawns in front of the king you were about to castle toward. You solved the tactic and bought a long-term weakness."
+      }
     ],
     "mistakes": [
-      { "san": "Nf6", "why": "The most common losing move in club chess. A perfectly normal developing move that develops straight into mate, because it does nothing about f7.", "punish": ["Qxf7#"] },
-      { "san": "d6", "why": "Opens your bishop and defends e5 — but the threat was never about e5. f7 is still attacked twice and defended once.", "punish": ["Qxf7#"] },
-      { "san": "Bc5", "why": "Develops with an attack on f2. You are counting on a race you have already lost: White is one move faster.", "punish": ["Qxf7#"] }
+      {
+        "san": "Nf6",
+        "why": "The most common losing move in club chess. A perfectly normal developing move that develops straight into mate, because it does nothing about f7.",
+        "punish": [
+          "Qxf7#"
+        ]
+      },
+      {
+        "san": "d6",
+        "why": "Opens your bishop and defends e5 — but the threat was never about e5. f7 is still attacked twice and defended once.",
+        "punish": [
+          "Qxf7#"
+        ]
+      },
+      {
+        "san": "Bc5",
+        "why": "Develops with an attack on f2. You are counting on a race you have already lost: White is one move faster.",
+        "punish": [
+          "Qxf7#"
+        ]
+      }
     ]
   },
   "drills": [
-    { "id": "learn", "mode": "learn", "playAs": "black", "opponent": "best", "label": "Learn the defence" },
-    { "id": "test", "mode": "test", "playAs": "black", "opponent": "best", "label": "Defend it cold" },
-    { "id": "attack", "mode": "test", "playAs": "white", "opponent": "mistakes", "label": "Run the attack yourself" }
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Learn the defence"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Defend it cold"
+    },
+    {
+      "id": "attack",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "mistakes",
+      "label": "Run the attack yourself"
+    }
+  ],
+  "related": [
+    "how-traps-work",
+    "opening-principles"
   ]
 }

@@ -8,8 +8,25 @@
       "heading": "What you are looking at",
       "body": "One side has a pawn on d4 or d5 with no pawns on the adjacent files. It cannot ever be defended by a pawn, and the square directly in front of it can never be attacked by one. That is the deal: a permanent weakness, in exchange for two open files, active pieces, and a space advantage.",
       "diagram": {
-        "at": ["e4", "c5", "Nf3", "e6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "d5", "exd5", "exd5"],
-        "highlight": ["d5", "d4", "e4"],
+        "at": [
+          "e4",
+          "c5",
+          "Nf3",
+          "e6",
+          "d4",
+          "cxd4",
+          "Nxd4",
+          "Nf6",
+          "Nc3",
+          "d5",
+          "exd5",
+          "exd5"
+        ],
+        "highlight": [
+          "d5",
+          "d4",
+          "e4"
+        ],
         "caption": "Black has just acquired an isolated pawn on d5. The square in front of it, d4, is a permanent home for a white piece."
       }
     },
@@ -26,5 +43,8 @@
       "body": "This is the clearest example in chess of a feature that is good or bad depending on the phase of the game. It should permanently change how you evaluate: 'is this pawn weak' is the wrong question, and 'weak in what circumstances, and can I reach them' is the right one."
     }
   ],
-  "related": ["open-files-and-the-seventh"]
+  "related": [
+    "isolated-pawn-play",
+    "open-files-and-the-seventh"
+  ]
 }

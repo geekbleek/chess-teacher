@@ -1,0 +1,228 @@
+{
+  "id": "c-file-plan",
+  "title": "Taking the Open File",
+  "tier": 3,
+  "side": "black",
+  "eco": "B70",
+  "idea": "A Sicilian Dragon, where your c-pawn traded itself off early and left you a half-open c-file pointing at White's position. Rooks are worthless until a file opens and decisive once one does, so the plan writes itself: clear the file, take it, and then find a square where a knight cannot be chased. Four moves, no tactics, and at the end of it you have the most active piece on the board.",
+  "cues": [
+    {
+      "text": "Your c-pawn is gone. The c-file is half open and yours to claim.",
+      "squares": [
+        "c8"
+      ]
+    },
+    {
+      "text": "The bishop on c8 is in the way of the rook that wants that file.",
+      "squares": [
+        "c8",
+        "a8"
+      ]
+    },
+    {
+      "text": "c4 is a hole in White's camp — no white pawn can attack it.",
+      "squares": [
+        "c4"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "c5",
+      "Nf3",
+      "d6",
+      "d4",
+      "cxd4",
+      "Nxd4",
+      "Nf6",
+      "Nc3",
+      "g6",
+      "Be2",
+      "Bg7",
+      "O-O",
+      "O-O",
+      "Be3",
+      "Nc6",
+      "Qd2"
+    ],
+    "prompt": "Where is your play in this position?",
+    "choices": [
+      {
+        "text": "Down the half-open c-file",
+        "correct": true,
+        "why": "Your c-pawn traded itself off, so the file is half open for you and not for White. Clear it, double if needed, and aim a knight at c4 where no pawn can attack it."
+      },
+      {
+        "text": "A kingside pawn storm",
+        "correct": false,
+        "why": "That is White's plan in this structure, not yours. Racing him on his own wing is how Dragon players lose."
+      },
+      {
+        "text": "In the centre with d5",
+        "correct": false,
+        "why": "It is a break to keep in reserve, but it is not ready — White is well placed in the centre right now."
+      },
+      {
+        "text": "Attacking the e4 pawn",
+        "correct": false,
+        "why": "It is defended and not going anywhere. Play where you have a structural advantage."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "Get the rook onto the c-file.",
+      "hard": true
+    },
+    {
+      "goal": "Manoeuvre a knight to c4, where no pawn can ever attack it."
+    },
+    {
+      "goal": "Do not start a kingside race — that is your opponent's side of the board."
+    }
+  ],
+  "setup": [
+    "e4",
+    "c5",
+    "Nf3",
+    "d6",
+    "d4",
+    "cxd4",
+    "Nxd4",
+    "Nf6",
+    "Nc3",
+    "g6",
+    "Be2",
+    "Bg7",
+    "O-O",
+    "O-O",
+    "Be3",
+    "Nc6",
+    "Qd2"
+  ],
+  "line": {
+    "threat": "Nothing is hanging. You have a half-open file and a piece standing in its way.",
+    "focusSquares": [
+      "c8",
+      "c4"
+    ],
+    "hints": [
+      "Your play is on the c-file. Something of yours is blocking it.",
+      "The bishop on c8 has to move before the rook can use the file.",
+      "Bishop to d7."
+    ],
+    "moves": [
+      {
+        "san": "Bd7",
+        "quality": "best",
+        "why": "Develops and, more importantly, clears the c-file for the rook. In this structure that is the whole reason the bishop goes there.",
+        "then": {
+          "moves": [
+            {
+              "san": "Rac1",
+              "quality": "best",
+              "why": "White contests the file — the same idea from the other side.",
+              "then": {
+                "hints": [
+                  "Take the file anyway.",
+                  "Whoever gets a rook there first usually keeps it.",
+                  "Rook to c8."
+                ],
+                "moves": [
+                  {
+                    "san": "Rc8",
+                    "quality": "best",
+                    "why": "Claim the file. Even opposed, the rook is doing far more here than it was on a8, and it makes every white piece on the c-file uncomfortable.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "f3",
+                          "quality": "best",
+                          "why": "White shores up e4 and prepares his own kingside play.",
+                          "then": {
+                            "hints": [
+                              "Now improve the worst-placed piece.",
+                              "There is a hole at c4 no white pawn can attack. Which knight can get there?",
+                              "Knight to e5, heading for c4."
+                            ],
+                            "moves": [
+                              {
+                                "san": "Ne5",
+                                "quality": "best",
+                                "why": "The knight starts its journey. e5 is a fine square in itself and it is one hop from the hole on c4.",
+                                "then": {
+                                  "moves": [
+                                    {
+                                      "san": "Rfd1",
+                                      "quality": "best",
+                                      "why": "White brings the last piece into play.",
+                                      "then": {
+                                        "hints": [
+                                          "Finish the manoeuvre.",
+                                          "Land on the square no pawn can attack.",
+                                          "Knight to c4."
+                                        ],
+                                        "moves": [
+                                          {
+                                            "san": "Nc4",
+                                            "quality": "best",
+                                            "why": "The knight arrives, hitting the queen and the bishop from a square that no pawn can ever challenge. White must react, and you have the initiative on the side of the board where you are stronger.",
+                                            "then": {
+                                              "terminal": {
+                                                "verdict": "pass",
+                                                "summary": "Rook on the open file, knight on an untouchable square, and every move you played was a quiet one. This is the answer to 'what do I do on move twelve': find the file that is open for you and not for them, clear it, take it, and then look for the square their pawns can never attack. It works in almost every position and it needs no calculation at all."
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "san": "Ng4",
+        "quality": "inferior",
+        "why": "Chasing the bishop achieves little and takes the knight away from the queenside where your real play is."
+      },
+      {
+        "san": "a6",
+        "quality": "ok",
+        "why": "Useful in many Sicilians, preparing b5. Slower than taking the file, but not wrong."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Learn the plan"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Execute it cold"
+    }
+  ],
+  "related": [
+    "open-files-and-the-seventh",
+    "outposts-and-holes"
+  ]
+}

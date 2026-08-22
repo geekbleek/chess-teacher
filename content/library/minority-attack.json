@@ -8,8 +8,31 @@
       "heading": "The idea that sounds wrong",
       "body": "White has two pawns on the queenside against Black's three, and attacks anyway. The point is not to win material or open lines for an assault — it is to force a structural concession. White pushes b4–b5 and hits c6. Black can capture, leaving a backward pawn on an open file; decline, and White takes on c6 leaving the same weakness. Either way White has created a target that cannot be repaired, and then spends the rest of the game piling up on it.",
       "diagram": {
-        "at": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "cxd5", "exd5", "Bg5", "c6", "e3", "Be7", "Bd3", "O-O", "Nge2", "Nbd7", "O-O", "Re8"],
-        "highlight": ["b2", "c6", "b5"],
+        "at": [
+          "d4",
+          "d5",
+          "c4",
+          "e6",
+          "Nc3",
+          "Nf6",
+          "cxd5",
+          "exd5",
+          "Bg5",
+          "c6",
+          "e3",
+          "Be7",
+          "Bd3",
+          "O-O",
+          "Nge2",
+          "Nbd7",
+          "O-O",
+          "Re8"
+        ],
+        "highlight": [
+          "b2",
+          "c6",
+          "b5"
+        ],
         "caption": "The Carlsbad structure. White will play a3, b4, Rb1 and b5, aiming to leave Black with a backward c-pawn."
       }
     },
@@ -26,5 +49,8 @@
       "body": "Because it is the plan you will face constantly as a Queen's Gambit Declined player, and because it is the clearest example of what strategy actually is. There are no tactics here. There is a target that does not yet exist, a five-move plan to create it, and twenty moves of technique to exploit it. If 'I have no plan on move twelve' is your problem, this is the cure."
     }
   ],
-  "related": ["queens-gambit-declined"]
+  "related": [
+    "minority-attack-plan",
+    "queens-gambit-declined"
+  ]
 }

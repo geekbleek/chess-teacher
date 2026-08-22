@@ -34,6 +34,8 @@ export interface Drill {
   /** `mistakes` makes the app play the losing moves so you can punish them. */
   opponent: 'best' | 'mistakes';
   label: string;
+  /** SAN moves from the lesson root, to start the drill deeper in the tree. */
+  from?: string[];
   offBookPlies?: number;
 }
 
@@ -57,6 +59,8 @@ export interface Pattern {
   setup: string[];
   line: LessonNode;
   drills: Drill[];
+  /** Articles and lessons worth reading alongside this one. */
+  related?: string[];
 }
 
 export interface Diagram {
