@@ -47,7 +47,8 @@ export function Board({
   useEffect(() => {
     if (!host.current) return;
     api.current = Chessground(host.current, {
-      coordinates: false,
+      // Rank and file labels, restyled in styles.css to sit inside the board edge.
+      coordinates: true,
       animation: { duration: 180 },
       // Tap-tap is the primary interaction on a phone; drag still works.
       draggable: { enabled: true, showGhost: true },

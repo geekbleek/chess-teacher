@@ -66,6 +66,56 @@ h1 {
   height: auto;
 }
 
+/* --- Board overrides -------------------------------------------------------
+   Chessground's defaults assume a desktop layout with margins around the board.
+   Ours is full-bleed on a phone, so the coordinates move inside the edge and get
+   big enough to actually read. */
+
+.cg-wrap coords {
+  font: 600 11px/1 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  opacity: 1;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 3px rgba(0, 0, 0, 0.35);
+}
+
+.cg-wrap coords.ranks {
+  top: 0;
+  left: 3px;
+  height: 100%;
+  width: 12px;
+}
+
+.cg-wrap coords.ranks coord {
+  transform: none;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+.cg-wrap coords.files {
+  left: 0;
+  bottom: 2px;
+  width: 100%;
+  height: 13px;
+}
+
+/* Corner-align both sets of labels. Centred file letters land on top of the
+   back-rank pieces, where a white letter on a white rook is invisible; the
+   bottom-right corner of each square is empty because pieces are centred. */
+.cg-wrap coords.files coord {
+  text-align: right;
+  padding-right: 3px;
+}
+
+/* Selection needs to be unmistakable at arm's length, and clearly different from
+   the yellow-green last-move tint. A wash alone was too faint on a brown square,
+   so it gets a ring as well. */
+cg-board square.selected {
+  background-color: rgba(138, 180, 216, 0.5);
+  box-shadow: inset 0 0 0 4px rgba(159, 197, 232, 0.95);
+}
+
 .metrics {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
