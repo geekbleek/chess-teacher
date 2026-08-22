@@ -1,6 +1,6 @@
 import { Chess } from 'chess.js';
 import { indexPattern, normalizeFen, type PatternIndex } from '../content';
-import type { Drill, LessonMove, LessonNode, Mistake, Pattern } from '../content/types';
+import type { Drill, LessonMove, LessonNode, Mistake, Pattern, PlanStep } from '../content/types';
 import { chooseReply, reviewMove, snapshot } from '../engine/referee';
 import type { Color, Finding, Snapshot, Square } from '../engine/types';
 
@@ -125,6 +125,8 @@ function recordSequence(
   return plies;
 }
 
+const moveNumberOf = (fen: string): number => Number(fen.split(' ')[5] ?? '1');
+
 function applyLine(fen: string, moves: string[]): string {
   const board = new Chess(fen);
   for (const san of moves) board.move(san);
@@ -132,6 +134,27 @@ function applyLine(fen: string, moves: string[]): string {
 }
 
 const isLearn = (state: DrillState) => state.drill.mode === 'learn';
+
+/**
+ * The first hard plan goal this position breaks, if any.
+ *
+ * This is what makes a lesson's declared plan more than prose: a drill can say
+ * "castle by move eight" and the drill will actually stop when you have not.
+ */
+export function planViolation(
+  pattern: Pattern,
+  view: Snapshot,
+  fullmove: number,
+): PlanStep | undefined {
+  return (pattern.plan ?? []).find((step) => {
+    if (!step.hard || !step.check) return false;
+    const { metric, atLeast, byMove } = step.check;
+    if (byMove !== undefined && fullmove < byMove) return false;
+    return metric === 'development'
+      ? view.development < atLeast
+      : view.kingSafety < atLeast;
+  });
+}
 
 /** The move the lesson expects from you, for the hint ladder's final reveal. */
 export function bestMove(state: DrillState): LessonMove | undefined {
@@ -237,6 +260,20 @@ export function playerMove(state: DrillState, san: string): DrillState {
     const journal = [...state.journal, record(state, san, 'you', accepted.why)];
     const next = { ...state, journal, fen: fenAfter, hintLevel: 0 };
     const terminal = nodeAt(next)?.terminal;
+
+    // A move can be in the book and still break the plan the lesson declared.
+    const broken = planViolation(state.pattern, review.after, moveNumberOf(fenAfter));
+    if (broken && !terminal) {
+      const feedback: Feedback = {
+        tone: 'bad',
+        headline: 'That breaks the plan.',
+        detail: broken.goal,
+        findings: review.findings.filter((f) => f.severity !== 'good').slice(0, 2),
+      };
+      if (isLearn(state)) return { ...next, rewindTo: state.fen, feedback };
+      return fail(next, feedback, fenAfter, journal.length - 1);
+    }
+
     return {
       ...next,
       status: terminal ? (terminal.verdict === 'pass' ? 'passed' : 'failed') : 'playing',
@@ -275,14 +312,19 @@ export function playerMove(state: DrillState, san: string): DrillState {
 
   // --- Off book: no lesson data, so the Referee judges it alone --------------
   const worst = review.findings[0];
-  const bad = worst && (worst.severity === 'critical' || worst.severity === 'major');
+  const brokenPlan = planViolation(state.pattern, review.after, moveNumberOf(fenAfter));
+  const bad =
+    brokenPlan !== undefined ||
+    (worst && (worst.severity === 'critical' || worst.severity === 'major'));
   const journal = [...state.journal, record(state, san, 'you', review.headline)];
 
   if (bad) {
     const feedback: Feedback = {
       tone: 'bad',
-      headline: review.headline,
-      detail: 'That move is not in the lesson, and it costs you something concrete.',
+      headline: brokenPlan ? 'That breaks the plan.' : review.headline,
+      detail: brokenPlan
+        ? brokenPlan.goal
+        : 'That move is not in the lesson, and it costs you something concrete.',
       findings: review.findings.slice(0, 3),
     };
     if (isLearn(state)) {

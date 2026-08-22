@@ -1,6 +1,18 @@
 import { describe, expect, it } from 'vitest';
+import { Chess } from 'chess.js';
 import { patternById, patterns } from '../content';
-import { createDrill, opponentMove, playerMove, theirTurn, yourTurn, hint, rewind, bestMove } from './drill';
+import {
+  bestMove,
+  createDrill,
+  hint,
+  opponentMove,
+  planViolation,
+  playerMove,
+  rewind,
+  theirTurn,
+  yourTurn,
+} from './drill';
+import { snapshot } from '../engine/referee';
 import type { Drill, Pattern } from '../content/types';
 
 const pattern = patternById('scholars-mate-defense') as Pattern;
@@ -199,5 +211,44 @@ describe('the replay journal', () => {
     const atEnd = s.journal[s.journal.length - 1]!;
     // King safety collapses over the refutation even though it looks fine at the mistake.
     expect(atEnd.snapshot.kingSafety).toBeLessThan(atMistake.snapshot.kingSafety);
+  });
+});
+
+describe('hard plan goals', () => {
+  const habits = patternById('opening-habits')!;
+
+  const positionAfterMoves = (...moves: string[]) => {
+    const board = new Chess();
+    for (const m of moves) board.move(m);
+    return board.fen();
+  };
+
+  it('is quiet when the opening is played properly', () => {
+    const fen = positionAfterMoves('e4', 'e5', 'Nf3', 'Nc6', 'Bc4', 'Nf6', 'O-O', 'Be7', 'd3', 'd6');
+    expect(planViolation(habits, snapshot(fen, 'w'), 6)).toBeUndefined();
+  });
+
+  it('fires when development is behind by the move it names', () => {
+    // Five pawn moves and not a single piece out.
+    const fen = positionAfterMoves('e4', 'e5', 'a3', 'a6', 'b3', 'b6', 'c3', 'c6', 'd3', 'd6');
+    const broken = planViolation(habits, snapshot(fen, 'w'), 6);
+    expect(broken?.goal).toContain('two minor pieces');
+  });
+
+  it('does not fire before the move it names', () => {
+    const fen = positionAfterMoves('e4', 'e5', 'a3', 'a6');
+    expect(planViolation(habits, snapshot(fen, 'w'), 3)).toBeUndefined();
+  });
+
+  it('fires when the king loses the right to castle', () => {
+    const fen = positionAfterMoves('e4', 'e5', 'Nf3', 'Nc6', 'Bc4', 'Bc5', 'Ke2');
+    const broken = planViolation(habits, snapshot(fen, 'w'), 4);
+    expect(broken?.goal).toContain('king');
+  });
+
+  it('leaves lessons without hard checks alone', () => {
+    const scholars = patternById('scholars-mate-defense')!;
+    const fen = positionAfterMoves('e4', 'e5', 'Bc4', 'Nc6', 'Qh5', 'g6');
+    expect(planViolation(scholars, snapshot(fen, 'b'), 4)).toBeUndefined();
   });
 });

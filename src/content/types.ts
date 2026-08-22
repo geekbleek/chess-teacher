@@ -53,6 +53,27 @@ export interface Spot {
   why: string;
 }
 
+/**
+ * A plan goal the Referee can actually check, rather than just print.
+ *
+ * Deliberately limited to the two habits that are hard to see and easy to measure.
+ * Material and mate are already caught by the Referee's own severity rules, so
+ * duplicating them here would only produce two messages for one mistake.
+ */
+export interface PlanCheck {
+  metric: 'development' | 'kingSafety';
+  atLeast: number;
+  /** For development: the full-move number by which the target must be met. */
+  byMove?: number;
+}
+
+export interface PlanStep {
+  goal: string;
+  /** A hard goal stops a Test drill when its check fails. */
+  hard?: boolean;
+  check?: PlanCheck;
+}
+
 export interface Pattern {
   kind: 'pattern';
   id: string;
@@ -64,7 +85,7 @@ export interface Pattern {
   cues: { text: string; squares?: Square[] }[];
   spot?: Spot;
   recognition?: Recognition;
-  plan?: { goal: string; hard?: boolean }[];
+  plan?: PlanStep[];
   setup: string[];
   line: LessonNode;
   drills: Drill[];

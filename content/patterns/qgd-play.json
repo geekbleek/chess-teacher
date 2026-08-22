@@ -69,6 +69,14 @@
     },
     {
       "goal": "Know that a knight capture on d5 can be met by taking back and winning a piece."
+    },
+    {
+      "goal": "Keep the king safe — this opening has no compensation for a loose one.",
+      "hard": true,
+      "check": {
+        "metric": "kingSafety",
+        "atLeast": 45
+      }
     }
   ],
   "setup": [

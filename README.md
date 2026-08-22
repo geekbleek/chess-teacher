@@ -26,6 +26,8 @@ articles across four stages, three modes, and progress that schedules itself.
 | 2. Repertoire | Italian, Caro-Kann, QGD | Playing each of the three |
 | 3. Structures | IQP, minority attack, outposts, good/bad bishops, open files | A plan drill for each |
 
+- **Recognise before you move** — most lessons open with a board and "tap the square
+  that matters", then a multiple-choice question about what the threat actually is.
 - **Library** — read first. Articles explain what a position wants; lessons drop you
   into one and judge what you do. Every article links to the drills that practise it
   and back again.
@@ -37,6 +39,10 @@ articles across four stages, three modes, and progress that schedules itself.
 - **Either side** — a drill can set `opponent: "mistakes"` and the app will play the
   losing moves for you to punish, so every trap is drillable from both sides.
 - **Free play** — no lesson, just the board and the Referee.
+
+A lesson can also declare a plan goal the app checks after every move — "at least two
+minor pieces out by move five" — and breaking one stops a Test drill just like a
+blunder does.
 
 Progress uses SM-2 spaced repetition, on device. Failing a drill, or asking for the
 final hint, brings it back tomorrow.

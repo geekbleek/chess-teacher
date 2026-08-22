@@ -35,13 +35,24 @@
   "plan": [
     {
       "goal": "Take a central square, develop a new piece, or castle. Every move.",
-      "hard": true
+      "hard": false
     },
     {
-      "goal": "Knights before bishops, and neither before you know where they are going."
+      "goal": "Have at least two minor pieces out by move five.",
+      "hard": true,
+      "check": {
+        "metric": "development",
+        "atLeast": 2,
+        "byMove": 5
+      }
     },
     {
-      "goal": "Keep the queen at home until the minor pieces are out."
+      "goal": "Keep the king able to castle — do not walk him or lose the right.",
+      "hard": true,
+      "check": {
+        "metric": "kingSafety",
+        "atLeast": 45
+      }
     }
   ],
   "setup": [],

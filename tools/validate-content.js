@@ -82,6 +82,12 @@ function validatePattern(file, p, fail) {
   if (p.recognition) validateRecognition(file, p.recognition, fail);
   for (const step of p.plan ?? []) {
     isText(step.goal) ? ok() : fail('plan step without a goal');
+    if (!step.check) continue;
+    ['development', 'kingSafety'].includes(step.check.metric)
+      ? ok()
+      : fail(`plan check has unknown metric "${step.check.metric}"`);
+    typeof step.check.atLeast === 'number' ? ok() : fail('plan check needs a numeric atLeast');
+    step.hard ? ok() : fail('a plan check only does anything on a hard goal');
   }
 
   Array.isArray(p.drills) && p.drills.length > 0 ? ok() : fail('needs at least one drill');

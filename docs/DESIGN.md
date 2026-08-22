@@ -142,7 +142,8 @@ Pattern
 ├─ recognition — the pre-drill quiz (§6): tap the threatened square,
 │                name the threat. No moves shown.
 ├─ tree       — FEN-keyed move graph (§4.1)
-├─ plan[]     — the metric goals: "castle by move 8", "keep a knight on f6"
+├─ spot       — tap the square that matters, on a real board (§6)
+├─ plan[]     — goals; a `hard` one carries a machine-checkable test (§4.3)
 └─ drills[]   — which node to start from, which side you play, mode config
 ```
 
@@ -185,6 +186,27 @@ A drill may set `from`, a list of SAN moves from the lesson root, and start ther
 Written for the Elephant Trap — the interesting moment is seven plies into a branch,
 and a drill that only reaches it if the learner happens to pick a sideline is not a
 drill. CI checks that `from` actually follows the tree.
+
+### 4.3 Plan goals that are actually checked
+
+A lesson's `plan` is mostly prose, but a goal marked `hard` may carry a `check` the
+Referee evaluates after every one of your moves:
+
+```jsonc
+{ "goal": "Have at least two minor pieces out by move five.",
+  "hard": true,
+  "check": { "metric": "development", "atLeast": 2, "byMove": 5 } }
+```
+
+Breaking one stops a Test drill exactly as a named mistake would, and offers a rewind
+in Learn mode. It applies to book moves too — a move can be in the lesson and still
+break the plan.
+
+Only `development` and `kingSafety` are checkable, deliberately. Material and mate are
+already covered by the Referee's own severity rules, and duplicating them here would
+produce two messages for one mistake. Calibration matters more than coverage: the
+first version of the development check demanded three minor pieces by move five and
+therefore flagged a correctly played Italian, which has two.
 
 ### 4.2 Who plays the other side
 

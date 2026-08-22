@@ -71,6 +71,14 @@
     },
     {
       "goal": "Accept slightly less space in return for having no weaknesses to attack."
+    },
+    {
+      "goal": "Keep the king able to castle while you sort the bishop out.",
+      "hard": true,
+      "check": {
+        "metric": "kingSafety",
+        "atLeast": 45
+      }
     }
   ],
   "setup": [

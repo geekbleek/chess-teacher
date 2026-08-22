@@ -39,6 +39,14 @@
     },
     {
       "goal": "Do not grab e5 — it is defended, and the tactics do not work."
+    },
+    {
+      "goal": "Castle by move seven and keep the king safe.",
+      "hard": true,
+      "check": {
+        "metric": "kingSafety",
+        "atLeast": 45
+      }
     }
   ],
   "setup": [],
