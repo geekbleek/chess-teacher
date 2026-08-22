@@ -1,0 +1,30 @@
+{
+  "id": "outposts-and-holes",
+  "title": "Outposts, Holes, and When a Knight Beats a Bishop",
+  "tier": 3,
+  "summary": "Pawn moves create squares that can never be defended again. Putting a knight on one is often worth more than any tactic.",
+  "sections": [
+    {
+      "heading": "A hole is permanent",
+      "body": "Every pawn move leaves squares behind it undefendable by pawns forever. Those squares are holes. A hole in your opponent's camp, on your side of the board, protected by one of your pawns, is an outpost — and a knight sitting on an outpost is often the best piece on the board, because nothing can chase it away.",
+      "diagram": {
+        "at": ["e4", "c5", "Nf3", "d6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "a6"],
+        "highlight": ["d5", "b5"],
+        "caption": "The Najdorf. Black has just played a6 to control b5, because d5 and b5 are the two holes this structure creates."
+      }
+    },
+    {
+      "heading": "Knight versus bishop, decided honestly",
+      "body": "The bishop is worth slightly more than the knight on average, and the average is useless. A knight beats a bishop when the position is blocked, when there is a secure outpost, and when the action is on both wings at short range. A bishop beats a knight when the position is open, when there are targets on both sides of the board, and when pawns are on squares the bishop does not stand on. Before trading one for the other, ask which of those two descriptions fits."
+    },
+    {
+      "heading": "Making holes on purpose",
+      "body": "You do not have to wait for your opponent to create weaknesses. Provoking a pawn move is a plan: attack a piece so that it must be defended by a pawn advance, and the square behind that pawn is yours. This is what strong players mean by 'playing against the structure', and it is why they will spend three moves manoeuvring a knight to a square that looks like nothing."
+    },
+    {
+      "heading": "The habit to build",
+      "body": "When you are unsure what to do, look for the square in your opponent's position that no pawn can ever attack, and work out which of your pieces can get there. It is a plan you can find in almost every quiet position, and it is far more reliable than hunting for a tactic that may not exist."
+    }
+  ],
+  "related": ["good-and-bad-bishops"]
+}

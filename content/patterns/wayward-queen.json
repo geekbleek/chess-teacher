@@ -1,0 +1,113 @@
+{
+  "id": "wayward-queen",
+  "title": "The Wayward Queen (2.Qh5)",
+  "tier": 1,
+  "side": "black",
+  "eco": "C20",
+  "idea": "White brings the queen out on move two, hitting e5 and eyeing f7. It looks rude and it is: against a player who panics it wins a pawn or the game, and against a player who develops it loses time. The whole answer is to defend with a piece that wanted to move anyway, and then chase the queen around while you finish developing. Do not defend with pawns near your king, and do not ignore e5.",
+  "cues": [
+    { "text": "The queen appears on h5 before any minor piece has moved.", "squares": ["h5"] },
+    { "text": "e5 is attacked once and defended zero times. That is the immediate problem.", "squares": ["e5"] },
+    { "text": "f7 is the follow-up target as soon as a bishop reaches c4.", "squares": ["f7", "c4"] }
+  ],
+  "recognition": {
+    "at": ["e4", "e5", "Qh5"],
+    "prompt": "White has played 2.Qh5. What is the threat right now?",
+    "choices": [
+      { "text": "Qxe5+ — winning the pawn with check", "correct": true, "why": "The queen attacks e5, which nothing defends, and the capture comes with check because your king is on e8. That check is what makes it dangerous: it wins time as well as a pawn." },
+      { "text": "Qxf7 is mate", "correct": false, "why": "Not yet. f7 is attacked once and defended by the king, so the queen would simply be taken. It becomes mate only when a bishop joins on c4." },
+      { "text": "Nothing yet", "correct": false, "why": "e5 really is hanging with check. Ignoring it costs a pawn and a tempo." },
+      { "text": "White threatens to trap your king in the centre", "correct": false, "why": "Nothing is preventing you from castling. The problem is concrete, not positional." }
+    ]
+  },
+  "plan": [
+    { "goal": "Defend e5 with a piece that develops.", "hard": true },
+    { "goal": "Attack the queen every time you can do it with a developing move." },
+    { "goal": "Do not push the g- or f-pawn to shoo her away until she is actually on the diagonal." }
+  ],
+  "setup": ["e4", "e5", "Qh5"],
+  "line": {
+    "threat": "Qxe5 wins a pawn with check, because e5 is undefended and your king sits on e8.",
+    "focusSquares": ["e5", "h5"],
+    "hints": [
+      "One of your pawns is attacked and not defended. Which one?",
+      "Defend it with a piece rather than a pawn — you want the move to be useful after the queen leaves.",
+      "The natural defender is a knight, and it goes to its best square anyway."
+    ],
+    "moves": [
+      {
+        "san": "Nc6",
+        "quality": "best",
+        "why": "Defends e5 and develops toward the centre. This is the move you wanted to play anyway, so White's queen sortie has gained nothing at all.",
+        "then": {
+          "moves": [
+            {
+              "san": "Bc4",
+              "quality": "best",
+              "why": "White adds the second attacker to f7 — this is now the Scholar's Mate set-up, reached by a different move order.",
+              "then": {
+                "threat": "Qxf7 is mate: the queen and the bishop both hit f7 and only the king defends it.",
+                "focusSquares": ["f7", "c4", "h5"],
+                "hints": [
+                  "The position just changed character. Something is now attacked twice.",
+                  "Block the diagonal rather than adding a defender — you can do it with tempo.",
+                  "A kingside pawn move both blocks and attacks the queen."
+                ],
+                "moves": [
+                  {
+                    "san": "g6",
+                    "quality": "best",
+                    "why": "Blocks the diagonal and hits the queen. From here the game is the same as the Scholar's Mate defence — and you are already better developed.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Qf3",
+                          "quality": "best",
+                          "why": "The queen reloads on the f-file, threatening f7 all over again.",
+                          "then": {
+                            "moves": [
+                              {
+                                "san": "Nf6",
+                                "quality": "best",
+                                "why": "Blocks the file, develops, and takes f6 away from the queen. Three knights' worth of work in one move.",
+                                "then": {
+                                  "terminal": {
+                                    "verdict": "pass",
+                                    "summary": "Count it up: you have two knights out and a fianchetto coming, White has a bishop and a queen that has moved three times. The queen sortie cost White three tempi and gained nothing, which is exactly what should happen when you meet it by developing rather than panicking."
+                                  }
+                                }
+                              }
+                            ],
+                            "mistakes": [
+                              { "san": "Nd4", "why": "Hitting the queen and c2 looks strong, but f7 is still attacked twice and your own queen on d8 blocks her king's only escape.", "punish": ["Qxf7#"] }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  { "san": "Qe7", "quality": "ok", "why": "Adds a defender to f7. Safe, but it blocks your dark-squared bishop." }
+                ],
+                "mistakes": [
+                  { "san": "Nf6", "why": "Developing into the mate. f7 needs attention first.", "punish": ["Qxf7#"] },
+                  { "san": "d6", "why": "Solid-looking and completely beside the point — d6 has nothing to do with f7.", "punish": ["Qxf7#"] }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      { "san": "Qe7", "quality": "ok", "why": "Defends e5 and stops Qxe5+. Playable, but the queen on e7 gets in the way of your own bishop and knight." },
+      { "san": "d6", "quality": "ok", "why": "Defends e5 with a pawn and opens the light-squared bishop. Fine, though it does nothing to White's queen." }
+    ],
+    "mistakes": [
+      { "san": "g6", "why": "The instinct to shoo the queen away is right — but she is not on the diagonal yet, and this drops e5 with check. The check is the killer: it wins the rook on h8 as well.", "punish": ["Qxe5+", "Qe7", "Qxh8"] },
+      { "san": "Nf6", "why": "Developing while a pawn hangs with check. The knight does not defend e5.", "punish": ["Qxe5+"] }
+    ]
+  },
+  "drills": [
+    { "id": "learn", "mode": "learn", "playAs": "black", "opponent": "best", "label": "Learn the defence" },
+    { "id": "test", "mode": "test", "playAs": "black", "opponent": "best", "label": "Defend it cold" },
+    { "id": "attack", "mode": "test", "playAs": "white", "opponent": "mistakes", "label": "Run the attack yourself" }
+  ]
+}

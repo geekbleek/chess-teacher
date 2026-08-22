@@ -1,0 +1,171 @@
+{
+  "id": "damiano-punish",
+  "title": "Punishing 2...f6",
+  "tier": 1,
+  "side": "white",
+  "eco": "C40",
+  "idea": "Black defends the e5 pawn with the f-pawn. It is the single worst common move in the opening, because f7 was already the weakest square in the position and f6 takes away the knight's best square while opening the diagonal to the king. The refutation is a knight sacrifice that most people do not see because it looks like it just loses a piece. Learning to play it teaches you the more useful half: why you must never answer an attack on e5 with f6.",
+  "cues": [
+    {
+      "text": "Black answers a threat to e5 by pushing the f-pawn rather than developing.",
+      "squares": [
+        "f6",
+        "e5"
+      ]
+    },
+    {
+      "text": "The e8–h5 diagonal toward the black king is now open, with only the g-pawn in the way.",
+      "squares": [
+        "e8",
+        "h5"
+      ]
+    },
+    {
+      "text": "Black's knight can no longer go to f6, its best square, so the kingside will stay undeveloped.",
+      "squares": [
+        "g8",
+        "f6"
+      ]
+    }
+  ],
+  "recognition": {
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "f6"
+    ],
+    "prompt": "Black has just played 2...f6 to defend e5. What has it actually done?",
+    "choices": [
+      {
+        "text": "Opened the diagonal to the black king",
+        "correct": true,
+        "why": "With the f-pawn gone from f7, the e8–h5 diagonal is one pawn away from being open. That is what makes the knight sacrifice on e5 work: after the pawn recaptures, a check on h5 hits the king."
+      },
+      {
+        "text": "Defended e5 adequately",
+        "correct": false,
+        "why": "It defends the pawn in the narrow sense and loses the game in the broad one."
+      },
+      {
+        "text": "Prepared d5 with good central control",
+        "correct": false,
+        "why": "Black has no time for that. The refutation starts immediately."
+      },
+      {
+        "text": "Nothing much — it is just slightly passive",
+        "correct": false,
+        "why": "It is a losing move, not a passive one. That distinction is the lesson."
+      }
+    ]
+  },
+  "plan": [
+    {
+      "goal": "When a defensive pawn move opens a line to the enemy king, look for a sacrifice on that line.",
+      "hard": true
+    },
+    {
+      "goal": "Count what the king can do after the check, not what the material says before it."
+    }
+  ],
+  "setup": [
+    "e4",
+    "e5",
+    "Nf3",
+    "f6"
+  ],
+  "line": {
+    "threat": "Nothing is threatened against you. The question is whether you can see why Black's last move loses.",
+    "focusSquares": [
+      "f6",
+      "e5",
+      "h5"
+    ],
+    "hints": [
+      "Black's last move weakened a diagonal. Trace it from h5 to the black king and see what is in the way.",
+      "One of your pieces can remove the pawn that is in the way — at the cost of the piece.",
+      "Take on e5 with the knight, even though it looks like it just hangs."
+    ],
+    "moves": [
+      {
+        "san": "Nxe5",
+        "quality": "best",
+        "why": "The knight is not really hanging, because taking it opens the diagonal to Black's king. If Black declines, you are simply a pawn up with a much better position.",
+        "then": {
+          "threat": "Your knight on e5 is attacked by the f6 pawn. Taking it loses on the spot.",
+          "focusSquares": [
+            "e5",
+            "f6",
+            "h5"
+          ],
+          "moves": [
+            {
+              "san": "Qe7",
+              "quality": "best",
+              "why": "Black's best try: decline the knight and pin it instead, accepting a bad position rather than a lost one.",
+              "then": {
+                "moves": [
+                  {
+                    "san": "Nf3",
+                    "quality": "best",
+                    "why": "Retreat the knight, keep the extra pawn, and get on with development.",
+                    "then": {
+                      "terminal": {
+                        "verdict": "pass",
+                        "summary": "A pawn up with a healthy position, against an opponent whose kingside cannot develop. This is the ordinary outcome — the mating line only appears if Black takes. Both halves matter: knowing the sacrifice is why you play Nxe5, and knowing that Black's best is to decline is why you should not expect fireworks."
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "mistakes": [
+            {
+              "san": "fxe5",
+              "why": "Taking the knight opens the exact diagonal the f-pawn was covering. Qh5 comes with check, the king has to walk to e7, and then the queen simply collects e5 with check as well — Black is down a rook's worth of material with a king in the open and no pieces developed.",
+              "punish": [
+                "Qh5+",
+                "Ke7",
+                "Qxe5+"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "san": "Bc4",
+        "quality": "ok",
+        "why": "Develop and aim at the weakened f7. Very good, and much simpler than the sacrifice."
+      },
+      {
+        "san": "Nc3",
+        "quality": "ok",
+        "why": "Just develop. Black's position is already worse; you do not have to prove it immediately."
+      }
+    ]
+  },
+  "drills": [
+    {
+      "id": "learn",
+      "mode": "learn",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Learn the refutation"
+    },
+    {
+      "id": "test",
+      "mode": "test",
+      "playAs": "white",
+      "opponent": "best",
+      "label": "Find it cold"
+    },
+    {
+      "id": "defend",
+      "mode": "test",
+      "playAs": "black",
+      "opponent": "best",
+      "label": "Defend it as Black"
+    }
+  ]
+}

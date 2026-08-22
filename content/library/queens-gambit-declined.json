@@ -1,0 +1,30 @@
+{
+  "id": "queens-gambit-declined",
+  "title": "The Queen's Gambit Declined (your answer to 1.d4)",
+  "tier": 2,
+  "summary": "1.d4 d5 2.c4 e6 — the most respectable defence in chess, and a direct route into the structures in Tier 3.",
+  "sections": [
+    {
+      "heading": "Why this against 1.d4",
+      "body": "The QGD is recommended partly because it is sound and mostly because of what it teaches. It leads directly to the Carlsbad structure and the minority attack, which is the single most instructive strategic plan a club player can learn. You are not just getting a defence, you are getting a middlegame syllabus.",
+      "diagram": {
+        "at": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "Bg5", "Be7", "e3", "O-O", "Nf3", "h6", "Bh4", "b6"],
+        "highlight": ["d5", "e6", "c7"],
+        "caption": "A standard QGD. Black's pawn chain d5–e6 is solid, and the light-squared bishop is the piece that needs a plan."
+      }
+    },
+    {
+      "heading": "The problem child",
+      "body": "As in the French, your light-squared bishop starts life behind the e6 pawn. The QGD's answer is not to avoid the problem but to solve it deliberately: either ...b6 and ...Bb7 to develop it on the long diagonal, or ...dxc4 followed by ...b5 and ...Bb7, or the Tartakower with ...b6 after ...h6 and ...b6. Pick one and know why you are doing it."
+    },
+    {
+      "heading": "Do not grab the pawn",
+      "body": "The Queen's Gambit is not really a gambit. Taking on c4 and trying to hold the pawn with ...b5 loses material to a well-timed a4. You can take on c4 as part of a plan to develop the bishop — that is fine and normal — but never with the intention of keeping it."
+    },
+    {
+      "heading": "Where it leads",
+      "body": "When White plays cxd5 exd5 you get the Carlsbad structure, and the game becomes a race between White's minority attack on the queenside and your play in the centre or against the king. Read the Minority Attack article next: it is the plan you will face most often as a QGD player, and understanding it from both sides is worth more than any opening line."
+    }
+  ],
+  "related": ["minority-attack", "opening-principles"]
+}

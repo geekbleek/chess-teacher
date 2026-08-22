@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "validate:content": "node tools/validate-patterns.js content/patterns/*.json"
+    "validate:content": "node tools/validate-content.js"
   },
   "dependencies": {
     "chess.js": "^1.4.0",

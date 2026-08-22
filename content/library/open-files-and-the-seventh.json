@@ -1,0 +1,30 @@
+{
+  "id": "open-files-and-the-seventh",
+  "title": "Open Files and the Seventh Rank",
+  "tier": 3,
+  "summary": "How rooks actually win games: find the file, take it, double on it, and land on the seventh.",
+  "sections": [
+    {
+      "heading": "Rooks are useless until a file opens",
+      "body": "In the opening a rook does nothing, which is why the principles tell you to castle and connect them and then leave them alone. In the middlegame their entire value comes from files. A rook on an open file exerts pressure down the whole board; the same rook one square to the side is a spectator.",
+      "diagram": {
+        "at": ["d4", "d5", "c4", "dxc4", "e3", "Nf6", "Bxc4", "e6", "Nf3", "c5", "O-O", "cxd4", "exd4", "Be7", "Nc3", "O-O", "Re1", "Nc6", "a3", "b6", "Bg5", "Bb7"],
+        "highlight": ["e1", "e6", "d4"],
+        "caption": "White's rook has taken the half-open e-file and points straight at e6. The isolated d-pawn is the price for exactly this kind of activity."
+      }
+    },
+    {
+      "heading": "Half-open beats closed",
+      "body": "You rarely get a fully open file handed to you. A half-open file — one where you have no pawn and your opponent does — is usually better anyway, because their pawn on it is a target that cannot run. Put a rook behind it, add a second rook, and force them to defend passively. This is precisely the mechanism the minority attack sets up."
+    },
+    {
+      "heading": "The seventh rank",
+      "body": "A rook on the seventh attacks pawns that have not moved and cuts the enemy king off from the game. Two rooks on the seventh are frequently winning regardless of material, because they take every escape square and pick up pawns at leisure. When you are calculating and you see a line that ends with a rook on the seventh, look harder at that line — it is usually better than it appears."
+    },
+    {
+      "heading": "The practical sequence",
+      "body": "Find the file that is open or half-open. Ask whether you can take it before your opponent does, because whoever gets there first usually keeps it. Double rooks if the file is contested. Then look for the seventh. That is a complete plan and you can execute it in most middlegames without calculating anything deep, which is the point — strategy is what you do when there is no tactic."
+    }
+  ],
+  "related": ["minority-attack", "isolated-queens-pawn"]
+}

@@ -1,0 +1,104 @@
+{
+  "id": "fried-liver-defense",
+  "title": "The Fried Liver (Ng5 and f7)",
+  "tier": 1,
+  "side": "black",
+  "eco": "C57",
+  "idea": "This is the same f7 story as Scholar's Mate, but played by someone who actually knows what they are doing. White develops normally, then jumps a knight to g5 so that the knight and the bishop on c4 both hit f7. The move that saves you is d5 — a counter-punch in the centre, not a defensive shuffle. The trap comes one move later: after White takes on d5 it feels obvious to recapture with the knight, and that recapture is the losing move.",
+  "cues": [
+    { "text": "A knight lands on g5 while a bishop sits on c4. Both are aiming at f7.", "squares": ["g5", "c4", "f7"] },
+    { "text": "f7 is attacked twice and defended once — by the king, who cannot afford to take.", "squares": ["f7"] },
+    { "text": "Your knight on f6 is the only thing defending d5, which is why d5 becomes the fight.", "squares": ["f6", "d5"] }
+  ],
+  "recognition": {
+    "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nf6", "Ng5"],
+    "prompt": "White has just played 4.Ng5. What is the real threat?",
+    "choices": [
+      { "text": "Nxf7 — forking the queen and the rook", "correct": true, "why": "The knight on f7 would attack the queen on d8 and the rook on h8 at once. Take it with the king and you lose castling and walk into the open; leave it and you lose the exchange." },
+      { "text": "Nxe5 — winning a pawn", "correct": false, "why": "e5 is defended by your knight on c6, so that capture just loses a knight." },
+      { "text": "Nothing — the knight on g5 is loose", "correct": false, "why": "It is not loose, and even if it were, the threat against f7 comes first." },
+      { "text": "Qh5 next move, mating on f7", "correct": false, "why": "That is a different pattern. Here the knight itself is the second attacker, and it strikes immediately." }
+    ]
+  },
+  "plan": [
+    { "goal": "Answer an attack on f7 with a counter-strike in the centre, not a passive defence.", "hard": true },
+    { "goal": "Do not recapture on d5 with the knight — it removes the defender of f7." },
+    { "goal": "Accept giving back a pawn to get your king to safety and your pieces out." }
+  ],
+  "setup": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nf6", "Ng5"],
+  "line": {
+    "threat": "Nxf7 forks your queen and your rook. f7 is hit by the knight and the bishop, and defended only by the king.",
+    "focusSquares": ["f7", "g5", "c4"],
+    "hints": [
+      "Defending f7 directly does not work — count the attackers again and you will see why.",
+      "Instead of defending, attack. Something of White's is loose in the centre.",
+      "The move is a pawn push that hits the bishop on c4 and opens your position at the same time."
+    ],
+    "moves": [
+      {
+        "san": "d5",
+        "quality": "best",
+        "why": "The point of the whole line. It attacks the bishop on c4 and blocks its path to f7, so the threat evaporates while you gain space. You will probably give the pawn back — that is fine, you are buying development and a safe king.",
+        "then": {
+          "moves": [
+            {
+              "san": "exd5",
+              "quality": "best",
+              "why": "White takes, and now offers you the trap: it looks natural to take back with the knight.",
+              "then": {
+                "threat": "Nothing is hanging yet — but the recapture you choose here decides the game.",
+                "focusSquares": ["d5", "f7", "c4"],
+                "hints": [
+                  "Two of your pieces can take on d5. One of them is doing a job it cannot abandon.",
+                  "Ask what defends f7 right now. Then ask what happens if that piece walks to d5.",
+                  "Do not recapture at all. Hit the bishop instead — the knight has a square on the edge that attacks it."
+                ],
+                "moves": [
+                  {
+                    "san": "Na5",
+                    "quality": "best",
+                    "why": "The move that beats the Fried Liver. Instead of recapturing, you attack the bishop on c4, so White has to deal with that before anything else. You stay a pawn down for a while and your position is completely sound.",
+                    "then": {
+                      "moves": [
+                        {
+                          "san": "Bb5+",
+                          "quality": "best",
+                          "why": "White keeps the bishop with check, and the storm is over.",
+                          "then": {
+                            "terminal": {
+                              "verdict": "pass",
+                              "summary": "You are a pawn down and perfectly fine. That is the trade this opening asks you to make, and it is a good one: White's attack is spent, your pieces are active, and the knight that was going to eat f7 has nothing left to do. The lesson generalises — when a piece jumps at f7, look for a pawn break in the centre before you look for a defender."
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  { "san": "b5", "quality": "ok", "why": "The Ulvestad: hits the bishop with the pawn instead. Sharp and playable, but far more complicated than Na5." },
+                  { "san": "Nd4", "quality": "ok", "why": "The Fritz Variation. Also a real move, also enormously sharp. Fine if you know it, dangerous if you don't." }
+                ],
+                "mistakes": [
+                  {
+                    "san": "Nxd5",
+                    "why": "This is the Fried Liver itself. The knight was the only thing keeping f7 together, and now it has walked away. White sacrifices the knight for the pawn and drags your king out to f7, where it gets hunted in the open with no pieces to help it.",
+                    "punish": ["Nxf7", "Kxf7", "Qf3+"]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      { "san": "Be7", "quality": "inferior", "why": "It defends f7 by adding a piece, but it is passive and White keeps the initiative with a well-timed break. Playable, not principled." }
+    ],
+    "mistakes": [
+      { "san": "d6", "why": "A sensible-looking developing move that ignores the count on f7. The knight lands there and forks queen and rook.", "punish": ["Nxf7"] },
+      { "san": "h6", "why": "Poking at the knight does not work when the knight wants to go forward anyway. It takes on f7 and you cannot recapture without your king stepping into the open.", "punish": ["Nxf7"] }
+    ]
+  },
+  "drills": [
+    { "id": "learn", "mode": "learn", "playAs": "black", "opponent": "best", "label": "Learn the defence" },
+    { "id": "test", "mode": "test", "playAs": "black", "opponent": "best", "label": "Defend it cold" },
+    { "id": "attack", "mode": "test", "playAs": "white", "opponent": "mistakes", "label": "Play the Fried Liver yourself" }
+  ]
+}

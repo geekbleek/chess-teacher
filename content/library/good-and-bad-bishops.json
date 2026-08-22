@@ -1,0 +1,30 @@
+{
+  "id": "good-and-bad-bishops",
+  "title": "Good Bishops and Bad Bishops",
+  "tier": 3,
+  "summary": "A bishop is only as good as the squares your own pawns leave it. This is the cheapest strategic idea to learn and one of the most valuable.",
+  "sections": [
+    {
+      "heading": "The rule in one line",
+      "body": "Put your pawns on the opposite colour to your bishop. A bishop whose own pawns sit on its colour is looking at a wall it built itself. It is called a bad bishop, and in a closed position it can be worth less than a pawn.",
+      "diagram": {
+        "at": ["e4", "e6", "d4", "d5", "e5", "c5", "c3", "Nc6", "Nf3", "Qb6"],
+        "highlight": ["c8", "d5", "e6"],
+        "caption": "The French Advance. Black's light-squared bishop on c8 is the textbook bad bishop — its own pawns on d5 and e6 are on light squares."
+      }
+    },
+    {
+      "heading": "What to do when you have one",
+      "body": "Three options, in order of preference. Trade it — a bad bishop is the piece you most want to swap, even for a knight. Free it by moving the pawns that block it, which usually means a break rather than a shuffle. Or route it outside the chain, which in the French means ...b6 and ...Ba6, and in the Caro-Kann means playing ...Bf5 before ...e6 in the first place. The one thing you must not do is nothing."
+    },
+    {
+      "heading": "What to do against one",
+      "body": "Refuse the trade. If your opponent's bishop is bad, keeping it on the board is worth more than any small material or structural gain, and you should decline exchanges that relieve them. Then play on the colour their bishop cannot defend — a bad light-squared bishop means the dark squares around their king belong to you."
+    },
+    {
+      "heading": "Why this matters more than it sounds",
+      "body": "This is the idea that turns 'I do not know what to do' into a plan on almost any quiet move. Look at the pawn structure, decide which bishop is worse, and either trade yours or trap theirs. It costs nothing to check and it points at a plan in more positions than any other single question."
+    }
+  ],
+  "related": ["caro-kann", "outposts-and-holes"]
+}

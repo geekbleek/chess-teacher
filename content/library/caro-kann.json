@@ -1,0 +1,30 @@
+{
+  "id": "caro-kann",
+  "title": "The Caro-Kann (your answer to 1.e4)",
+  "tier": 2,
+  "summary": "1...c6 — solid, plan-driven, and specifically good against people who only know how to attack.",
+  "sections": [
+    {
+      "heading": "Why this against 1.e4",
+      "body": "The Caro-Kann is chosen here for exactly the problem you described: opponents who beat you with prepared aggression. It gives them nothing to attack. You support d5 with the c-pawn rather than the e-pawn, which means your light-squared bishop gets out before you lock it in — the single most common structural complaint about the French. The cost is a tempo and a slightly passive position. That is a good trade while you are learning to punish over-extension.",
+      "diagram": {
+        "at": ["e4", "c6", "d4", "d5", "e5", "Bf5", "Nf3", "e6", "Be2", "Nd7"],
+        "highlight": ["f5", "c6", "d5"],
+        "caption": "The Advance Variation. Note the bishop on f5, outside the pawn chain — the whole point of playing c6 rather than e6."
+      }
+    },
+    {
+      "heading": "Get the bishop out first",
+      "body": "The move order matters more than the variation. Against the Advance (3.e5), play ...Bf5 before ...e6. Do it the other way round and the bishop is stuck behind its own pawns for the rest of the game. This single rule is worth more than ten moves of memorised theory."
+    },
+    {
+      "heading": "The plan in the middlegame",
+      "body": "You have a solid structure and a slight lack of space, so your play is about breaks: ...c5 against the Advance to hit d4, and ...e5 in the lines where White allows it. Until a break is available you improve pieces and wait. This is the opposite temperament from the Italian and that is deliberate — playing both teaches you that 'good position' means different things depending on the structure."
+    },
+    {
+      "heading": "What you give up",
+      "body": "Be honest about it: the Caro-Kann rarely produces a quick attack, and against a well-prepared opponent you will often be defending a slightly worse endgame. Many strong club players find that dull. The reason it is recommended is that it will stop you losing in twenty moves, and losing in twenty moves is the actual problem."
+    }
+  ],
+  "related": ["opening-principles"]
+}

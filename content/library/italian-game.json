@@ -1,0 +1,30 @@
+{
+  "id": "italian-game",
+  "title": "The Italian Game (your White opening)",
+  "tier": 2,
+  "summary": "1.e4 e5 2.Nf3 Nc6 3.Bc4 — every classical principle made visible in one opening.",
+  "sections": [
+    {
+      "heading": "Why this one",
+      "body": "The Italian is recommended here not because it is the most testing move order but because it teaches. Every move does an obvious job: the pawn takes the centre, the knight attacks e5 and covers d4, the bishop develops to the square where it hits f7 and clears the way to castle. When you eventually deviate you will know what you are giving up, which is not true of openings you learn as move lists.",
+      "diagram": {
+        "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "c3", "Nf6", "d3", "d6", "O-O", "O-O"],
+        "highlight": ["c3", "d3", "e4"],
+        "caption": "The Giuoco Pianissimo. Both kings are safe, and White's pawns on c3 and d3 are preparing the d4 break."
+      }
+    },
+    {
+      "heading": "The plan, not the moves",
+      "body": "White's slow set-up plays c3 and d3, then builds up with Nbd2, Bb3 and Re1 before pushing d4. The break is the whole idea: c3 supports it, d3 holds e4 while you prepare, and the pieces are placed so that opening the centre helps you and not your opponent. If you remember one sentence about the Italian, make it this — you are playing to achieve d4 under good circumstances, and every quiet move is in service of that."
+    },
+    {
+      "heading": "What can go wrong early",
+      "body": "Two things, both covered by drills. The Two Knights lets you play Ng5 hitting f7, which is a real attack but also the Fried Liver — worth knowing from both sides. And 3...Nd4, the Blackburne Shilling, offers you the e5 pawn to lure your knight away from home. Both are in Tier 1, and both are cases where the Italian's natural aggression can be turned against you."
+    },
+    {
+      "heading": "The bishop on c4 is a commitment",
+      "body": "That bishop is your best piece and your biggest liability. It eyes f7 forever, which creates the attacking chances, but it is also the piece most easily hit by ...d5 and ...Na5. Learn to retreat it to b3 early and without regret. A bishop on b3 still watches the same diagonal and can no longer be harassed."
+    }
+  ],
+  "related": ["fried-liver-defense", "blackburne-shilling"]
+}

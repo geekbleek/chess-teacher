@@ -146,47 +146,56 @@ Pattern
 └─ drills[]   — which node to start from, which side you play, mode config
 ```
 
-### 4.1 The tree is FEN-keyed, not move-list-keyed
+### 4.1 Authored as SAN trees, indexed by FEN at runtime
 
-Storing lines as `["e4","e5","Bc4",...]` breaks the moment you transpose. Instead
-each node is keyed by a normalized FEN (position + side to move + castling + en
-passant; move counters dropped). That gives transposition handling for free and lets
-one node be reached from several move orders.
+The first version of this design stored lessons as FEN-keyed nodes. That was wrong in
+practice: hand-typing FENs is the single easiest way to ship a broken lesson, and it
+happened while writing the very first one. Lessons are now authored as nested SAN move
+trees, and the FEN index is built when the app loads.
 
 ```jsonc
-"nodes": {
-  "<fen>": {
-    "toMove": "black",
-    "threat": "Qxf7# — f7 is attacked twice and defended only by the king.",
-    "accept": [
-      { "san": "g6", "quality": "best", "why": "Blocks the queen's diagonal and gains a tempo." },
-      { "san": "Qe7", "quality": "ok", "why": "Defends f7, but blocks your own bishop." }
-    ],
-    "reject": [
-      { "san": "Nf6", "why": "Doesn't address f7 — Qxf7# ends the game.", "punish": ["Qxf7#"] }
-    ],
-    "reply": { "san": "Qf3", "why": "White renews the threat on f7." }
-  }
+"line": {
+  "threat": "Qxf7 is mate — f7 is attacked twice and defended only by the king.",
+  "hints": ["...", "...", "..."],
+  "moves": [
+    { "san": "g6", "quality": "best", "why": "Blocks and hits the queen.", "then": { /* ... */ } },
+    { "san": "Qe7", "quality": "ok", "why": "Defends f7, blocks your bishop." }
+  ],
+  "mistakes": [
+    { "san": "Nf6", "why": "Develops straight into mate.", "punish": ["Qxf7#"] }
+  ]
 }
 ```
 
-- `accept` — **multiple** correct answers. Critical: the app must never teach that
-  there is one holy move.
-- `reject` — the mistakes people actually make, each with a `punish` continuation the
-  app *plays out* so you feel it.
-- `reply` — the computer's move. Deterministic, from the book.
-- Anything not in either list falls through to the Referee (§5).
+- `moves` — **every** move that serves the plan, so the app never teaches that there is
+  one holy answer. Exactly one is marked `best`; CI enforces that.
+- `mistakes` — the errors people actually make, each with a `punish` line the app plays
+  out on the board so you feel it. CI checks the line is legal and that a move claiming
+  mate really is mate.
+- Both sides live in the same tree. Whoever is to move at a node owns its `moves`, which
+  is what makes "play as or against" fall out for free (§4.2).
+
+`indexPattern()` walks the tree once and keys every node by its normalized FEN, so
+transpositions still land on the right node — the benefit of the original design without
+the hand-typed keys.
 
 ### 4.2 Who plays the other side
 
 The opponent is a **book**, not an engine — by design.
 
-- In book → play `reply`.
+- In book → play the `best` move at that node.
 - Out of book, **Learn mode** → stop immediately: *"That's not wrong, but it leaves
   the pattern. Here's what changed."* Offer rewind.
 - Out of book, **Test mode** → the Referee picks a principled reply (§5) and play
   continues for up to N more plies before final judgment. This is the only place the
   app "thinks," and it only needs to be club-level-plausible for ~6 moves.
+
+**Playing the attacking side.** A drill can set `opponent: "mistakes"`, and then the app
+deliberately plays the losing defences from the `mistakes` list, cycling through them, and
+you have to punish each one. This is why every trap is drillable from both sides without
+writing the content twice — and it is the fastest way to learn to defend something. CI
+checks that such a drill's mistakes actually sit at nodes where the *opponent* moves,
+because otherwise it silently degrades into an ordinary drill.
 
 ---
 
@@ -372,11 +381,11 @@ Portrait, one thumb, no scrolling during play.
 | --- | --- |
 | 1 ✅ | Vite + Preact + Chessground + chess.js, PWA manifest, Pages deploy. Board you can move pieces on, on your phone. |
 | 2 ✅ | `see.ts` + `metrics.ts` + `referee.ts` with unit tests. The brain, headless. |
-| 3 | Pattern schema + `content.yml` CI + 3 Tier-1 patterns. |
-| 4 | Learn mode with the hint ladder. |
-| 5 | Test mode + Replay with the metric strip. |
-| 6 | Progress + SM-2 scheduling + home screen. |
-| 7 | Fill out Tier 1 (8 patterns), then Tier 2 repertoire, then Tier 3 structures. |
+| 3 ✅ | Lesson format + content CI + six Tier-1 lessons. |
+| 4 ✅ | Learn mode with the hint ladder. |
+| 5 ✅ | Test mode + Replay with the metric strip. |
+| 6 ✅ | Progress + SM-2 scheduling + home screen. |
+| 7 | More Tier 1 lessons; drillable Tier 2 and Tier 3 (both currently articles). |
 
 Phases 1–3 are the real work. After that, adding content is writing JSON.
 

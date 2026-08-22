@@ -1,0 +1,30 @@
+{
+  "id": "isolated-queens-pawn",
+  "title": "The Isolated Queen's Pawn",
+  "tier": 3,
+  "summary": "A weakness in the endgame and a source of energy in the middlegame. Which one it is depends entirely on the piece count.",
+  "sections": [
+    {
+      "heading": "What you are looking at",
+      "body": "One side has a pawn on d4 or d5 with no pawns on the adjacent files. It cannot ever be defended by a pawn, and the square directly in front of it can never be attacked by one. That is the deal: a permanent weakness, in exchange for two open files, active pieces, and a space advantage.",
+      "diagram": {
+        "at": ["e4", "c5", "Nf3", "e6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "d5", "exd5", "exd5"],
+        "highlight": ["d5", "d4", "e4"],
+        "caption": "Black has just acquired an isolated pawn on d5. The square in front of it, d4, is a permanent home for a white piece."
+      }
+    },
+    {
+      "heading": "If you have the isolated pawn",
+      "body": "Keep pieces on. Every trade brings the endgame closer, and in the endgame the pawn is just weak. Use the open e- and c-files for your rooks, put a knight on the strong square the pawn's advance covers, and look for the moment to push d5–d4 (or d4–d5) as a break — the pawn's one moment of glory is when it advances and frees everything behind it. Attack the king if you can: your extra space and open lines are attacking assets that expire."
+    },
+    {
+      "heading": "If you are playing against it",
+      "body": "Trade pieces, and blockade. The square in front of the pawn is the key to the whole position — put a knight there and it can never be dislodged by a pawn, it cannot be attacked easily, and it stops the break that gives the isolated pawn its life. Once the blockade holds and the queens are off, you are simply better. The instruction is almost mechanical: blockade, trade, win the pawn."
+    },
+    {
+      "heading": "The general lesson",
+      "body": "This is the clearest example in chess of a feature that is good or bad depending on the phase of the game. It should permanently change how you evaluate: 'is this pawn weak' is the wrong question, and 'weak in what circumstances, and can I reach them' is the right one."
+    }
+  ],
+  "related": ["open-files-and-the-seventh"]
+}
