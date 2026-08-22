@@ -320,6 +320,25 @@ Stop conditions:
 
 On failure → **Replay** (§6.1).
 
+### 6.0b A drill must never dead-end
+
+Two rules, both learned from a real stuck report:
+
+1. **Judge a move by what it changed, not by what was already wrong.** Rejecting every
+   move because a piece was loose *before* you moved makes a drill unwinnable — and
+   once you are off book in a bad position, no move comes back clean. A move is turned
+   down only if it lost material, exposed the king, allowed a mate, ignored an existing
+   mate, or broke a declared plan goal *without improving it*.
+2. **Cap the retries.** Learn mode offers a rewind at most twice at the same position,
+   then concludes the drill and points at the replay. Some positions genuinely have no
+   good move; looping "Try again" forever is not teaching.
+
+A good move the lesson simply does not follow also ends the drill, rather than drifting
+off with the Referee playing both sides.
+
+This is covered by a test that plays every drill with a deliberately unhelpful player
+and asserts each one reaches a conclusion.
+
 ### 6.1 Replay — the post-mortem
 Every ply is journaled with its `Snapshot` — **including the refutation**, not just the
 move that lost. That detail matters more than it sounds: at the moment of the mistake
@@ -408,6 +427,13 @@ Portrait, one thumb, no scrolling during play.
 ```
 
 - Board fills the width; everything else is below it and reachable.
+- Only a board you can move on gets `touch-action: none`. Static diagrams keep `pan-y`,
+  or dragging over them does nothing and the page cannot be scrolled — and the board is
+  most of the screen on a phone.
+- Modifier classes go on the frame, never on the element handed to Chessground.
+  Chessground adds `cg-wrap` and friends to it after mount, and a Preact-rendered class
+  wipes them, silently disabling every Chessground rule including the pointer-events on
+  its overlay layers.
 - No haptics. `navigator.vibrate` is unimplemented in iOS Safari, so the tick-on-move
   idea in the original sketch would have been dead code on the target platform.
 - Overlays use **square tints and target-square dots**, deliberately *not* move

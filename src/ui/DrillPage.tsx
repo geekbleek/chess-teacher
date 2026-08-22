@@ -59,7 +59,12 @@ export function DrillPage({ patternId, drillId }: { patternId: string; drillId: 
   const isLearn = drill.mode === 'learn';
   const node = nodeAt(state);
   const view = useMemo(() => snapshot(state.fen, state.you), [state.fen, state.you]);
-  const focus: Square[] = isLearn && yourTurn(state) ? (node?.focusSquares ?? []) : [];
+  // In Learn mode the board points at what needs attention: the lesson's focus
+  // squares, plus anything of yours that is actually hanging. Test mode shows nothing.
+  const focus: Square[] =
+    isLearn && yourTurn(state)
+      ? [...(node?.focusSquares ?? []), ...view.hanging.map((h) => h.square)]
+      : [];
   const last = state.journal[state.journal.length - 1];
 
   const restart = () => {

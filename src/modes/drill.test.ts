@@ -34,9 +34,13 @@ describe('learn mode', () => {
     expect(s.feedback?.detail).toContain('tempo');
   });
 
-  it('accepts a second good move without calling it best', () => {
+  it('accepts a second good move, and stops because the lesson does not follow it', () => {
+    // Qe7 defends f7 and is listed as playable, but the tree continues after g6.
+    // Ending here is honest; drifting off with the Referee playing both sides is not.
     const s = playerMove(start('learn'), 'Qe7');
-    expect(s.feedback?.headline).toBe('Playable.');
+    expect(s.feedback?.headline).toBe('Also good.');
+    expect(s.feedback?.detail).toContain('main line');
+    expect(s.status).toBe('passed');
   });
 
   it('plays the punishment out on the board and offers a rewind', () => {
@@ -225,30 +229,117 @@ describe('hard plan goals', () => {
 
   it('is quiet when the opening is played properly', () => {
     const fen = positionAfterMoves('e4', 'e5', 'Nf3', 'Nc6', 'Bc4', 'Nf6', 'O-O', 'Be7', 'd3', 'd6');
-    expect(planViolation(habits, snapshot(fen, 'w'), 6)).toBeUndefined();
+    expect(planViolation(habits, snapshot(fen, 'w'), snapshot(fen, 'w'), 6)).toBeUndefined();
   });
 
   it('fires when development is behind by the move it names', () => {
     // Five pawn moves and not a single piece out.
     const fen = positionAfterMoves('e4', 'e5', 'a3', 'a6', 'b3', 'b6', 'c3', 'c6', 'd3', 'd6');
-    const broken = planViolation(habits, snapshot(fen, 'w'), 6);
+    const broken = planViolation(habits, snapshot(fen, 'w'), snapshot(fen, 'w'), 6);
     expect(broken?.goal).toContain('two minor pieces');
   });
 
   it('does not fire before the move it names', () => {
     const fen = positionAfterMoves('e4', 'e5', 'a3', 'a6');
-    expect(planViolation(habits, snapshot(fen, 'w'), 3)).toBeUndefined();
+    expect(planViolation(habits, snapshot(fen, 'w'), snapshot(fen, 'w'), 3)).toBeUndefined();
   });
 
   it('fires when the king loses the right to castle', () => {
     const fen = positionAfterMoves('e4', 'e5', 'Nf3', 'Nc6', 'Bc4', 'Bc5', 'Ke2');
-    const broken = planViolation(habits, snapshot(fen, 'w'), 4);
+    const broken = planViolation(habits, snapshot(fen, 'w'), snapshot(fen, 'w'), 4);
     expect(broken?.goal).toContain('king');
   });
 
   it('leaves lessons without hard checks alone', () => {
     const scholars = patternById('scholars-mate-defense')!;
     const fen = positionAfterMoves('e4', 'e5', 'Bc4', 'Nc6', 'Qh5', 'g6');
-    expect(planViolation(scholars, snapshot(fen, 'b'), 4)).toBeUndefined();
+    expect(planViolation(scholars, snapshot(fen, 'b'), snapshot(fen, 'b'), 4)).toBeUndefined();
+  });
+});
+
+describe('no drill can get stuck', () => {
+  /**
+   * Plays a legal move that is deliberately not the one the lesson wants, over and
+   * over. Whatever the player does, a drill has to reach a conclusion — it must never
+   * sit in a state where every move is rejected and the only button is "Try again".
+   */
+  function stubbornRun(pattern: Pattern, drill: Drill, seed: number) {
+    let s = createDrill(pattern, drill);
+    let rewinds = 0;
+    let playerMoves = 0;
+
+    for (let step = 0; step < 200 && s.status === 'playing'; step++) {
+      if (s.rewindTo) {
+        rewinds += 1;
+        if (rewinds > 6) break; // stuck: rejected over and over at the same spot
+        s = rewind(s);
+        continue;
+      }
+      if (theirTurn(s)) {
+        s = opponentMove(s);
+        continue;
+      }
+      const board = new Chess(s.fen);
+      const legal = board.moves();
+      if (legal.length === 0) break;
+      const avoid = s.script ? s.script[s.scriptIndex] : bestMove(s)?.san;
+      const options = legal.filter((m) => m !== avoid);
+      const san = (options.length ? options : legal)[(seed + playerMoves * 7) % (options.length || legal.length)]!;
+      s = playerMove(s, san);
+      playerMoves += 1;
+    }
+    return { status: s.status, rewinds, playerMoves };
+  }
+
+  it('always reaches a conclusion, however badly it is played', () => {
+    const stuck: string[] = [];
+    for (const pattern of patterns) {
+      for (const drill of pattern.drills) {
+        for (const seed of [0, 1, 2, 3, 5]) {
+          const run = stubbornRun(pattern, drill, seed);
+          if (run.status === 'playing') {
+            stuck.push(
+              `${pattern.id}/${drill.id} seed ${seed}: still playing after ${run.playerMoves} moves and ${run.rewinds} rewinds`,
+            );
+          }
+        }
+      }
+    }
+    expect(stuck).toEqual([]);
+  }, 60_000);
+});
+
+describe('the retry cap', () => {
+  it('gives up after a couple of rejections rather than looping forever', () => {
+    let s = createDrill(patternById('scholars-mate-defense')!, {
+      id: 'learn',
+      mode: 'learn',
+      playAs: 'black',
+      opponent: 'best',
+      label: 'x',
+    });
+    let rejections = 0;
+    for (let i = 0; i < 10 && s.status === 'playing'; i++) {
+      s = playerMove(s, 'Nf6'); // walks into Qxf7# every time
+      if (s.rewindTo) {
+        rejections += 1;
+        s = rewind(s);
+      }
+    }
+    expect(rejections).toBe(2);
+    expect(s.status).toBe('failed');
+    expect(s.failedAtPly).not.toBeNull(); // so "Show me where" still works
+  });
+
+  it('does not count attempts at different positions against you', () => {
+    const pattern = patternById('scholars-mate-defense')!;
+    const drill = pattern.drills.find((d) => d.id === 'learn')!;
+    let s = createDrill(pattern, drill);
+    s = rewind(playerMove(s, 'Nf6')); // one rejection here
+    s = playerMove(s, 'g6'); // correct, moves on
+    while (theirTurn(s)) s = opponentMove(s);
+    s = playerMove(s, 'Nd4'); // a mistake at the new position
+    expect(s.rewindTo).not.toBeNull(); // still gets a retry, not an instant fail
+    expect(s.attempts).toBe(1);
   });
 });

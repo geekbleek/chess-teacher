@@ -1,7 +1,7 @@
 import { Chess } from 'chess.js';
 import { indexPattern, normalizeFen, type PatternIndex } from '../content';
 import type { Drill, LessonMove, LessonNode, Mistake, Pattern, PlanStep } from '../content/types';
-import { chooseReply, reviewMove, snapshot } from '../engine/referee';
+import { chooseReply, reviewMove, snapshot, type Review } from '../engine/referee';
 import type { Color, Finding, Snapshot, Square } from '../engine/types';
 
 export type Status = 'playing' | 'passed' | 'failed';
@@ -44,6 +44,9 @@ export interface DrillState {
   scriptIndex: number;
   /** How many mistakes the app has already shown, so it cycles rather than repeats. */
   mistakesShown: number;
+  /** Rejected attempts at the position below, so a retry loop cannot run forever. */
+  attempts: number;
+  attemptFen: string | null;
   offBookPlies: number;
   failedAtPly: number | null;
 }
@@ -72,6 +75,8 @@ export function createDrill(pattern: Pattern, drill: Drill): DrillState {
     script: null,
     scriptIndex: 0,
     mistakesShown: 0,
+    attempts: 0,
+    attemptFen: null,
     offBookPlies: drill.offBookPlies ?? 6,
     failedAtPly: null,
   };
@@ -143,17 +148,71 @@ const isLearn = (state: DrillState) => state.drill.mode === 'learn';
  */
 export function planViolation(
   pattern: Pattern,
-  view: Snapshot,
+  before: Snapshot,
+  after: Snapshot,
   fullmove: number,
 ): PlanStep | undefined {
   return (pattern.plan ?? []).find((step) => {
     if (!step.hard || !step.check) return false;
     const { metric, atLeast, byMove } = step.check;
     if (byMove !== undefined && fullmove < byMove) return false;
-    return metric === 'development'
-      ? view.development < atLeast
-      : view.kingSafety < atLeast;
+    const now = metric === 'development' ? after.development : after.kingSafety;
+    if (now >= atLeast) return false;
+    // Only fault a move that failed to improve things. If you are behind and
+    // catching up that is progress, and rejecting it can leave no way out at all.
+    const was = metric === 'development' ? before.development : before.kingSafety;
+    return now <= was;
   });
+}
+
+/** Did this move actually make the position worse, or was it already bad? */
+function madeItWorse(before: Snapshot, after: Snapshot): boolean {
+  return (
+    after.threatened > before.threatened ||
+    after.material < before.material ||
+    (after.mateAllowed && !before.mateAllowed) ||
+    after.kingSafety <= before.kingSafety - 15
+  );
+}
+
+/** Findings worth listing under a headline: no duplicates, no praise on a bad move. */
+function supporting(review: Review, headline: string): Finding[] {
+  return review.findings.filter((f) => f.severity !== 'good' && f.text !== headline).slice(0, 2);
+}
+
+const REWIND_LIMIT = 2;
+
+/**
+ * Turn a move down.
+ *
+ * Learn mode offers a retry, but only so many times at the same position. A position
+ * can become one where nothing is good — a piece already trapped, a king already
+ * exposed — and looping "Try again" forever is not teaching, it is a dead end.
+ */
+function reject(
+  state: DrillState,
+  journal: Ply[],
+  feedback: Feedback,
+  fenAfter: string,
+  atPly: number,
+): DrillState {
+  const attempts = state.attemptFen === state.fen ? state.attempts + 1 : 1;
+  const base = { ...state, journal, feedback, failedAtPly: atPly, attempts, attemptFen: state.fen };
+
+  if (isLearn(state) && attempts <= REWIND_LIMIT) {
+    return { ...base, fen: fenAfter, rewindTo: state.fen };
+  }
+  return {
+    ...base,
+    fen: fenAfter,
+    status: 'failed',
+    feedback: isLearn(state)
+      ? {
+          ...feedback,
+          detail: `${feedback.detail ?? ''} The position has got away from you — replay it to see where it went wrong, then start again.`.trim(),
+        }
+      : feedback,
+  };
 }
 
 /** The move the lesson expects from you, for the hint ladder's final reveal. */
@@ -195,13 +254,11 @@ export function rewind(state: DrillState): DrillState {
     ...state,
     fen: state.rewindTo,
     rewindTo: null,
+    failedAtPly: null,
     feedback: { tone: 'info', headline: 'Back to the position. Try something else.' },
   };
 }
 
-function fail(state: DrillState, feedback: Feedback, fenAfter: string, atPly: number): DrillState {
-  return { ...state, fen: fenAfter, status: 'failed', feedback, failedAtPly: atPly };
-}
 
 /** Your move. Judged against the lesson first, then against the position. */
 export function playerMove(state: DrillState, san: string): DrillState {
@@ -219,18 +276,14 @@ export function playerMove(state: DrillState, san: string): DrillState {
     if (san !== expected && !delivered) {
       const journal = [...state.journal, record(state, san, 'you')];
       const detail = `The punishment was ${state.script.slice(state.scriptIndex).join(' ')}.`;
-      if (isLearn(state)) {
-        return {
-          ...state,
-          journal,
-          fen: fenAfter,
-          rewindTo: state.fen,
-          feedback: { tone: 'warn', headline: 'That lets them off the hook.', detail },
-        };
-      }
-      return fail(
-        { ...state, journal },
-        { tone: 'bad', headline: 'Missed the punishment.', detail },
+      return reject(
+        state,
+        journal,
+        {
+          tone: 'bad',
+          headline: isLearn(state) ? 'That lets them off the hook.' : 'Missed the punishment.',
+          detail,
+        },
         fenAfter,
         journal.length - 1,
       );
@@ -262,16 +315,34 @@ export function playerMove(state: DrillState, san: string): DrillState {
     const terminal = nodeAt(next)?.terminal;
 
     // A move can be in the book and still break the plan the lesson declared.
-    const broken = planViolation(state.pattern, review.after, moveNumberOf(fenAfter));
+    const broken = planViolation(state.pattern, review.before, review.after, moveNumberOf(fenAfter));
     if (broken && !terminal) {
-      const feedback: Feedback = {
-        tone: 'bad',
-        headline: 'That breaks the plan.',
-        detail: broken.goal,
-        findings: review.findings.filter((f) => f.severity !== 'good').slice(0, 2),
+      return reject(
+        state,
+        journal,
+        {
+          tone: 'bad',
+          headline: 'That breaks the plan.',
+          detail: broken.goal,
+          findings: supporting(review, 'That breaks the plan.'),
+        },
+        fenAfter,
+        journal.length - 1,
+      );
+    }
+
+    // A good move the lesson simply does not follow. Ending here is honest; drifting
+    // off with the Referee playing both sides teaches nothing.
+    if (!terminal && !nodeAt(next)) {
+      return {
+        ...next,
+        status: 'passed',
+        feedback: {
+          tone: 'good',
+          headline: accepted.quality === 'best' ? 'Right.' : 'Also good.',
+          detail: `${accepted.why} The lesson follows a different move from here, so the drill stops — run it again to see the main line.`,
+        },
       };
-      if (isLearn(state)) return { ...next, rewindTo: state.fen, feedback };
-      return fail(next, feedback, fenAfter, journal.length - 1);
     }
 
     return {
@@ -304,33 +375,33 @@ export function playerMove(state: DrillState, san: string): DrillState {
       detail: mistake.why,
       playedOut: punish.length ? [san, ...punish] : [san],
     };
-    if (isLearn(state)) {
-      return { ...state, journal, fen: shownFen, rewindTo: state.fen, feedback, failedAtPly: atPly };
-    }
-    return fail({ ...state, journal }, feedback, shownFen, atPly);
+    return reject(state, journal, feedback, shownFen, atPly);
   }
 
   // --- Off book: no lesson data, so the Referee judges it alone --------------
-  const worst = review.findings[0];
-  const brokenPlan = planViolation(state.pattern, review.after, moveNumberOf(fenAfter));
-  const bad =
-    brokenPlan !== undefined ||
-    (worst && (worst.severity === 'critical' || worst.severity === 'major'));
+  const brokenPlan = planViolation(state.pattern, review.before, review.after, moveNumberOf(fenAfter));
+  const ignoredMate = review.after.mateAllowed && review.before.mateAllowed;
+  // Judge the move by what it changed, not by what was already wrong. Rejecting every
+  // move because a piece was loose before you moved is how a drill becomes unwinnable.
+  const bad = brokenPlan !== undefined || ignoredMate || madeItWorse(review.before, review.after);
   const journal = [...state.journal, record(state, san, 'you', review.headline)];
 
   if (bad) {
-    const feedback: Feedback = {
-      tone: 'bad',
-      headline: brokenPlan ? 'That breaks the plan.' : review.headline,
-      detail: brokenPlan
-        ? brokenPlan.goal
-        : 'That move is not in the lesson, and it costs you something concrete.',
-      findings: review.findings.slice(0, 3),
-    };
-    if (isLearn(state)) {
-      return { ...state, journal, fen: fenAfter, rewindTo: state.fen, feedback, failedAtPly: journal.length - 1 };
-    }
-    return fail({ ...state, journal }, feedback, fenAfter, journal.length - 1);
+    const headline = brokenPlan ? 'That breaks the plan.' : review.headline;
+    return reject(
+      state,
+      journal,
+      {
+        tone: 'bad',
+        headline,
+        detail: brokenPlan
+          ? brokenPlan.goal
+          : 'That move is not in the lesson, and it costs you something concrete.',
+        findings: supporting(review, headline),
+      },
+      fenAfter,
+      journal.length - 1,
+    );
   }
 
   const next: DrillState = {
@@ -348,7 +419,7 @@ export function playerMove(state: DrillState, san: string): DrillState {
         tone: 'info',
         headline: 'Sound, but it leaves the pattern.',
         detail: `${review.headline} The lesson follows a different move, so the drill stops here — replay it and try the main line.`,
-        findings: review.findings.slice(0, 2),
+        findings: supporting(review, review.headline),
       },
     };
   }

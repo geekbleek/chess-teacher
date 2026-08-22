@@ -91,6 +91,10 @@ export function Board({
       fen,
       orientation,
       turnColor: turn,
+      // A board you cannot move on must not swallow touches, or the page cannot be
+      // scrolled by dragging over it — and on a phone the board is most of the page.
+      draggable: { enabled: interactive, showGhost: true },
+      selectable: { enabled: interactive },
       check: board.isCheck(),
       lastMove: lastMove as Key[] | undefined,
       movable: {
@@ -133,7 +137,11 @@ export function Board({
 
   return (
     <div class="board-stack">
-      <div class="board-frame">
+      {/* The modifier lives on the frame, never on the board itself: Chessground adds
+          its own classes (cg-wrap, orientation-*) to that element after mount, and a
+          class Preact re-renders would wipe them — taking all of Chessground's CSS
+          with them, including the pointer-events rules on its overlay layers. */}
+      <div class={`board-frame ${interactive ? 'live' : 'static'}`}>
         <div class="board" ref={host} />
         {/* Chessground only reports square taps while the board is movable, which a
             static diagram is not — so tapping goes through our own overlay grid. */}

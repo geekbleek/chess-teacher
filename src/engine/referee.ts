@@ -18,7 +18,12 @@ const NAMES: Record<string, string> = {
   q: 'queen',
   k: 'king',
 };
-const pawns = (centipawns: number): string => (centipawns / 100).toFixed(centipawns % 100 ? 1 : 0);
+/** "1 pawn", "2.3 pawns" — magnitude only, and it gets the singular right. */
+const cost = (centipawns: number): string => {
+  const value = Math.abs(centipawns) / 100;
+  const text = value.toFixed(value % 1 === 0 ? 0 : 1);
+  return `${text} pawn${value === 1 ? '' : 's'}`;
+};
 
 /** Everything measurable about a position, from one side's point of view. */
 export function snapshot(fen: string, color: Color): Snapshot {
@@ -89,8 +94,8 @@ export function reviewMove(fenBefore: string, san: string): Review {
       wasAlready ? 'material-still-hanging' : 'material-hangs',
       severity,
       wasAlready
-        ? `Your ${NAMES[worst.piece]} on ${worst.square} was already loose and still is — ${pawns(worst.loss)} pawns.`
-        : `That leaves your ${NAMES[worst.piece]} on ${worst.square} for free — ${pawns(worst.loss)} pawns.`,
+        ? `Your ${NAMES[worst.piece]} on ${worst.square} is still loose — move it or defend it, or it costs ${cost(worst.loss)}.`
+        : `That leaves your ${NAMES[worst.piece]} on ${worst.square} for free — ${cost(worst.loss)}.`,
       [worst.square],
     );
   } else if (before.threatened > 0) {
@@ -99,7 +104,7 @@ export function reviewMove(fenBefore: string, san: string): Review {
 
   const lost = before.material - after.material;
   if (lost > 0 && !move.captured) {
-    add('material-lost', 'major', `That move costs ${pawns(lost)} pawns outright.`);
+    add('material-lost', 'major', `That move costs ${cost(lost)} outright.`);
   }
 
   // --- King safety ---------------------------------------------------------------

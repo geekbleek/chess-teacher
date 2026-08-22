@@ -306,7 +306,17 @@ ul.cues li {
 .board {
   width: 100%;
   aspect-ratio: 1;
+}
+
+/* Only a board you can actually move on may capture touches. Static diagrams keep
+   vertical panning, otherwise dragging over them does nothing and the page is stuck
+   — the board is most of the screen on a phone. */
+.board-frame.live .board {
   touch-action: none;
+}
+
+.board-frame.static .board {
+  touch-action: pan-y;
 }
 .board.cg-wrap {
   height: auto;
@@ -327,16 +337,19 @@ ul.cues li {
   position: relative;
 }
 
-/* Transparent tap targets over the board, for "spot the square" challenges. */
+/* Transparent tap targets over the board, for "spot the square" challenges.
+   pan-y so a drag still scrolls the page; a tap still registers. */
 .square-grid {
   position: absolute;
   inset: 0;
+  touch-action: pan-y;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
 }
 
 .square-grid button {
+  touch-action: pan-y;
   min-height: 0;
   padding: 0;
   border: 0;
@@ -385,6 +398,16 @@ ul.cues li {
   letter-spacing: 0.04em;
   color: var(--dim);
   text-align: center;
+}
+
+/* Chessground's shape layers are overflow:visible and sit at z-index 9, and it never
+   marks them pointer-events:none. The result is an invisible sheet that extends past
+   the board and swallows taps on whatever is underneath — on a phone that means the
+   buttons directly below the board stop working. We never need to click a shape. */
+svg.cg-shapes,
+svg.cg-custom-svgs,
+svg.cg-custom-svgs svg {
+  pointer-events: none;
 }
 
 /* Selection needs to be unmistakable at arm's length, and clearly different from
