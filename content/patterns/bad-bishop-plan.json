@@ -216,5 +216,25 @@
   "related": [
     "good-and-bad-bishops",
     "caro-kann"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "e6",
+      "d4",
+      "d5",
+      "e5",
+      "c5",
+      "c3",
+      "Nc6",
+      "Nf3",
+      "Qb6",
+      "Be2"
+    ],
+    "prompt": "Tap your worst piece.",
+    "squares": [
+      "c8"
+    ],
+    "why": "Your own pawns on d5 and e6 sit on light squares, so the light-squared bishop has nothing to look at. Getting it traded is worth more than most material you could win."
+  }
 }

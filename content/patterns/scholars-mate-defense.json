@@ -235,5 +235,19 @@
   "related": [
     "how-traps-work",
     "opening-principles"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "e5",
+      "Bc4",
+      "Nc6",
+      "Qh5"
+    ],
+    "prompt": "Tap the square that decides this position.",
+    "squares": [
+      "f7"
+    ],
+    "why": "f7 is attacked by the queen on h5 and the bishop on c4, and defended only by the king — who cannot take, because the bishop guards the square. Every f7 pattern in this library comes down to counting attackers and defenders on that one square."
+  }
 }

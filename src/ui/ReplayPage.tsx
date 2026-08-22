@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { Board } from '../board/Board';
 import type { Snapshot } from '../engine/types';
 import { MetricStrip } from './MetricStrip';
@@ -16,7 +16,21 @@ const TRACKS: { key: Metric; label: string }[] = [
 
 export function ReplayPage() {
   const state = getLastDrill();
-  const [at, setAt] = useState(() => (state?.failedAtPly ?? 0));
+  const [at, setAt] = useState(() => state?.failedAtPly ?? 0);
+  const [playing, setPlaying] = useState(false);
+
+  // Auto-play walks the game back at reading speed. It stops at the end rather
+  // than looping, because the point is to arrive somewhere, not to animate.
+  useEffect(() => {
+    if (!playing || !state) return;
+    const last = state.journal.length - 1;
+    if (at >= last) {
+      setPlaying(false);
+      return;
+    }
+    const timer = setTimeout(() => setAt((i) => Math.min(last, i + 1)), 1100);
+    return () => clearTimeout(timer);
+  }, [playing, at, state]);
 
   if (!state || state.journal.length === 0) {
     return (
@@ -78,7 +92,10 @@ export function ReplayPage() {
             key={i}
             type="button"
             class={`ply ${ply.by} ${i === at ? 'here' : ''} ${i === divergence ? 'diverged' : ''}`}
-            onClick={() => setAt(i)}
+            onClick={() => {
+              setPlaying(false);
+              setAt(i);
+            }}
           >
             {ply.san}
           </button>
@@ -99,13 +116,33 @@ export function ReplayPage() {
       <MetricStrip view={current.snapshot} />
 
       <div class="controls">
-        <button type="button" disabled={at === 0} onClick={() => setAt(Math.max(0, at - 1))}>
+        <button
+          type="button"
+          disabled={at === 0}
+          onClick={() => {
+            setPlaying(false);
+            setAt(Math.max(0, at - 1));
+          }}
+        >
           ‹ Prev
         </button>
         <button
           type="button"
+          disabled={plies.length < 2}
+          onClick={() => {
+            if (!playing && at >= plies.length - 1) setAt(0);
+            setPlaying(!playing);
+          }}
+        >
+          {playing ? 'Pause' : 'Play'}
+        </button>
+        <button
+          type="button"
           disabled={at >= plies.length - 1}
-          onClick={() => setAt(Math.min(plies.length - 1, at + 1))}
+          onClick={() => {
+            setPlaying(false);
+            setAt(Math.min(plies.length - 1, at + 1));
+          }}
         >
           Next ›
         </button>

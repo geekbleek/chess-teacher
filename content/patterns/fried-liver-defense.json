@@ -215,5 +215,21 @@
   "related": [
     "how-traps-work",
     "italian-game"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "Nc6",
+      "Bc4",
+      "Nf6",
+      "Ng5"
+    ],
+    "prompt": "Tap the square White's last move was aimed at.",
+    "squares": [
+      "f7"
+    ],
+    "why": "The knight on g5 and the bishop on c4 both hit f7, and a knight landing there forks your queen and rook. Same square as Scholar's Mate, different attackers."
+  }
 }

@@ -1,7 +1,8 @@
 import { useState } from 'preact/hooks';
 import { Board } from '../board/Board';
 import { byId, positionAfter } from '../content';
-import type { Article, Pattern, Recognition } from '../content/types';
+import type { Article, Pattern, Recognition, Spot } from '../content/types';
+import type { Square } from '../engine/types';
 import { markRead, read } from '../store/progress';
 import { go } from './router';
 
@@ -71,6 +72,7 @@ function ArticleView({ article }: { article: Article }) {
 }
 
 function PatternView({ pattern }: { pattern: Pattern }) {
+  const [cue, setCue] = useState<number | null>(null);
   const asDefender = pattern.drills.filter((d) => d.playAs === pattern.side);
   const asAttacker = pattern.drills.filter((d) => d.playAs !== pattern.side);
   const theirSide = pattern.side === 'white' ? 'Black' : 'White';
@@ -87,7 +89,11 @@ function PatternView({ pattern }: { pattern: Pattern }) {
       <Board
         fen={positionAfter(pattern.setup)}
         orientation={pattern.side}
-        highlight={pattern.cues.flatMap((c) => c.squares ?? []).slice(0, 4)}
+        highlight={
+          cue === null
+            ? pattern.cues.flatMap((c) => c.squares ?? []).slice(0, 4)
+            : (pattern.cues[cue]?.squares ?? [])
+        }
         interactive={false}
         onMove={() => {}}
       />
@@ -103,13 +109,22 @@ function PatternView({ pattern }: { pattern: Pattern }) {
 
       <section class="prose">
         <h2>How to recognise it</h2>
-        <ul class="cues">
-          {pattern.cues.map((cue) => (
-            <li key={cue.text}>{cue.text}</li>
+        <p class="blurb">Tap a cue to light up the squares it is talking about.</p>
+        <div class="cue-list">
+          {pattern.cues.map((entry, i) => (
+            <button
+              key={entry.text}
+              type="button"
+              class={`cue ${cue === i ? 'active' : ''}`}
+              onClick={() => setCue(cue === i ? null : i)}
+            >
+              {entry.text}
+            </button>
           ))}
-        </ul>
+        </div>
       </section>
 
+      {pattern.spot && <SpotChallenge spot={pattern.spot} side={pattern.side} />}
       {pattern.recognition && <RecognitionQuiz quiz={pattern.recognition} />}
 
       {pattern.plan && pattern.plan.length > 0 && (
@@ -193,6 +208,49 @@ function Related({ ids, heading }: { ids?: string[]; heading: string }) {
           <span class="row-tag">{target!.kind === 'article' ? 'read' : 'drill'}</span>
         </button>
       ))}
+    </section>
+  );
+}
+
+function SpotChallenge({ spot, side }: { spot: Spot; side: 'white' | 'black' }) {
+  const [tapped, setTapped] = useState<Square[]>([]);
+  const found = tapped.filter((sq) => spot.squares.includes(sq));
+  const missed = tapped.filter((sq) => !spot.squares.includes(sq));
+  const solved = spot.squares.every((sq) => found.includes(sq));
+
+  return (
+    <section class="prose quiz">
+      <h2>Spot it on the board</h2>
+      <p class="prompt">{spot.prompt}</p>
+      <Board
+        fen={positionAfter(spot.at)}
+        orientation={side}
+        interactive={false}
+        onMove={() => {}}
+        onSquareSelect={(square) => {
+          if (solved) return;
+          setTapped((prev) => (prev.includes(square) ? prev : [...prev, square]));
+        }}
+        correct={found}
+        wrong={solved ? [] : missed}
+      />
+      {solved ? (
+        <p class="verdict right">
+          <strong>Found it. </strong>
+          {spot.why}
+        </p>
+      ) : missed.length > 0 ? (
+        <p class="verdict wrong">
+          Not that one. {spot.squares.length > 1 ? 'There is more than one square.' : 'Keep looking.'}
+        </p>
+      ) : (
+        <p class="blurb">Tap the square on the board.</p>
+      )}
+      {(solved || missed.length > 0) && (
+        <button type="button" onClick={() => setTapped([])}>
+          Reset
+        </button>
+      )}
     </section>
   );
 }

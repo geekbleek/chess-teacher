@@ -224,5 +224,31 @@
   "related": [
     "open-files-and-the-seventh",
     "outposts-and-holes"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "c5",
+      "Nf3",
+      "d6",
+      "d4",
+      "cxd4",
+      "Nxd4",
+      "Nf6",
+      "Nc3",
+      "g6",
+      "Be2",
+      "Bg7",
+      "O-O",
+      "O-O",
+      "Be3",
+      "Nc6",
+      "Qd2"
+    ],
+    "prompt": "Tap the square your knight is heading for.",
+    "squares": [
+      "c4"
+    ],
+    "why": "No white pawn can ever attack c4 — the b- and d-pawns cannot reach it. A knight there hits the queen and bishop from a square it can never be driven off."
+  }
 }

@@ -217,5 +217,27 @@
   "related": [
     "isolated-queens-pawn",
     "open-files-and-the-seventh"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "c5",
+      "Nf3",
+      "e6",
+      "d4",
+      "cxd4",
+      "Nxd4",
+      "Nf6",
+      "Nc3",
+      "d5",
+      "exd5",
+      "exd5",
+      "Be2"
+    ],
+    "prompt": "Tap the square White most wants to put a knight on.",
+    "squares": [
+      "d4"
+    ],
+    "why": "The square directly in front of an isolated pawn can never be attacked by a pawn. A knight blockading on d4 stops your break forever, which is why you must generate activity before it arrives."
+  }
 }

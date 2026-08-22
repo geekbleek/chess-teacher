@@ -203,5 +203,30 @@
   ],
   "related": [
     "outposts-and-holes"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "c5",
+      "Nf3",
+      "d6",
+      "d4",
+      "cxd4",
+      "Nxd4",
+      "Nf6",
+      "Nc3",
+      "a6",
+      "Be2",
+      "e5",
+      "Nb3",
+      "Be7",
+      "O-O",
+      "O-O"
+    ],
+    "prompt": "Tap the hole in Black's position — the square no black pawn can ever attack.",
+    "squares": [
+      "d5"
+    ],
+    "why": "With pawns on e5 and a6 and no c-pawn, nothing black can ever challenge d5 again. A knight there is permanent, which is why the whole plan is about removing its last defender."
+  }
 }

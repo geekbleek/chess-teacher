@@ -170,5 +170,18 @@
   ],
   "related": [
     "how-traps-work"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "f6"
+    ],
+    "prompt": "Tap the square Black's last move just weakened.",
+    "squares": [
+      "e8"
+    ],
+    "why": "With the f-pawn on f6 instead of f7, the e8-h5 diagonal is one capture away from opening onto the black king. That is exactly why the knight sacrifice on e5 works."
+  }
 }

@@ -234,5 +234,32 @@
   "related": [
     "minority-attack",
     "open-files-and-the-seventh"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "d4",
+      "d5",
+      "c4",
+      "e6",
+      "Nc3",
+      "Nf6",
+      "cxd5",
+      "exd5",
+      "Bg5",
+      "c6",
+      "e3",
+      "Be7",
+      "Bd3",
+      "O-O",
+      "Nge2",
+      "Nbd7",
+      "O-O",
+      "Re8"
+    ],
+    "prompt": "Tap the pawn you are going to make permanently weak.",
+    "squares": [
+      "c6"
+    ],
+    "why": "Push b4-b5 and c6 becomes backward on a half-open file — it cannot advance, and no pawn can defend it. That target is what the whole minority attack exists to create."
+  }
 }

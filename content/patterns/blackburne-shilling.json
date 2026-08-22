@@ -177,5 +177,20 @@
   "related": [
     "how-traps-work",
     "italian-game"
-  ]
+  ],
+  "spot": {
+    "at": [
+      "e4",
+      "e5",
+      "Nf3",
+      "Nc6",
+      "Bc4",
+      "Nd4"
+    ],
+    "prompt": "Tap the square that gets mated if you take the bait.",
+    "squares": [
+      "f3"
+    ],
+    "why": "After Nxe5 Qg5 the attack crashes into g2, and the knight that started all this returns to f3 to deliver mate. Your king on e1 has no shelter once g2 falls."
+  }
 }

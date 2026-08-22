@@ -266,9 +266,14 @@ lazy import. Not in v1 — it's ~1MB and the Referee already covers the teaching
 1. **Concept card** — the `idea`, in words. Board shows the position with *square
    overlays* (target squares, control zones, the piece that's the problem). No arrows
    showing a move. No SAN.
-2. **Recognition check** — "Tap the square White is attacking." / "What is the
-   threat?" (multiple choice, phrased as ideas: *"Mate on f7"*, *"Winning the e-pawn"*,
-   *"Nothing yet — it's a bluff"*). Generated from SEE, so it's free.
+2. **Recognition check** — two of them, both before you are allowed to move. A
+   *spot challenge* asks you to tap the square that matters on a real board, and a
+   multiple-choice question asks what the threat actually is, phrased as ideas
+   (*"Mate on f7"*, *"Winning the e-pawn"*, *"Nothing yet — it's a bluff"*).
+
+   Implementation note: Chessground only reports square taps while the board is
+   movable, which a static diagram is not, so the spot challenge lays its own
+   transparent 8×8 grid of buttons over the board.
 3. **Guided play** — you move, feedback every ply:
    - `accept` → confirm *why* it works, in plan language.
    - `reject` → explain, then **play the punishment out on the board** so you see it,
@@ -294,10 +299,16 @@ Stop conditions:
 On failure → **Replay** (§6.1).
 
 ### 6.1 Replay — the post-mortem
-Every ply is journaled with its `Snapshot`. On failure the app rewinds to move 1 and
-auto-steps forward with:
+Every ply is journaled with its `Snapshot` — **including the refutation**, not just the
+move that lost. That detail matters more than it sounds: at the moment of the mistake
+the position usually still looks fine, which is exactly why it was tempting, so a
+replay that stops there has nothing to show. Journaling the punishment is what lets the
+charts say *king safety fell off a cliff over the next three moves*.
 
-- The board, one ply at a time (tap to step, or auto-play at ~1s).
+On failure the app rewinds to move 1 and steps forward with:
+
+- The board, one ply at a time — tap a move in the strip to jump, step with Prev and
+  Next, or hit Play to walk it back at about a second a move.
 - A **metric strip** under the board — small sparklines for material, king safety,
   development, center. The one that fell off a cliff is highlighted red.
 - **The divergence ply is marked and the replay pauses there**, with the before/after

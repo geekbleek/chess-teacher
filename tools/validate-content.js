@@ -5,7 +5,7 @@
  *   node tools/validate-content.js
  *
  * Patterns (content/patterns/*.json) are drillable move trees:
- *   { id, title, tier, side, idea, cues[], recognition?, plan?[], setup[], line, drills[], related?[] }
+ *   { id, title, tier, side, idea, cues[], spot?, recognition?, plan?[], setup[], line, drills[], related?[] }
  *   line  = { threat?, focusSquares?, hints?[], moves[], mistakes?[], terminal? }
  *   move  = { san, quality: best|ok|inferior, why, then?: line }
  *   mistake = { san, why, punish?[] }
@@ -78,6 +78,7 @@ function validatePattern(file, p, fail) {
 
   validateNode(file, p.line, root, fail, `${p.id}:line`);
 
+  if (p.spot) validateSpot(file, p.spot, fail);
   if (p.recognition) validateRecognition(file, p.recognition, fail);
   for (const step of p.plan ?? []) {
     isText(step.goal) ? ok() : fail('plan step without a goal');
@@ -208,6 +209,19 @@ function validateNode(file, node, board, fail, where) {
       fail(`${where}: punish for ${mistake.san} has an even number of plies — it should end on the punishing side's move`);
     } else ok();
   }
+}
+
+function validateSpot(file, spot, fail) {
+  try {
+    replay(spot.at ?? []);
+    ok();
+  } catch {
+    return fail('spot position is illegal');
+  }
+  isText(spot.prompt) && isText(spot.why) ? ok() : fail('spot needs a prompt and an explanation');
+  const squares = spot.squares ?? [];
+  squares.length >= 1 ? ok() : fail('spot needs at least one answer square');
+  for (const sq of squares) isSquare(sq) ? ok() : fail(`bad spot square "${sq}"`);
 }
 
 function validateRecognition(file, r, fail) {

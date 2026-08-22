@@ -6,6 +6,14 @@ import { Chess } from 'chess.js';
 import type { Square } from '../engine/types';
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+const RANKS = [1, 2, 3, 4, 5, 6, 7, 8];
+
+/** Squares in display order, top-left to bottom-right, for the tap overlay. */
+function displayOrder(orientation: 'white' | 'black'): Square[] {
+  const files = orientation === 'white' ? FILES : [...FILES].reverse();
+  const ranks = orientation === 'white' ? [...RANKS].reverse() : RANKS;
+  return ranks.flatMap((rank) => files.map((file) => `${file}${rank}` as Square));
+}
 
 export interface BoardProps {
   fen: string;
@@ -17,6 +25,12 @@ export interface BoardProps {
   /** Called with SAN when the player makes a legal move. */
   onMove: (san: string) => void;
   interactive?: boolean;
+  /** Called when a square is tapped. Used by the "spot the square" challenges. */
+  onSquareSelect?: (square: Square) => void;
+  /** Tint applied to a correctly identified square. */
+  correct?: Square[];
+  /** Tint applied to a wrong guess. */
+  wrong?: Square[];
 }
 
 /** Legal destinations per origin square, in the shape Chessground wants. */
@@ -38,6 +52,9 @@ export function Board({
   lastMove,
   onMove,
   interactive = true,
+  onSquareSelect,
+  correct = [],
+  wrong = [],
 }: BoardProps) {
   const host = useRef<HTMLDivElement>(null);
   const api = useRef<Api>();
@@ -97,14 +114,42 @@ export function Board({
     });
     // Circles on squares, never arrows between them: the app tints what matters and
     // leaves you to work out the move.
-    cg.setAutoShapes(highlight.map((square) => ({ orig: square as Key, brush: 'red' })));
-  }, [fen, orientation, interactive, highlight.join(','), lastMove?.join(',')]);
+    cg.setAutoShapes([
+      ...highlight.map((square) => ({ orig: square as Key, brush: 'red' })),
+      ...correct.map((square) => ({ orig: square as Key, brush: 'green' })),
+      ...wrong.map((square) => ({ orig: square as Key, brush: 'yellow' })),
+    ]);
+  }, [
+    fen,
+    orientation,
+    interactive,
+    highlight.join(','),
+    correct.join(','),
+    wrong.join(','),
+    lastMove?.join(','),
+  ]);
 
   const files = orientation === 'white' ? FILES : [...FILES].reverse();
 
   return (
     <div class="board-stack">
-      <div class="board" ref={host} />
+      <div class="board-frame">
+        <div class="board" ref={host} />
+        {/* Chessground only reports square taps while the board is movable, which a
+            static diagram is not — so tapping goes through our own overlay grid. */}
+        {onSquareSelect && (
+          <div class="square-grid">
+            {displayOrder(orientation).map((square) => (
+              <button
+                key={square}
+                type="button"
+                aria-label={square}
+                onClick={() => onSquareSelect(square)}
+              />
+            ))}
+          </div>
+        )}
+      </div>
       <div class="file-labels">
         {files.map((file) => (
           <span key={file}>{file}</span>

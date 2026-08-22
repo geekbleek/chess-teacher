@@ -45,6 +45,14 @@ export interface Recognition {
   choices: { text: string; correct: boolean; why: string }[];
 }
 
+/** "Tap the square that matters" — recognition without any moves involved. */
+export interface Spot {
+  at: string[];
+  prompt: string;
+  squares: Square[];
+  why: string;
+}
+
 export interface Pattern {
   kind: 'pattern';
   id: string;
@@ -54,6 +62,7 @@ export interface Pattern {
   eco?: string;
   idea: string;
   cues: { text: string; squares?: Square[] }[];
+  spot?: Spot;
   recognition?: Recognition;
   plan?: { goal: string; hard?: boolean }[];
   setup: string[];

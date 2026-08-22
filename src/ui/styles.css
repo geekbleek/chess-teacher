@@ -198,6 +198,25 @@ ul.cues li {
 
 /* --- recognition quiz ------------------------------------------------------- */
 
+.cue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cue {
+  text-align: left;
+  font-size: 14px;
+  line-height: 1.45;
+  padding: 9px 12px;
+  min-height: 0;
+}
+
+.cue.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .quiz .prompt {
   font-weight: 600;
   margin: 10px 0 8px;
@@ -302,6 +321,31 @@ ul.cues li {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+
+.board-frame {
+  position: relative;
+}
+
+/* Transparent tap targets over the board, for "spot the square" challenges. */
+.square-grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+
+.square-grid button {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+}
+
+.square-grid button:active {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .cg-wrap coords {
