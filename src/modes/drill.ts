@@ -1,7 +1,7 @@
 import { Chess } from 'chess.js';
 import { indexPattern, normalizeFen, type PatternIndex } from '../content';
 import type { Drill, LessonMove, LessonNode, Mistake, Pattern, PlanStep } from '../content/types';
-import { chooseReply, reviewMove, snapshot, type Review } from '../engine/referee';
+import { chooseReply, gameOverText, reviewMove, snapshot, type Review } from '../engine/referee';
 import type { Color, Finding, Snapshot, Square } from '../engine/types';
 
 export type Status = 'playing' | 'passed' | 'failed';
@@ -260,8 +260,36 @@ export function rewind(state: DrillState): DrillState {
 }
 
 
+/**
+ * Conclude a drill whose position has ended by itself.
+ *
+ * Without this a drill can sit at status "playing" with no legal move available —
+ * you get mated off book and the board simply locks with nothing to press.
+ */
+function settle(state: DrillState): DrillState {
+  if (state.status !== 'playing' || state.rewindTo) return state;
+  const board = new Chess(state.fen);
+  if (!board.isGameOver()) return state;
+
+  const yourLoss = board.isCheckmate() && board.turn() === state.you;
+  return {
+    ...state,
+    status: yourLoss ? 'failed' : 'passed',
+    failedAtPly: yourLoss ? state.journal.length - 1 : state.failedAtPly,
+    feedback: {
+      tone: yourLoss ? 'bad' : 'good',
+      headline: gameOverText(state.fen) ?? 'The game is over.',
+      detail: state.feedback?.detail,
+    },
+  };
+}
+
 /** Your move. Judged against the lesson first, then against the position. */
 export function playerMove(state: DrillState, san: string): DrillState {
+  return settle(playerMoveInner(state, san));
+}
+
+function playerMoveInner(state: DrillState, san: string): DrillState {
   if (state.status !== 'playing' || state.rewindTo) return state;
 
   const review = reviewMove(state.fen, san);
@@ -435,6 +463,10 @@ export function playerMove(state: DrillState, san: string): DrillState {
 
 /** The app's move. From the book when possible, from the Referee when not. */
 export function opponentMove(state: DrillState): DrillState {
+  return settle(opponentMoveInner(state));
+}
+
+function opponentMoveInner(state: DrillState): DrillState {
   if (!theirTurn(state)) return state;
 
   // Continuing a punishment line the app started.

@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'preact/hooks';
 import { Chess } from 'chess.js';
 import { Board } from '../board/Board';
-import { chooseReply, reviewMove, snapshot, type Review } from '../engine/referee';
+import { chooseReply, gameOverText, reviewMove, snapshot, type Review } from '../engine/referee';
 import type { Color, Square } from '../engine/types';
 import { MetricStrip } from './MetricStrip';
 import { go } from './router';
@@ -28,6 +28,9 @@ export function FreePlay() {
 
   const you: Color = orientation === 'white' ? 'w' : 'b';
   const view = useMemo(() => snapshot(fen, you), [fen, you]);
+
+  // Without this the board simply locks when the game ends, with nothing to explain why.
+  const over = useMemo(() => gameOverText(fen), [fen]);
   const last = history[history.length - 1];
 
   function play(san: string) {
@@ -95,12 +98,13 @@ export function FreePlay() {
         highlight={highlight}
         lastMove={lastMove}
         onMove={play}
-        interactive={!thinking}
+        interactive={!thinking && !over}
       />
 
       <MetricStrip view={view} />
 
-      <div class={`feedback ${yourLast ? severityClass(yourLast) : ''}`}>
+      <div class={`feedback ${over ? 'info' : yourLast ? severityClass(yourLast) : ''}`}>
+        {over && <p class="headline">{over} Take back a move, or reset.</p>}
         {view.mateAllowed && <p class="alarm">There is a mate threat against you right now.</p>}
         {!view.mateAllowed && view.hanging[0] && (
           <p class="alarm">

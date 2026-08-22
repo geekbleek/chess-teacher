@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Chess } from 'chess.js';
-import { chooseReply, reviewMove, snapshot, worstSeverity } from './referee';
+import { chooseReply, gameOverText, reviewMove, snapshot, worstSeverity } from './referee';
 
 function after(...moves: string[]): string {
   const board = new Chess();
@@ -127,5 +127,25 @@ describe('chooseReply', () => {
   it('is deterministic', () => {
     const fen = after('e4', 'e5');
     expect(chooseReply(fen)).toBe(chooseReply(fen));
+  });
+});
+
+describe('gameOverText', () => {
+  it('is null while the game is still going', () => {
+    expect(gameOverText(new Chess().fen())).toBeNull();
+    expect(gameOverText(after('e4', 'e5'))).toBeNull();
+  });
+
+  it('names the winner of a checkmate', () => {
+    // Fool's Mate.
+    expect(gameOverText(after('f3', 'e5', 'g4', 'Qh4#'))).toBe('Checkmate — Black wins.');
+  });
+
+  it('reports a stalemate', () => {
+    expect(gameOverText('7k/5Q2/6K1/8/8/8/8/8 b - - 0 1')).toBe('Stalemate. Draw.');
+  });
+
+  it('reports a dead position', () => {
+    expect(gameOverText('7k/8/6K1/8/8/8/8/8 w - - 0 1')).toContain('enough material');
   });
 });

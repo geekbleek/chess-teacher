@@ -343,3 +343,34 @@ describe('the retry cap', () => {
     expect(s.attempts).toBe(1);
   });
 });
+
+describe('positions that end by themselves', () => {
+  it('concludes when the game is over instead of locking the board', () => {
+    // Play into Scholar's Mate as Black in test mode: the app delivers mate, and the
+    // drill has to end. Otherwise the board locks with no legal move and no button.
+    const pattern = patternById('scholars-mate-defense')!;
+    let s = createDrill(pattern, pattern.drills.find((d) => d.id === 'test')!);
+    s = playerMove(s, 'Nf6'); // Qxf7# is played out as the punishment
+    expect(s.status).not.toBe('playing');
+    expect(new Chess(s.fen).isCheckmate()).toBe(true);
+  });
+
+  it('never leaves you to move with no legal moves', () => {
+    for (const pattern of patterns) {
+      for (const drill of pattern.drills) {
+        let s = createDrill(pattern, drill);
+        for (let i = 0; i < 60 && s.status === 'playing'; i++) {
+          if (s.rewindTo) { s = rewind(s); continue; }
+          if (theirTurn(s)) { s = opponentMove(s); continue; }
+          const legal = new Chess(s.fen).moves();
+          expect(`${pattern.id}/${drill.id}: ${legal.length} legal moves`).not.toBe(
+            `${pattern.id}/${drill.id}: 0 legal moves`,
+          );
+          const expected = s.script ? s.script[s.scriptIndex] : bestMove(s)?.san;
+          if (!expected) break;
+          s = playerMove(s, expected);
+        }
+      }
+    }
+  }, 30_000);
+});

@@ -173,6 +173,26 @@ export function reviewMove(fenBefore: string, san: string): Review {
   };
 }
 
+/**
+ * How this game ended, or null if it has not.
+ *
+ * Shared by the drill engine and free play so a finished position always says so —
+ * without it the board simply stops accepting moves and nothing explains why.
+ */
+export function gameOverText(fen: string): string | null {
+  const board = loadRelaxed(fen);
+  if (!board.isGameOver()) return null;
+  if (board.isCheckmate()) {
+    return `Checkmate — ${board.turn() === 'w' ? 'Black' : 'White'} wins.`;
+  }
+  if (board.isStalemate()) return 'Stalemate. Draw.';
+  if (board.isInsufficientMaterial()) {
+    return 'Draw — neither side has enough material to mate.';
+  }
+  if (board.isDraw()) return 'Draw.';
+  return 'The game is over.';
+}
+
 /** The worst thing in a review, for deciding whether a Test drill should stop. */
 export function worstSeverity(review: Review): Severity {
   return review.findings[0]?.severity ?? 'good';
