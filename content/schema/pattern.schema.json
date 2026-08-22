@@ -1,0 +1,345 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/geekbleek/chess-teacher/content/schema/pattern.schema.json",
+  "title": "Pattern",
+  "description": "One teachable chess pattern: an idea, its recognition cues, a FEN-keyed move graph, and drills.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "tier",
+    "side",
+    "idea",
+    "cues",
+    "root",
+    "nodes",
+    "drills"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3
+    },
+    "side": {
+      "description": "Which side the learner plays in the primary drill.",
+      "enum": [
+        "white",
+        "black",
+        "both"
+      ]
+    },
+    "eco": {
+      "type": "string"
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "idea": {
+      "type": "string",
+      "description": "What this position WANTS, in plan language. Never contains SAN moves."
+    },
+    "cues": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Board-visible triggers that tell you this pattern is on the board.",
+      "items": {
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "squares": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-h][1-8]$"
+            },
+            "description": "Squares to tint on the board while showing this cue."
+          }
+        }
+      }
+    },
+    "recognition": {
+      "type": "object",
+      "description": "Pre-drill check. Tests seeing, not moving.",
+      "additionalProperties": false,
+      "required": [
+        "fen",
+        "kind",
+        "prompt"
+      ],
+      "properties": {
+        "fen": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "tap-square",
+            "multiple-choice"
+          ]
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "answerSquares": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-h][1-8]$"
+          }
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "text",
+              "correct"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string"
+              },
+              "correct": {
+                "type": "boolean"
+              },
+              "why": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "plan": {
+      "type": "array",
+      "description": "Metric goals the Referee checks in Test mode. Failing one can stop the drill.",
+      "items": {
+        "type": "object",
+        "required": [
+          "metric",
+          "goal"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "metric": {
+            "enum": [
+              "material",
+              "kingSafety",
+              "development",
+              "centerControl",
+              "noHanging",
+              "pieceOnSquare",
+              "byMove"
+            ]
+          },
+          "goal": {
+            "type": "string"
+          },
+          "hard": {
+            "type": "boolean",
+            "default": false,
+            "description": "If true, violating this ends a Test drill and triggers Replay."
+          }
+        }
+      }
+    },
+    "root": {
+      "type": "string",
+      "description": "Normalized FEN (4 fields: placement, side, castling, en passant) of the drill start."
+    },
+    "setupLine": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "SAN moves from the initial position that produce `root`. CI replays these."
+    },
+    "nodes": {
+      "type": "object",
+      "description": "Keyed by normalized FEN. Transpositions collapse onto the same node.",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "toMove"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "toMove": {
+            "enum": [
+              "white",
+              "black"
+            ]
+          },
+          "threat": {
+            "type": "string",
+            "description": "What the opponent is doing right now. Shown in Learn mode before you move."
+          },
+          "focusSquares": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-h][1-8]$"
+            }
+          },
+          "accept": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Every move that serves the plan. There is never only one right answer.",
+            "items": {
+              "type": "object",
+              "required": [
+                "san",
+                "quality",
+                "why"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "san": {
+                  "type": "string"
+                },
+                "quality": {
+                  "enum": [
+                    "best",
+                    "ok",
+                    "inferior"
+                  ]
+                },
+                "why": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "reject": {
+            "type": "array",
+            "description": "Mistakes people actually make here.",
+            "items": {
+              "type": "object",
+              "required": [
+                "san",
+                "why"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "san": {
+                  "type": "string"
+                },
+                "why": {
+                  "type": "string"
+                },
+                "punish": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "SAN continuation the app plays out on the board so you feel it. CI asserts legality and that a claimed mate is mate."
+                }
+              }
+            }
+          },
+          "reply": {
+            "type": "object",
+            "description": "The computer's book move. Omit on terminal nodes.",
+            "required": [
+              "san"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "san": {
+                "type": "string"
+              },
+              "why": {
+                "type": "string"
+              }
+            }
+          },
+          "hints": {
+            "type": "array",
+            "maxItems": 3,
+            "description": "Hint ladder L1-L3, escalating. L4 (reveal) is generated from `accept`.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "terminal": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "verdict": {
+                "enum": [
+                  "pass",
+                  "fail"
+                ]
+              },
+              "summary": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "description": "A node must have `accept` unless it is `terminal`. CI enforces this."
+      }
+    },
+    "drills": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "mode",
+          "playAs",
+          "startFen"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "mode": {
+            "enum": [
+              "learn",
+              "test"
+            ]
+          },
+          "playAs": {
+            "enum": [
+              "white",
+              "black"
+            ]
+          },
+          "startFen": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "offBookPlies": {
+            "type": "integer",
+            "default": 6,
+            "description": "Test mode only: how long the Referee keeps playing after you leave the book."
+          }
+        }
+      }
+    }
+  }
+}

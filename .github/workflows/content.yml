@@ -1,0 +1,19 @@
+name: Validate content
+
+on:
+  push:
+    paths: ['content/**', 'tools/**', 'package.json', '.github/workflows/content.yml']
+  pull_request:
+    paths: ['content/**', 'tools/**', 'package.json']
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install
+      - name: Replay every pattern through chess.js
+        run: npm run validate:content

@@ -1,0 +1,11 @@
+{
+  "name": "chess-teacher",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "validate:content": "node tools/validate-patterns.js content/patterns/*.json"
+  },
+  "devDependencies": {
+    "chess.js": "^1.4.0"
+  }
+}
