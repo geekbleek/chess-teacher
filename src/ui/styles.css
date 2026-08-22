@@ -68,8 +68,14 @@ h1 {
 
 /* --- Board overrides -------------------------------------------------------
    Chessground's defaults assume a desktop layout with margins around the board.
-   Ours is full-bleed on a phone, so the coordinates move inside the edge and get
-   big enough to actually read. */
+   Ours is full-bleed on a phone, so the rank numbers move inside the board edge
+   and get big enough to actually read. */
+
+.board-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
 
 .cg-wrap coords {
   font: 600 11px/1 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -93,19 +99,21 @@ h1 {
   padding-top: 2px;
 }
 
+/* File letters get their own row under the board instead. Drawn inside, they
+   always sit on the back rank where the pieces are, and no amount of nudging
+   or shadowing fixes a letter printed on top of a rook. */
 .cg-wrap coords.files {
-  left: 0;
-  bottom: 2px;
-  width: 100%;
-  height: 13px;
+  display: none;
 }
 
-/* Corner-align both sets of labels. Centred file letters land on top of the
-   back-rank pieces, where a white letter on a white rook is invisible; the
-   bottom-right corner of each square is empty because pieces are centred. */
-.cg-wrap coords.files coord {
-  text-align: right;
-  padding-right: 3px;
+.file-labels {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--dim);
+  text-align: center;
 }
 
 /* Selection needs to be unmistakable at arm's length, and clearly different from

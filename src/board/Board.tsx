@@ -5,6 +5,8 @@ import type { Color as CgColor, Key } from 'chessground/types';
 import { Chess } from 'chess.js';
 import type { Square } from '../engine/types';
 
+const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+
 export interface BoardProps {
   fen: string;
   orientation: 'white' | 'black';
@@ -47,7 +49,8 @@ export function Board({
   useEffect(() => {
     if (!host.current) return;
     api.current = Chessground(host.current, {
-      // Rank and file labels, restyled in styles.css to sit inside the board edge.
+      // Ranks only. Chessground draws file letters along the bottom rank, where the
+      // pieces are; ours go in a dedicated row under the board instead.
       coordinates: true,
       animation: { duration: 180 },
       // Tap-tap is the primary interaction on a phone; drag still works.
@@ -97,5 +100,16 @@ export function Board({
     cg.setAutoShapes(highlight.map((square) => ({ orig: square as Key, brush: 'red' })));
   }, [fen, orientation, interactive, highlight.join(','), lastMove?.join(',')]);
 
-  return <div class="board" ref={host} />;
+  const files = orientation === 'white' ? FILES : [...FILES].reverse();
+
+  return (
+    <div class="board-stack">
+      <div class="board" ref={host} />
+      <div class="file-labels">
+        {files.map((file) => (
+          <span key={file}>{file}</span>
+        ))}
+      </div>
+    </div>
+  );
 }
