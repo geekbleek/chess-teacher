@@ -1,0 +1,16 @@
+{
+  "id": "f7",
+  "term": "The f7 and f2 squares",
+  "short": "The one square in each camp defended by nothing but the king at the start of the game.",
+  "body": [
+    "Count the defenders of every square in the starting position and f7 (for Black) and f2 (for White) are the only ones with a single defender: the king. Every other pawn is backed up by a piece or another pawn.",
+    "That makes them the natural target for a fast attack. Get two pieces aiming at f7 before Black has developed and the threat is real, because the king cannot recapture without stepping into the open — and a king in the middle of the board with no pieces around it loses quickly.",
+    "The practical habit is a counting one. After every move your opponent makes, ask how many pieces attack f7 and how many defend it. If the attackers ever outnumber the defenders, deal with it before anything else."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Bc4", "Nc6", "Qh5"],
+    "highlight": ["f7", "c4", "h5"],
+    "caption": "Two attackers on f7, one defender. Every black move that ignores this loses."
+  },
+  "seeAlso": ["development", "castling"]
+}

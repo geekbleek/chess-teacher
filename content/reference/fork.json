@@ -1,0 +1,16 @@
+{
+  "id": "fork",
+  "term": "Fork",
+  "short": "One piece attacking two things at once.",
+  "body": [
+    "The simplest way to win material, and the one most club games turn on. Knights fork best because their attack cannot be blocked, and because the squares they hit are hard to see — a knight attacks eight squares of the opposite colour to the one it stands on.",
+    "Pawns fork too, and are the most annoying kind: a pawn attacking two pieces wins one of them outright, because neither piece can afford to take it.",
+    "The defensive habit is to notice loose pieces before they become targets. Two undefended pieces a knight's move apart is a fork waiting to happen, and the app's material readout will flag them for you."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Nd4"],
+    "highlight": ["d4", "f3", "c2"],
+    "caption": "The knight on d4 hits f3 and c2 at once. Here it is bait, but the shape is a fork."
+  },
+  "seeAlso": ["pin", "see"]
+}

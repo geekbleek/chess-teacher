@@ -1,0 +1,16 @@
+{
+  "id": "pin",
+  "term": "Pin",
+  "short": "A piece that cannot move without exposing something more valuable behind it.",
+  "body": [
+    "An absolute pin is against the king: the pinned piece legally cannot move. A relative pin is against anything else — usually the queen — and the pinned piece absolutely can move, if moving it creates a bigger threat than the thing behind it is worth.",
+    "That distinction decides games. Legal's Mate works precisely because a knight 'pinned' to the queen moves anyway and delivers mate with three minor pieces while the queen sits untouched.",
+    "So whenever you rely on a pin, check which kind it is. If it is relative, ask what your opponent gets by ignoring it."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Nf3", "d6", "Bc4", "Bg4"],
+    "highlight": ["g4", "f3", "d1"],
+    "caption": "The bishop on g4 pins the knight to the queen. That pin is relative, not absolute."
+  },
+  "seeAlso": ["fork", "tempo"]
+}

@@ -6,7 +6,7 @@
   "sections": [
     {
       "heading": "What you are looking at",
-      "body": "One side has a pawn on d4 or d5 with no pawns on the adjacent files. It cannot ever be defended by a pawn, and the square directly in front of it can never be attacked by one. That is the deal: a permanent weakness, in exchange for two open files, active pieces, and a space advantage.",
+      "body": "One side has a pawn on d4 or d5 with no pawns on the adjacent files. It cannot ever be defended by a pawn, and the square directly in front of it can never be attacked by one. That is the deal: a permanent weakness, in exchange for two [[open-file|open files]], active pieces, and a space advantage.",
       "diagram": {
         "at": [
           "e4",

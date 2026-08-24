@@ -1,0 +1,16 @@
+{
+  "id": "bad-bishop",
+  "term": "Bad bishop",
+  "short": "A bishop hemmed in by its own pawns, sitting on the same colour squares.",
+  "body": [
+    "A bishop only ever sees one colour. If your own pawns are fixed on that colour, the bishop spends the game looking at a wall it built itself, and in a closed position it can be worth less than a pawn.",
+    "The rule that follows is short enough to remember: put your pawns on the opposite colour to your bishop. When you cannot, get the bishop traded — a bad bishop is the piece you most want to swap, even for a knight.",
+    "It cuts the other way too. If your opponent has a bad bishop, decline exchanges that would relieve them, and play on the colour their bishop cannot defend."
+  ],
+  "diagram": {
+    "at": ["e4", "e6", "d4", "d5", "e5", "c5", "c3", "Nc6", "Nf3", "Qb6"],
+    "highlight": ["c8", "d5", "e6"],
+    "caption": "Black's light-squared bishop, behind its own light-square pawns on d5 and e6."
+  },
+  "seeAlso": ["outpost", "pawn-break"]
+}

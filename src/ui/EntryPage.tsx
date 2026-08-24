@@ -1,9 +1,18 @@
 import { useState } from 'preact/hooks';
 import { Board } from '../board/Board';
 import { byId, positionAfter } from '../content';
-import type { Article, Pattern, Recognition, Spot } from '../content/types';
+import {
+  blurbOf,
+  titleOf,
+  type Article,
+  type Pattern,
+  type Recognition,
+  type Reference,
+  type Spot,
+} from '../content/types';
 import type { Square } from '../engine/types';
 import { markRead, read } from '../store/progress';
+import { Prose } from './Prose';
 import { go } from './router';
 
 export function EntryPage({ id }: { id: string }) {
@@ -11,34 +20,91 @@ export function EntryPage({ id }: { id: string }) {
   if (!entry) {
     return (
       <div class="screen">
-        <p class="lede">That lesson does not exist.</p>
-        <button type="button" onClick={() => go('#/library')}>
-          Back to the library
+        <p class="lede">Nothing here by that name.</p>
+        <button type="button" onClick={() => go('#/')}>
+          Home
         </button>
       </div>
     );
   }
-  return entry.kind === 'article' ? <ArticleView article={entry} /> : <PatternView pattern={entry} />;
+  if (entry.kind === 'article') return <ArticleView article={entry} />;
+  if (entry.kind === 'reference') return <ReferenceView reference={entry} />;
+  return <PatternView pattern={entry} />;
+}
+
+/** Back to the map, not up a hierarchy — there is only one level now. */
+function Header({ title, tag }: { title: string; tag?: string }) {
+  return (
+    <header class="app-header">
+      <button type="button" class="back" onClick={() => go('#/')}>
+        ‹ Home
+      </button>
+      <h1>{title}</h1>
+      {tag && <span class="mode">{tag}</span>}
+    </header>
+  );
+}
+
+function Related({ ids, heading }: { ids?: string[]; heading: string }) {
+  const targets = (ids ?? []).map((id) => byId.get(id)).filter(Boolean);
+  if (targets.length === 0) return null;
+  return (
+    <section>
+      <h2 class="section">{heading}</h2>
+      {targets.map((target) => (
+        <button key={target!.id} type="button" class="row" onClick={() => go(`#/e/${target!.id}`)}>
+          <span class="row-main">
+            <strong>{titleOf(target!)}</strong>
+            <small>{blurbOf(target!)}</small>
+          </span>
+          <span class={`row-tag ${target!.kind}`}>
+            {target!.kind === 'article' ? 'read' : target!.kind === 'reference' ? 'term' : 'drill'}
+          </span>
+        </button>
+      ))}
+    </section>
+  );
 }
 
 function ArticleView({ article }: { article: Article }) {
   const alreadyRead = read().read.includes(article.id);
   const [done, setDone] = useState(alreadyRead);
+  const drills = (article.related ?? [])
+    .map((id) => byId.get(id))
+    .filter((e): e is Pattern => e?.kind === 'pattern');
 
   return (
     <div class="screen">
-      <header class="app-header">
-        <button type="button" class="back" onClick={() => go('#/library')}>
-          ‹ Library
-        </button>
-        <h1>{article.title}</h1>
-      </header>
+      <Header title={article.title} tag="article" />
       <p class="lede">{article.summary}</p>
+
+      {/* Anything playable goes at the top. Burying it under the prose was the whole
+          complaint: you had to read to the bottom to find out you could practise. */}
+      {drills.length > 0 && (
+        <div class="practise-block">
+          <h2 class="section">Practise this</h2>
+          <div class="drill-actions">
+            {drills.map((pattern) => {
+              const first = pattern.drills.find((d) => d.mode === 'learn') ?? pattern.drills[0]!;
+              return (
+                <button
+                  key={pattern.id}
+                  type="button"
+                  class="primary"
+                  onClick={() => go(`#/drill/${pattern.id}/${first.id}`)}
+                >
+                  {pattern.title}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {article.sections.map((section) => (
         <section key={section.heading} class="prose">
           <h2>{section.heading}</h2>
-          <p>{section.body}</p>
+          <Prose text={section.body} />
           {section.diagram && (
             <figure>
               <Board
@@ -54,7 +120,10 @@ function ArticleView({ article }: { article: Article }) {
         </section>
       ))}
 
-      <Related ids={article.related} heading="Practise it" />
+      <Related
+        ids={(article.related ?? []).filter((id) => byId.get(id)?.kind !== 'pattern')}
+        heading="See also"
+      />
 
       <button
         type="button"
@@ -71,20 +140,51 @@ function ArticleView({ article }: { article: Article }) {
   );
 }
 
+function ReferenceView({ reference }: { reference: Reference }) {
+  return (
+    <div class="screen">
+      <Header title={reference.term} tag="reference" />
+      <p class="lede">{reference.short}</p>
+
+      {reference.diagram && (
+        <figure>
+          <Board
+            fen={positionAfter(reference.diagram.at)}
+            orientation="white"
+            highlight={reference.diagram.highlight ?? []}
+            interactive={false}
+            onMove={() => {}}
+          />
+          <figcaption>{reference.diagram.caption}</figcaption>
+        </figure>
+      )}
+
+      <section class="prose">
+        {reference.body.map((paragraph, i) => (
+          <Prose key={i} text={paragraph} />
+        ))}
+      </section>
+
+      <Related ids={reference.seeAlso} heading="See also" />
+    </div>
+  );
+}
+
 function PatternView({ pattern }: { pattern: Pattern }) {
   const [cue, setCue] = useState<number | null>(null);
-  const asDefender = pattern.drills.filter((d) => d.playAs === pattern.side);
-  const asAttacker = pattern.drills.filter((d) => d.playAs !== pattern.side);
+  const [full, setFull] = useState(false);
+  const own = pattern.drills.filter((d) => d.playAs === pattern.side);
+  const other = pattern.drills.filter((d) => d.playAs !== pattern.side);
   const theirSide = pattern.side === 'white' ? 'Black' : 'White';
+
+  // The lesson's own explanation, trimmed. The long form lives in the article it
+  // links to, and repeating it here in full was making the two feel duplicative.
+  const firstStop = pattern.idea.indexOf('. ');
+  const opener = firstStop > 0 ? pattern.idea.slice(0, firstStop + 1) : pattern.idea;
 
   return (
     <div class="screen">
-      <header class="app-header">
-        <button type="button" class="back" onClick={() => go('#/library')}>
-          ‹ Library
-        </button>
-        <h1>{pattern.title}</h1>
-      </header>
+      <Header title={pattern.title} tag="drill" />
 
       <Board
         fen={positionAfter(pattern.setup)}
@@ -98,13 +198,51 @@ function PatternView({ pattern }: { pattern: Pattern }) {
         onMove={() => {}}
       />
       <p class="caption">
-        The position you will be dropped into, seen from {pattern.side === 'white' ? 'White' : 'Black'}'s
-        side.
+        Where you start, seen from {pattern.side === 'white' ? 'White' : 'Black'}'s side.
       </p>
+
+      <div class="practise-block">
+        <div class="drill-actions">
+          {own.map((drill) => (
+            <button
+              key={drill.id}
+              type="button"
+              class={drill.mode === 'learn' ? 'primary' : ''}
+              onClick={() => go(`#/drill/${pattern.id}/${drill.id}`)}
+            >
+              {drill.label}
+            </button>
+          ))}
+        </div>
+        {other.length > 0 && (
+          <>
+            <p class="blurb">
+              Or play {theirSide} — the fastest way to learn to defend something is to run it
+              yourself.
+            </p>
+            <div class="drill-actions">
+              {other.map((drill) => (
+                <button
+                  key={drill.id}
+                  type="button"
+                  onClick={() => go(`#/drill/${pattern.id}/${drill.id}`)}
+                >
+                  {drill.label}
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
 
       <section class="prose">
         <h2>The idea</h2>
-        <p>{pattern.idea}</p>
+        <Prose text={full ? pattern.idea : opener} />
+        {!full && pattern.idea.length > opener.length && (
+          <button type="button" class="link" onClick={() => setFull(true)}>
+            Read the rest →
+          </button>
+        )}
       </section>
 
       <section class="prose">
@@ -138,77 +276,8 @@ function PatternView({ pattern }: { pattern: Pattern }) {
         </section>
       )}
 
-      <h2 class="section">Play it</h2>
-      <p class="blurb">
-        Learn gives you feedback after every move and hints on request. Test says nothing until you
-        go wrong, then replays the game back to you.
-      </p>
-      {asDefender.map((drill) => (
-        <button
-          key={drill.id}
-          type="button"
-          class="row"
-          onClick={() => go(`#/drill/${pattern.id}/${drill.id}`)}
-        >
-          <span class="row-main">
-            <strong>{drill.label}</strong>
-            <small>
-              Play as {drill.playAs} · {drill.mode}
-            </small>
-          </span>
-          <span class="row-tag">{drill.mode}</span>
-        </button>
-      ))}
-
-      {asAttacker.length > 0 && (
-        <>
-          <h2 class="section">From the other side</h2>
-          <p class="blurb">
-            Play {theirSide} and see the pattern as your opponent sees it. The fastest way to learn to
-            defend something is to run it yourself.
-          </p>
-          {asAttacker.map((drill) => (
-            <button
-              key={drill.id}
-              type="button"
-              class="row"
-              onClick={() => go(`#/drill/${pattern.id}/${drill.id}`)}
-            >
-              <span class="row-main">
-                <strong>{drill.label}</strong>
-                <small>
-                  Play as {drill.playAs} · {drill.opponent === 'mistakes' ? 'punish their errors' : drill.mode}
-                </small>
-              </span>
-              <span class="row-tag">{drill.mode}</span>
-            </button>
-          ))}
-        </>
-      )}
-
       <Related ids={pattern.related} heading="Read alongside" />
     </div>
-  );
-}
-
-function Related({ ids, heading }: { ids?: string[]; heading: string }) {
-  const targets = (ids ?? []).map((id) => byId.get(id)).filter(Boolean);
-  if (targets.length === 0) return null;
-  return (
-    <section>
-      <h2 class="section">{heading}</h2>
-      {targets.map((target) => (
-        <button key={target!.id} type="button" class="row" onClick={() => go(`#/e/${target!.id}`)}>
-          <span class="row-main">
-            <strong>{target!.title}</strong>
-            <small>
-              {target!.kind === 'article' ? target!.summary : `${target!.idea.slice(0, 90)}…`}
-            </small>
-          </span>
-          <span class="row-tag">{target!.kind === 'article' ? 'read' : 'drill'}</span>
-        </button>
-      ))}
-    </section>
   );
 }
 
@@ -237,7 +306,7 @@ function SpotChallenge({ spot, side }: { spot: Spot; side: 'white' | 'black' }) 
       {solved ? (
         <p class="verdict right">
           <strong>Found it. </strong>
-          {spot.why}
+          <Prose as="span" text={spot.why} />
         </p>
       ) : missed.length > 0 ? (
         <p class="verdict wrong">
@@ -262,12 +331,7 @@ function RecognitionQuiz({ quiz }: { quiz: Recognition }) {
   return (
     <section class="prose quiz">
       <h2>Can you see it?</h2>
-      <Board
-        fen={positionAfter(quiz.at)}
-        orientation="white"
-        interactive={false}
-        onMove={() => {}}
-      />
+      <Board fen={positionAfter(quiz.at)} orientation="white" interactive={false} onMove={() => {}} />
       <p class="prompt">{quiz.prompt}</p>
       <div class="choices">
         {quiz.choices.map((choice, i) => (
@@ -285,7 +349,7 @@ function RecognitionQuiz({ quiz }: { quiz: Recognition }) {
       {chosen && (
         <p class={`verdict ${chosen.correct ? 'right' : 'wrong'}`}>
           <strong>{chosen.correct ? 'Right. ' : 'Not quite. '}</strong>
-          {chosen.why}
+          <Prose as="span" text={chosen.why} />
         </p>
       )}
     </section>

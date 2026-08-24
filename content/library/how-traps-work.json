@@ -10,7 +10,7 @@
     },
     {
       "heading": "Idea 1: the square only the king defends",
-      "body": "f7 for Black and f2 for White are defended by the king alone at the start of the game. Point two pieces at that square before the defender has developed and you have a real threat, because the king cannot recapture without walking into the open. Scholar's Mate, the Fried Liver, and the refutation of 2...f6 are all the same idea wearing different clothes. The counting rule is blunt and reliable: after every enemy move, ask how many pieces attack f7 and how many defend it.",
+      "body": "[[f7|f7 for Black and f2 for White]] are defended by the king alone at the start of the game. Point two pieces at that square before the defender has developed and you have a real threat, because the king cannot recapture without walking into the open. Scholar's Mate, the Fried Liver, and the refutation of 2...f6 are all the same idea wearing different clothes. The counting rule is blunt and reliable: after every enemy move, ask how many pieces attack f7 and how many defend it.",
       "diagram": {
         "at": [
           "e4",
@@ -29,11 +29,11 @@
     },
     {
       "heading": "Idea 2: the free material that isn't",
-      "body": "Your opponent leaves something hanging. It is hanging because taking it costs you more than the piece is worth — usually a tempo, a file, or your king's safety. The Blackburne Shilling gives you a whole pawn to lure a knight off guard duty; Legal's Mate gives you a whole queen. The habit that beats all of them is one question asked before every capture: what is their reply? Not what is mine — what is theirs."
+      "body": "Your opponent leaves something hanging. It is hanging because [[see|counting the exchange]] shows it costs more than the piece is worth — usually a tempo, a file, or your king's safety. The Blackburne Shilling gives you a whole pawn to lure a knight off guard duty; Legal's Mate gives you a whole queen. The habit that beats all of them is one question asked before every capture: what is their reply? Not what is mine — what is theirs."
     },
     {
       "heading": "Idea 3: the pin that is not a pin",
-      "body": "A piece pinned to the king cannot legally move. A piece pinned to the queen absolutely can, and if moving it creates a bigger threat than the queen is worth, it will. Legal's Mate is the famous case: the knight is 'pinned' to the queen, it moves anyway, and three minor pieces deliver mate while the queen sits untouched on d1. Whenever you rely on a pin, check whether it is legal or merely uncomfortable."
+      "body": "A [[pin|piece pinned]] to the king cannot legally move. A piece pinned to the queen absolutely can, and if moving it creates a bigger threat than the queen is worth, it will. Legal's Mate is the famous case: the knight is 'pinned' to the queen, it moves anyway, and three minor pieces deliver mate while the queen sits untouched on d1. Whenever you rely on a pin, check whether it is legal or merely uncomfortable."
     },
     {
       "heading": "The defensive habit that covers all three",

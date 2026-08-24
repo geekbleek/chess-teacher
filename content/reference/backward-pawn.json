@@ -1,0 +1,16 @@
+{
+  "id": "backward-pawn",
+  "term": "Backward pawn",
+  "short": "A pawn that cannot advance and cannot be defended by another pawn.",
+  "body": [
+    "A backward pawn is stuck: the pawns beside it have gone past, so none can ever defend it, and the square in front is controlled by the enemy, so it cannot advance out of trouble. On a half-open file it becomes a permanent target.",
+    "What makes it so unpleasant is not the pawn but the pieces tied to defending it. Every trade of pieces makes the weakness relatively bigger, so the defender ends up avoiding exchanges in a position where exchanges are the natural relief.",
+    "The classic way to create one deliberately is the minority attack: push two pawns at three, force a capture, and leave the defender with a backward pawn on an [[open-file|open file]]."
+  ],
+  "diagram": {
+    "at": ["d4", "d5", "c4", "e6", "Nc3", "Nf6", "cxd5", "exd5", "Bg5", "c6", "e3", "Be7", "Bd3", "O-O", "Nge2", "Nbd7", "O-O", "Re8"],
+    "highlight": ["c6", "b2"],
+    "caption": "After White plays b4-b5, the c6 pawn will be backward on a half-open file."
+  },
+  "seeAlso": ["open-file", "hole"]
+}

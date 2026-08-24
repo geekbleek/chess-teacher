@@ -1,0 +1,16 @@
+{
+  "id": "tempo",
+  "term": "Tempo",
+  "short": "A single move, counted as a unit of value.",
+  "body": [
+    "You gain a tempo when your opponent has to spend a move responding to something, and you lose one when you have to move the same piece twice for no gain. Over an opening a two-tempo difference is often the whole game.",
+    "The clearest example is an early queen sortie. The queen is the most valuable piece and therefore the easiest to attack, so every developing move your opponent makes that also hits her is a free move for them: they develop, you retreat.",
+    "This is why a move that defends and attacks at the same time is worth so much more than one that only defends. Meeting a threat with a move that also develops a piece costs you nothing."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Qh5"],
+    "highlight": ["h5"],
+    "caption": "2.Qh5. Black develops with gain of time from here; White spends the opening running away."
+  },
+  "seeAlso": ["development"]
+}

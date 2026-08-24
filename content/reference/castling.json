@@ -1,0 +1,16 @@
+{
+  "id": "castling",
+  "term": "Castling",
+  "short": "Moving the king to safety and bringing a rook into the game, in one move.",
+  "body": [
+    "Castling does two jobs at once, which is why it is the best move-for-move value in the opening. The king leaves the centre file, which is where lines open first, and a rook arrives at d1 or f1 where it actually does something.",
+    "Almost every trap in this library only works against a king still on e1 or e8. Castling by about move eight is not a superstition — it is the move that switches the tactics off. If you are ever unsure what to play in the opening and your king is still at home, castling is rarely wrong.",
+    "The right to castle is worth something even before you use it. Losing it — by moving the king or a rook — is a real concession, and this app's king-safety measure drops when it happens."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "O-O", "Nf6", "d3", "O-O"],
+    "highlight": ["g1", "f1", "g8", "f8"],
+    "caption": "Both kings tucked away, both rooks brought toward the centre."
+  },
+  "seeAlso": ["f7", "development"]
+}

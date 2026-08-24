@@ -1,0 +1,16 @@
+{
+  "id": "see",
+  "term": "Counting an exchange",
+  "short": "How to tell whether a capture actually wins material — and how this app decides.",
+  "body": [
+    "Counting attackers and defenders is not enough. What matters is the order the captures happen in and whether either side would stop halfway. The formal version is called static exchange evaluation, and it is what the app's material readout uses.",
+    "The method: list every attacker and defender of the square, cheapest first, and play the sequence out in your head. At each step ask whether the side to move would actually continue — either side can decline at any point, so the answer is the best either can do, not the full sequence.",
+    "Two things people miss. Pieces behind other pieces join in as the ones in front come off, so a rook behind a rook counts. And a defender that is [[pin]]ned to its own king is not really defending anything."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Nf3", "Nc6", "Bb5"],
+    "highlight": ["e5", "f3", "c6"],
+    "caption": "e5 is attacked once and defended once, so Nxe5 loses a piece — until Bxc6 removes the defender."
+  },
+  "seeAlso": ["fork", "development"]
+}

@@ -93,11 +93,6 @@ export interface Pattern {
   related?: string[];
 }
 
-export interface Diagram {
-  at: string[];
-  highlight?: Square[];
-  caption: string;
-}
 
 export interface Article {
   kind: 'article';
@@ -109,7 +104,38 @@ export interface Article {
   related?: string[];
 }
 
-export type Entry = Pattern | Article;
+export interface Diagram {
+  at: string[];
+  highlight?: Square[];
+  caption: string;
+}
+
+/**
+ * A wiki-style entry for one idea, linked to from article and lesson prose with
+ * [[id]] markup. Short by design: a definition, why it matters, and what to do.
+ */
+export interface Reference {
+  kind: 'reference';
+  id: string;
+  term: string;
+  short: string;
+  body: string[];
+  diagram?: Diagram;
+  seeAlso?: string[];
+}
+
+export type Entry = Pattern | Article | Reference;
+
+/** Every entry has a title, whatever it calls it. */
+export const titleOf = (entry: Entry): string =>
+  entry.kind === 'reference' ? entry.term : entry.title;
+
+/** The one-liner shown under a title in a list. */
+export const blurbOf = (entry: Entry): string => {
+  if (entry.kind === 'reference') return entry.short;
+  if (entry.kind === 'article') return entry.summary;
+  return entry.cues[0]?.text ?? entry.idea;
+};
 
 export const TIER_NAMES: Record<number, string> = {
   0: 'Habits',

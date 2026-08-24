@@ -1,0 +1,16 @@
+{
+  "id": "hole",
+  "term": "Hole",
+  "short": "A square that none of your pawns can ever attack again.",
+  "body": [
+    "Every pawn move is permanent, and every pawn move gives up the squares that pawn used to guard. When a square in your own half can no longer be attacked by any pawn, it is a hole, and an enemy piece that reaches it cannot be driven away.",
+    "Holes are created, not found. Provoking a pawn move is a real plan: attack something so that it must be defended by a pawn advance, and the square behind that pawn becomes yours.",
+    "A hole on your side of the board that one of your pawns protects is an [[outpost]] — the same square seen from the other direction."
+  ],
+  "diagram": {
+    "at": ["e4", "c5", "Nf3", "d6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "a6"],
+    "highlight": ["d5", "b5"],
+    "caption": "Black's pawns on e5 and a6 will leave d5 and b5 permanently unguardable."
+  },
+  "seeAlso": ["outpost", "backward-pawn"]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "isolated-pawn",
+  "term": "Isolated pawn",
+  "short": "A pawn with no friendly pawns on either adjacent file.",
+  "body": [
+    "An isolated pawn can never be defended by another pawn, and the square directly in front of it can never be attacked by one. That square is a permanent blockading post for an enemy knight.",
+    "It is not simply a weakness. In exchange you get two half-open files for your rooks, more space, and active pieces — which are middlegame assets that disappear when the pieces do. Whether the pawn is a strength or a liability depends entirely on how many pieces are left.",
+    "So the two plans are opposites and both are simple. With the isolated pawn: keep pieces on, use the files, attack. Against it: trade pieces, blockade the square in front, and win the pawn in the endgame."
+  ],
+  "diagram": {
+    "at": ["e4", "c5", "Nf3", "e6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "d5", "exd5", "exd5"],
+    "highlight": ["d5", "d4"],
+    "caption": "Black's isolated d5 pawn, and the blockade square in front of it."
+  },
+  "seeAlso": ["open-file", "pawn-break"]
+}

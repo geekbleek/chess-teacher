@@ -1,0 +1,16 @@
+{
+  "id": "outpost",
+  "term": "Outpost",
+  "short": "A hole in your opponent's camp, protected by one of your pawns.",
+  "body": [
+    "A knight on an outpost is frequently the best piece on the board. It cannot be attacked by a pawn, it is defended by one of yours, and it sits inside the enemy position where it cramps everything.",
+    "The manoeuvre to get one is usually three moves long and contains no tactics at all: identify the [[hole]], remove whatever piece defends it, then walk a knight there. Trading a bishop for the knight that guards the square is normally a good deal, even though it looks like a concession.",
+    "Bishops can occupy outposts too, but knights benefit most — a bishop covers the same diagonal from a distance, whereas a knight has to be close to do anything."
+  ],
+  "diagram": {
+    "at": ["e4", "c5", "Nf3", "d6", "d4", "cxd4", "Nxd4", "Nf6", "Nc3", "a6", "Be2", "e5", "Nb3", "Be7", "O-O", "O-O"],
+    "highlight": ["d5", "f6"],
+    "caption": "d5 is the outpost; the knight on f6 is the only thing still guarding it."
+  },
+  "seeAlso": ["hole", "bad-bishop"]
+}

@@ -6,7 +6,7 @@
   "sections": [
     {
       "heading": "A hole is permanent",
-      "body": "Every pawn move leaves squares behind it undefendable by pawns forever. Those squares are holes. A hole in your opponent's camp, on your side of the board, protected by one of your pawns, is an outpost — and a knight sitting on an outpost is often the best piece on the board, because nothing can chase it away.",
+      "body": "Every pawn move leaves squares behind it undefendable by pawns forever. Those squares are [[hole|holes]]. A hole in your opponent's camp, on your side of the board, protected by one of your pawns, is an [[outpost]] — and a knight sitting on an outpost is often the best piece on the board, because nothing can chase it away.",
       "diagram": {
         "at": [
           "e4",

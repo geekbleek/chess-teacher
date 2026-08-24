@@ -1,0 +1,16 @@
+{
+  "id": "gambit",
+  "term": "Gambit",
+  "short": "Giving up material early to gain time and open lines.",
+  "body": [
+    "A gambit trades something countable — usually a pawn — for something that is not: [[development]], open lines, and the initiative. Whether it is sound almost never matters at club level. What matters is that the person playing it has seen the resulting positions many times and you have not.",
+    "The reflex that beats most gambits is the same one every time, and it is not 'decline'. Accept, develop, and then give the material back at the moment that kills the attack. Two extra pawns you cannot develop behind are not an advantage.",
+    "Concretely: take what is offered, get your king safe, and look for the one move that returns a pawn while blocking the most dangerous piece. In the Danish that move is d5; in the Smith-Morra and the Göring the idea is the same."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "d4", "exd4", "c3", "dxc3", "Bc4", "cxb2", "Bxb2"],
+    "highlight": ["c4", "b2", "f7"],
+    "caption": "Two pawns up and undeveloped, with both bishops aimed at the black king."
+  },
+  "seeAlso": ["tempo", "development"]
+}

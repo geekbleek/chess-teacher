@@ -30,8 +30,8 @@ export function DrillPage({ patternId, drillId }: { patternId: string; drillId: 
     return (
       <div class="screen">
         <p class="lede">That drill does not exist.</p>
-        <button type="button" onClick={() => go('#/library')}>
-          Back to the library
+        <button type="button" onClick={() => go('#/')}>
+          Home
         </button>
       </div>
     );

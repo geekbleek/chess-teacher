@@ -10,7 +10,7 @@
     },
     {
       "heading": "1. Fight for the centre",
-      "body": "The four squares d4, e4, d5 and e5 are worth more than any others, because a piece in the centre touches more squares and can get anywhere quickly. Occupying them with pawns is the strongest form of control; attacking them with pieces from a distance is the flexible form. Both count. A knight on the rim touches four squares; the same knight in the centre touches eight.",
+      "body": "The four squares of [[centre|the centre]] — d4, e4, d5 and e5 — are worth more than any others, because a piece in the centre touches more squares and can get anywhere quickly. Occupying them with pawns is the strongest form of control; attacking them with pieces from a distance is the flexible form. Both count. A knight on the rim touches four squares; the same knight in the centre touches eight.",
       "diagram": {
         "at": [
           "e4",
@@ -35,11 +35,11 @@
     },
     {
       "heading": "2. Develop every piece once, before you move any piece twice",
-      "body": "Each move you spend is a tempo, and moving the same piece repeatedly in the opening means the rest of your army is still asleep. There are exceptions — recapturing, escaping a real threat, or an actual tactic — but 'it looked more active over there' is not one of them. If you are about to move a developed piece while a knight or bishop is still on its starting square, you should be able to say out loud why."
+      "body": "Each move you spend is a [[tempo]], and moving the same piece repeatedly in the opening means the rest of your army is still asleep. There are exceptions — recapturing, escaping a real threat, or an actual tactic — but 'it looked more active over there' is not one of them. If you are about to move a developed piece while a knight or bishop is still on its starting square, you should be able to say out loud why."
     },
     {
       "heading": "3. Castle early",
-      "body": "A king in the centre is the precondition for almost every disaster in this app's Tier 1 lessons. Every trap in the library works because a king was still on e1 or e8 when the files opened. Castling by move ten is not a superstition, it is what makes the tactics stop working. It also connects your rooks, which is the only way they ever join the game."
+      "body": "A king in the centre is the precondition for almost every disaster in this app's Tier 1 lessons. Every trap in the library works because a king was still on e1 or e8 when the files opened. [[castling|Castling]] by move ten is not a superstition, it is what makes the tactics stop working. It also connects your rooks, which is the only way they ever join the game."
     },
     {
       "heading": "4. Bring the queen out late",

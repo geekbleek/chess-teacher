@@ -16,8 +16,23 @@ content model, and the static evaluator that does the teaching.
 
 ## Status
 
-Complete through the build order. Eighteen drillable lessons and ten library
-articles across four stages, three modes, and progress that schedules itself.
+Playable and complete through the build order: 18 drills, 10 articles and 17 reference
+entries across four stages, three modes, and progress that schedules itself.
+
+### Three kinds of content
+
+- **Articles** — long-form. What a structure or opening wants, and why.
+- **Reference** — one idea each, wiki-style. Article and drill prose links to them
+  inline with `[[id]]` markup, so a term is explained once and pointed at from
+  everywhere. CI fails on a link that points at nothing.
+- **Drills** — playable lessons, authored as SAN move trees.
+
+### One screen
+
+The home screen is the whole map: every article, drill and reference term, grouped by
+stage, with a jump bar across the top. Tapping a drill opens its modes in place rather
+than behind another page, so playing is two taps from launch. Articles lead with what
+is playable rather than burying it under the prose.
 
 | Stage | Read | Drill |
 | --- | --- | --- |
@@ -26,23 +41,21 @@ articles across four stages, three modes, and progress that schedules itself.
 | 2. Repertoire | Italian, Caro-Kann, QGD | Playing each of the three |
 | 3. Structures | IQP, minority attack, outposts, good/bad bishops, open files | A plan drill for each |
 
-- **Recognise before you move** — most lessons open with a board and "tap the square
-  that matters", then a multiple-choice question about what the threat actually is.
-- **Library** — read first. Articles explain what a position wants; lessons drop you
-  into one and judge what you do. Every article links to the drills that practise it
-  and back again.
+### Modes
+
+- **Recognise before you move** — most drills open with a board and "tap the square
+  that matters", then a question about what the threat actually is.
 - **Learn** — feedback after every move, and a four-step hint ladder that only reveals
   the move at the very end. Play a losing move and the refutation is played out on the
   board, then you rewind and try again.
 - **Test** — silence until something goes wrong, then it stops and replays the game
-  back to you with the divergence marked and the measurement that collapsed flagged.
-- **Either side** — a drill can set `opponent: "mistakes"` and the app will play the
-  losing moves for you to punish, so every trap is drillable from both sides.
+  back with the divergence marked and the measurement that collapsed flagged.
+- **Either side** — a drill can set `opponent: "mistakes"` and the app plays the losing
+  moves for you to punish, so every trap is drillable from both sides.
 - **Free play** — no lesson, just the board and the Referee.
 
-A lesson can also declare a plan goal the app checks after every move — "at least two
-minor pieces out by move five" — and breaking one stops a Test drill just like a
-blunder does.
+A drill can also declare a plan goal the app checks after every move — "at least two
+minor pieces out by move five" — and breaking one stops a Test drill like a blunder.
 
 Progress uses SM-2 spaced repetition, on device. Failing a drill, or asking for the
 final hint, brings it back tomorrow.
@@ -62,12 +75,12 @@ npm run build            # typecheck + production build
   `referee.ts` turns the difference between two positions into plain-English feedback.
 - `src/modes/drill.ts` — the drill state machine: judging, hints, punishment lines,
   and the journal the replay reads.
-- `src/content/` — loads the lessons and builds a FEN index so transpositions work.
-- `content/patterns/` — lessons, authored as SAN move trees.
-- `content/library/` — articles.
-- `tools/validate-content.js` — the contract, and the single source of truth for what
-  a lesson may contain. Run in CI so a broken line cannot ship.
-- `tools/line.js` — authoring helper: prints the position after each ply of a line.
+- `src/content/` — loads all three content kinds and builds a FEN index so
+  transpositions work.
+- `content/patterns/`, `content/library/`, `content/reference/` — the content.
+- `tools/validate-content.js` — the contract, run in CI.
+- `tools/line.js` — authoring helper: prints the position after each ply.
+- `tools/wait-for-deploy.sh` — waits for the live site to serve a given commit.
 
 ## Deploying
 

@@ -1,0 +1,16 @@
+{
+  "id": "development",
+  "term": "Development",
+  "short": "Getting your pieces off their starting squares and into the game.",
+  "body": [
+    "A piece on its starting square is doing nothing. Development is the process of moving each one out — knights and bishops first, then castling to connect the rooks — and the side that finishes first usually gets to dictate what happens next.",
+    "The rule that follows from it is the one most club players break: develop every piece once before you move any piece twice. Each repeat move is a [[tempo]] handed to your opponent, and the traps in this app almost all work by exploiting a side that spent its opening moves on one piece.",
+    "This app measures development as a number out of five: one point for each knight and bishop off its home square, plus one when your rooks can see each other. You can watch it on the metric strip while you play."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "O-O", "Nf6", "d3", "O-O"],
+    "highlight": ["f3", "c4", "c6", "c5"],
+    "caption": "Both sides have developed sensibly: minor pieces out, kings castled, nothing moved twice."
+  },
+  "seeAlso": ["tempo", "castling", "centre"]
+}

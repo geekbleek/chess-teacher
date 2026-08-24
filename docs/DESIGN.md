@@ -129,6 +129,23 @@ and the accept-set is wider.
 
 ## 4. Content model
 
+There are three kinds of content, and the split exists because the first version had
+only two and they bled into each other — a drill's "idea" ended up restating the
+article it belonged to, and neither was the place where a term like *outpost* was
+actually defined.
+
+- **Articles** are long-form: what a structure wants and why.
+- **Reference entries** are one idea each, wiki-style. Any prose can link to one with
+  `[[id]]` or `[[id|label]]`, so a term is explained once and pointed at from
+  everywhere. CI fails the build on a link that resolves to nothing.
+- **Drills** are the playable move trees below.
+
+Navigation follows from that: the home screen is the whole map — every entry of every
+kind, grouped by stage — and a drill opens its modes in place rather than behind
+another page. The earlier Home → Library → article → scroll-to-the-bottom path is
+gone, along with the Library screen itself.
+
+
 Everything the app teaches is data in `content/patterns/*.json`, validated in CI.
 Adding a lesson is adding a file. See `content/schema/pattern.schema.json` and the
 worked example `content/patterns/scholars-mate-defense.json`.

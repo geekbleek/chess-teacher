@@ -1,10 +1,11 @@
 import { Chess } from 'chess.js';
-import type { Article, Entry, LessonNode, Pattern } from './types';
+import type { Article, Entry, LessonNode, Pattern, Reference } from './types';
 
 // Lessons are data, loaded at build time. Adding a file to content/ is all it takes
 // to add a lesson; CI replays every one of them through chess.js first.
 const patternFiles = import.meta.glob('../../content/patterns/*.json', { eager: true });
 const articleFiles = import.meta.glob('../../content/library/*.json', { eager: true });
+const referenceFiles = import.meta.glob('../../content/reference/*.json', { eager: true });
 
 const asDefault = <T>(module: unknown): T => (module as { default: T }).default;
 
@@ -16,7 +17,11 @@ export const articles: Article[] = Object.values(articleFiles)
   .map((m) => ({ ...asDefault<Article>(m), kind: 'article' as const }))
   .sort((a, b) => a.tier - b.tier || a.title.localeCompare(b.title));
 
-export const entries: Entry[] = [...articles, ...patterns];
+export const references: Reference[] = Object.values(referenceFiles)
+  .map((m) => ({ ...asDefault<Reference>(m), kind: 'reference' as const }))
+  .sort((a, b) => a.term.localeCompare(b.term));
+
+export const entries: Entry[] = [...articles, ...patterns, ...references];
 
 export const byId = new Map<string, Entry>(entries.map((e) => [e.id, e]));
 
@@ -25,7 +30,14 @@ export const patternById = (id: string): Pattern | undefined => {
   return entry?.kind === 'pattern' ? entry : undefined;
 };
 
-export const tiers: number[] = [...new Set(entries.map((e) => e.tier))].sort();
+export const tiers: number[] = [
+  ...new Set([...articles, ...patterns].map((e) => e.tier)),
+].sort();
+
+export const referenceById = (id: string): Reference | undefined => {
+  const entry = byId.get(id);
+  return entry?.kind === 'reference' ? entry : undefined;
+};
 
 /** Position after a list of SAN moves from the initial position. */
 export function positionAfter(moves: string[]): string {

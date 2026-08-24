@@ -6,7 +6,7 @@
   "sections": [
     {
       "heading": "Why this against 1.e4",
-      "body": "The Caro-Kann is chosen here for exactly the problem you described: opponents who beat you with prepared aggression. It gives them nothing to attack. You support d5 with the c-pawn rather than the e-pawn, which means your light-squared bishop gets out before you lock it in — the single most common structural complaint about the French. The cost is a tempo and a slightly passive position. That is a good trade while you are learning to punish over-extension.",
+      "body": "The Caro-Kann is chosen here for exactly the problem you described: opponents who beat you with prepared aggression. It gives them nothing to attack. You support d5 with the c-pawn rather than the e-pawn, which means your light-squared bishop gets out before it becomes a [[bad-bishop|bad bishop]] — the single most common structural complaint about the French. The cost is a tempo and a slightly passive position. That is a good trade while you are learning to punish over-extension.",
       "diagram": {
         "at": [
           "e4",

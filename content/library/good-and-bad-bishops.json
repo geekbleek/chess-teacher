@@ -6,7 +6,7 @@
   "sections": [
     {
       "heading": "The rule in one line",
-      "body": "Put your pawns on the opposite colour to your bishop. A bishop whose own pawns sit on its colour is looking at a wall it built itself. It is called a bad bishop, and in a closed position it can be worth less than a pawn.",
+      "body": "Put your pawns on the opposite colour to your bishop. A bishop whose own pawns sit on its colour is looking at a wall it built itself. It is called a [[bad-bishop|bad bishop]], and in a closed position it can be worth less than a pawn.",
       "diagram": {
         "at": [
           "e4",

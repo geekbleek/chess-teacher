@@ -2,7 +2,6 @@ import { useEffect, useState } from 'preact/hooks';
 
 export type Route =
   | { name: 'home' }
-  | { name: 'library' }
   | { name: 'entry'; id: string }
   | { name: 'drill'; patternId: string; drillId: string }
   | { name: 'replay' }
@@ -15,14 +14,17 @@ export const go = (hash: string): void => {
 export function parse(hash: string): Route {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   switch (parts[0]) {
-    case 'library':
-      return { name: 'library' };
+    // Reference entries get their own prefix so they can be linked to from prose
+    // without the caller needing to know what kind of entry it is.
     case 'e':
-      return parts[1] ? { name: 'entry', id: parts[1] } : { name: 'library' };
+    case 'r':
+      return parts[1] ? { name: 'entry', id: parts[1] } : { name: 'home' };
+    case 'library':
+      return { name: 'home' }; // the library is the home screen now
     case 'drill':
       return parts[1] && parts[2]
         ? { name: 'drill', patternId: parts[1], drillId: parts[2] }
-        : { name: 'library' };
+        : { name: 'home' };
     case 'replay':
       return { name: 'replay' };
     case 'free':

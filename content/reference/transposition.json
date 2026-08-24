@@ -1,0 +1,16 @@
+{
+  "id": "transposition",
+  "term": "Transposition",
+  "short": "Reaching the same position by a different order of moves.",
+  "body": [
+    "Openings are positions, not move lists. The same position can be reached half a dozen ways, which is why memorising a sequence is so much weaker than understanding what the position wants — a small change in move order and your list no longer applies.",
+    "It is also a practical weapon. Players use move orders to sidestep the lines their opponent has prepared, arriving at the same structure by a route the other person has not rehearsed.",
+    "This is why the app stores every lesson as a position index rather than a list of moves: reach the same position by another route and you land on the same explanation."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Qh5", "Nc6", "Bc4"],
+    "highlight": ["h5", "c4", "f7"],
+    "caption": "The Wayward Queen has just transposed into Scholar's Mate — a different move order, the same threat."
+  },
+  "seeAlso": ["centre", "development"]
+}

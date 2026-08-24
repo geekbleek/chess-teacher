@@ -11,6 +11,12 @@
  *   mistake = { san, why, punish?[] }
  *   drill = { id, mode: learn|test, playAs: white|black, opponent: best|mistakes, label, from?[] }
  *
+ * Reference entries (content/reference/*.json) are wiki-style notes on one idea:
+ *   { id, term, short, body[], diagram?, seeAlso?[] }
+ *
+ * Prose anywhere may link to one with [[id]] or [[id|label]]; CI checks the target
+ * exists, because a dead link in a teaching app is worse than no link.
+ *
  * Articles (content/library/*.json) are reading material:
  *   { id, title, tier, summary, sections[], related?[] }
  *   section = { heading, body, diagram?: { at[], highlight?[], caption } }
@@ -271,6 +277,40 @@ function validateArticle(file, a, fail) {
   }
 }
 
+function validateReference(file, r, fail) {
+  for (const field of ['id', 'term', 'short']) {
+    isText(r[field]) ? ok() : fail(`missing ${field}`);
+  }
+  /^[a-z0-9-]+$/.test(r.id ?? '') ? ok() : fail(`id "${r.id}" must be kebab-case`);
+  Array.isArray(r.body) && r.body.length > 0 ? ok() : fail('needs at least one paragraph');
+  for (const para of r.body ?? []) isText(para) ? ok() : fail('empty paragraph');
+  r.short.length <= 140 ? ok() : fail('short blurb should stay under 140 characters');
+  if (r.diagram) {
+    try {
+      replay(r.diagram.at ?? []);
+      ok();
+    } catch (e) {
+      fail(`diagram is illegal: ${e.message}`);
+    }
+    isText(r.diagram.caption) ? ok() : fail('diagram has no caption');
+    for (const sq of r.diagram.highlight ?? []) {
+      isSquare(sq) ? ok() : fail(`bad diagram square "${sq}"`);
+    }
+  }
+}
+
+/** Every [[link]] in any prose, so a dead cross-reference cannot ship. */
+function collectLinks(value, found = []) {
+  if (typeof value === 'string') {
+    for (const m of value.matchAll(/\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g)) found.push(m[1].trim());
+  } else if (Array.isArray(value)) {
+    for (const item of value) collectLinks(item, found);
+  } else if (value && typeof value === 'object') {
+    for (const item of Object.values(value)) collectLinks(item, found);
+  }
+  return found;
+}
+
 // --- run ---------------------------------------------------------------------
 
 const patternFiles = fs.existsSync('content/patterns')
@@ -279,9 +319,12 @@ const patternFiles = fs.existsSync('content/patterns')
 const articleFiles = fs.existsSync('content/library')
   ? fs.readdirSync('content/library').filter((f) => f.endsWith('.json')).map((f) => `content/library/${f}`)
   : [];
+const referenceFiles = fs.existsSync('content/reference')
+  ? fs.readdirSync('content/reference').filter((f) => f.endsWith('.json')).map((f) => `content/reference/${f}`)
+  : [];
 
 const ids = new Set();
-for (const file of [...patternFiles, ...articleFiles]) {
+for (const file of [...patternFiles, ...articleFiles, ...referenceFiles]) {
   const fail = makeFail(file);
   let data;
   try {
@@ -293,19 +336,24 @@ for (const file of [...patternFiles, ...articleFiles]) {
   if (ids.has(data.id)) fail(`duplicate id "${data.id}"`);
   ids.add(data.id);
   if (file.includes('patterns/')) validatePattern(file, data, fail);
+  else if (file.includes('reference/')) validateReference(file, data, fail);
   else validateArticle(file, data, fail);
 }
 
-// Cross-links must point at something that exists, in either direction.
-for (const file of [...patternFiles, ...articleFiles]) {
+// Cross-links must point at something that exists, in every direction.
+for (const file of [...patternFiles, ...articleFiles, ...referenceFiles]) {
   const data = JSON.parse(fs.readFileSync(file, 'utf8'));
-  for (const rel of data.related ?? []) {
-    if (rel === data.id) makeFail(file)('related links to itself');
+  for (const rel of [...(data.related ?? []), ...(data.seeAlso ?? [])]) {
+    if (rel === data.id) makeFail(file)('links to itself');
     else ids.has(rel) ? ok() : makeFail(file)(`related id "${rel}" does not exist`);
+  }
+  for (const link of collectLinks(data)) {
+    if (link === data.id) makeFail(file)(`[[${link}]] links to its own page`);
+    else ids.has(link) ? ok() : makeFail(file)(`[[${link}]] points at nothing`);
   }
 }
 
 console.log(
-  `${patternFiles.length} patterns, ${articleFiles.length} articles — ${checks} checks passed, ${errors} failures`,
+  `${patternFiles.length} drills, ${articleFiles.length} articles, ${referenceFiles.length} reference entries — ${checks} checks passed, ${errors} failures`,
 );
 process.exit(errors ? 1 : 0);

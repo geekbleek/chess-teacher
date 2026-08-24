@@ -1,0 +1,16 @@
+{
+  "id": "pawn-break",
+  "term": "Pawn break",
+  "short": "The pawn push that opens a closed position — usually the only real plan available.",
+  "body": [
+    "In a blocked position pieces cannot get anywhere until a file or diagonal opens, and only a pawn can open one. Every closed structure has one or two correct breaks, and finding yours is most of what 'having a plan' means.",
+    "A break needs preparing. Pushing it before your pieces are ready usually just loses the pawn; supporting it first — with another pawn, or a rook on the file behind it — is why so many strong openings contain quiet-looking moves. The Italian's c3 exists entirely so that d4 arrives supported.",
+    "When you do not know what to play, work out which pawn push would open lines toward the part of the board where you are stronger, and then spend three moves getting ready for it."
+  ],
+  "diagram": {
+    "at": ["e4", "e5", "Nf3", "Nc6", "Bc4", "Bc5", "c3", "Nf6", "d3", "d6", "O-O", "O-O", "Re1"],
+    "highlight": ["c3", "d3", "d4"],
+    "caption": "c3, d3 and Re1 all exist to make the d4 break work when it comes."
+  },
+  "seeAlso": ["centre", "open-file"]
+}

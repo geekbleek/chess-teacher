@@ -1,0 +1,16 @@
+{
+  "id": "open-file",
+  "term": "Open and half-open files",
+  "short": "A file with no pawns on it, or none of yours — the only thing that makes a rook useful.",
+  "body": [
+    "A rook does nothing in the opening, which is why the principles tell you to castle, connect them and leave them alone. In the middlegame their entire value comes from files: a rook on an open file exerts pressure down the whole board, the same rook one square across is a spectator.",
+    "A half-open file — one where you have no pawn and your opponent does — is often better than a fully open one, because their pawn on it is a target that cannot run away. That is the mechanism behind the minority attack and most queenside play in the Sicilian.",
+    "Whoever puts a rook on a contested file first usually keeps it. If you see a file about to open, get there first, and think about doubling before your opponent contests it."
+  ],
+  "diagram": {
+    "at": ["d4", "d5", "c4", "dxc4", "e3", "Nf6", "Bxc4", "e6", "Nf3", "c5", "O-O", "cxd4", "exd4", "Be7", "Nc3", "O-O", "Re1", "Nc6", "a3", "b6", "Bg5", "Bb7"],
+    "highlight": ["e1", "e6"],
+    "caption": "White's rook takes the half-open e-file, pointing straight at e6."
+  },
+  "seeAlso": ["backward-pawn", "isolated-pawn"]
+}
