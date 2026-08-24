@@ -6,6 +6,16 @@ import { Chess } from 'chess.js';
 import type { Square } from '../engine/types';
 
 const FILES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+
+/**
+ * True on a touch device.
+ *
+ * Dragging a piece and scrolling the page are the same gesture, and the board is most
+ * of the screen — so on a phone the board gives the gesture up entirely and moves are
+ * made tap-tap, which is the primary interaction anyway. A mouse keeps drag.
+ */
+const coarsePointer =
+  typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches === true;
 const RANKS = [1, 2, 3, 4, 5, 6, 7, 8];
 
 /** Squares in display order, top-left to bottom-right, for the tap overlay. */
@@ -93,7 +103,7 @@ export function Board({
       turnColor: turn,
       // A board you cannot move on must not swallow touches, or the page cannot be
       // scrolled by dragging over it — and on a phone the board is most of the page.
-      draggable: { enabled: interactive, showGhost: true },
+      draggable: { enabled: interactive && !coarsePointer, showGhost: true },
       selectable: { enabled: interactive },
       check: board.isCheck(),
       lastMove: lastMove as Key[] | undefined,
@@ -141,7 +151,9 @@ export function Board({
           its own classes (cg-wrap, orientation-*) to that element after mount, and a
           class Preact re-renders would wipe them — taking all of Chessground's CSS
           with them, including the pointer-events rules on its overlay layers. */}
-      <div class={`board-frame ${interactive ? 'live' : 'static'}`}>
+      <div
+        class={`board-frame ${interactive ? 'live' : 'static'}${coarsePointer ? ' coarse' : ''}`}
+      >
         <div class="board" ref={host} />
         {/* Chessground only reports square taps while the board is movable, which a
             static diagram is not — so tapping goes through our own overlay grid. */}

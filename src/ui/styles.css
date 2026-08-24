@@ -311,12 +311,41 @@ ul.cues li {
 /* Only a board you can actually move on may capture touches. Static diagrams keep
    vertical panning, otherwise dragging over them does nothing and the page is stuck
    — the board is most of the screen on a phone. */
-.board-frame.live .board {
+/* touch-action has to be set on the element the touch actually lands on. Relying on
+   an ancestor is not enough in practice: a touch that starts on a piece resolves
+   against cg-board, and Safari would not scroll from there. */
+.board-frame.live .board,
+.board-frame.live cg-container,
+.board-frame.live cg-board,
+.board-frame.live piece {
   touch-action: none;
 }
 
-.board-frame.static .board {
+.board-frame.static .board,
+.board-frame.static cg-container,
+.board-frame.static cg-board,
+.board-frame.static piece,
+.board-frame.static .square-grid,
+.board-frame.static .square-grid button {
   touch-action: pan-y;
+}
+
+/* On a touch device even a playable board yields the gesture: moves are tap-tap
+   there, so the page always scrolls no matter where the swipe starts. */
+.board-frame.coarse .board,
+.board-frame.coarse cg-container,
+.board-frame.coarse cg-board,
+.board-frame.coarse piece,
+.board-frame.coarse .square-grid,
+.board-frame.coarse .square-grid button {
+  touch-action: pan-y;
+}
+
+/* Stop iOS treating a piece's background image as something to long-press or drag. */
+.board piece,
+.board square {
+  -webkit-touch-callout: none;
+  -webkit-user-drag: none;
 }
 .board.cg-wrap {
   height: auto;
@@ -553,6 +582,16 @@ cg-board square.selected {
 .controls {
   display: flex;
   gap: 8px;
+}
+
+.build {
+  margin: 2px 0 0;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--dim);
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
 }
 
 button {

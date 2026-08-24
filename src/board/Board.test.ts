@@ -20,7 +20,10 @@ describe('the board element', () => {
     expect(source).toMatch(/<div\s+class="board"\s+ref=\{host\}/);
   });
 
-  it('puts the interactive modifier on the frame instead', () => {
-    expect(source).toMatch(/class=\{`board-frame \$\{interactive \? 'live' : 'static'\}`\}/);
+  it('puts every modifier on the frame instead', () => {
+    // The frame's class may be computed freely; the board's may not.
+    expect(source).toMatch(/class=\{`board-frame /);
+    const boardClasses = [...source.matchAll(/class=\{`board[^-][^`]*`\}/g)];
+    expect(boardClasses.map((m) => m[0])).toEqual([]);
   });
 });

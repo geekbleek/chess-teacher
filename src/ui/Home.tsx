@@ -70,6 +70,8 @@ export function Home() {
           Free play
         </button>
       </div>
+
+      <p class="build">build {__BUILD__}</p>
     </div>
   );
 }
